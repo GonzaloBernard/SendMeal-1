@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
     <TextView
-        android:id="@+id/Textview1"
+        android:id="@+id/TextviewNombreUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/etiquetas"
@@ -19,7 +19,7 @@
         android:text="Nombre Usuario" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editTextNombreUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/etiquetas"
@@ -29,43 +29,43 @@
         android:inputType="textPersonName" />
 
     <TextView
-        android:id="@+id/passw"
+        android:id="@+id/TextViewPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/etiquetas"
         android:layout_margin="@dimen/margin"
         android:text="PassWord" />
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/etiquetas"
-        android:layout_margin="@dimen/margin"
-        android:ems="10"
-        android:hint="pass"
-        android:inputType="textPassword" />
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:ems="10"
+            android:hint="password"
+            android:inputType="textPassword"
+            android:textSize="@dimen/etiquetas" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewPassword2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/etiquetas"
         android:layout_margin="@dimen/margin"
         android:text="Repita contraseña" />
 
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/etiquetas"
-        android:layout_margin="@dimen/margin"
-        android:ems="10"
-        android:hint="pass"
-        android:inputType="textPassword" />
+        <EditText
+            android:id="@+id/editTextPassword2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:ems="10"
+            android:hint="password"
+            android:inputType="textPassword"
+            android:textSize="@dimen/etiquetas" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textViewCorreo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/etiquetas"
@@ -73,7 +73,7 @@
         android:text="Correo Electronico" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/editTextCorreo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/etiquetas"
@@ -83,7 +83,7 @@
         android:inputType="textEmailAddress" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textViewTarjeta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/etiquetas"
@@ -97,7 +97,7 @@
             android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/editText5"
+            android:id="@+id/editTextNumeroTarjeta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/etiquetas"
@@ -107,7 +107,7 @@
             android:inputType="number" />
 
         <EditText
-            android:id="@+id/editText6"
+            android:id="@+id/editTextCCV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/etiquetas"
@@ -117,7 +117,7 @@
             android:inputType="number" />
 
         <EditText
-            android:id="@+id/editText7"
+            android:id="@+id/editTextFechaTarjeta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/etiquetas"
@@ -129,49 +129,49 @@
 
 
         <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/textViewTipoCuenta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/etiquetas"
                 android:layout_margin="@dimen/margin"
-                android:text="Tipo de cuenta" />
+                android:text="Tipo de cuenta"
+                android:textSize="@dimen/etiquetas" />
 
             <RadioButton
-            android:id="@+id/radioButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-                android:textSize="@dimen/etiquetas"
+                android:id="@+id/radioButtonBase"
+                android:layout_width="98dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin"
-            android:text="Base" />
+                android:text="Base"
+                android:textSize="@dimen/etiquetas" />
 
-        <RadioButton
-            android:id="@+id/radioButton2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/etiquetas"
-            android:layout_margin="@dimen/margin"
-            android:text="Premium" />
+            <RadioButton
+                android:id="@+id/radioButtonPremium"
+                android:layout_width="119dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin"
+                android:text="Premium"
+                android:textSize="@dimen/etiquetas" />
 
-        <RadioButton
-            android:id="@+id/radioButton3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/etiquetas"
-            android:layout_margin="@dimen/margin"
-            android:text="Full" />
+            <RadioButton
+                android:id="@+id/radioButtonFull"
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin"
+                android:text="Full"
+                android:textSize="@dimen/etiquetas" />
 
-    </RadioGroup>
+        </RadioGroup>
 
-    <LinearLayout
+        <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/textViewCreditoInicial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/etiquetas"
@@ -186,7 +186,7 @@
         android:text=""/>
     </LinearLayout>
     <SeekBar
-        android:id="@+id/seekBar"
+        android:id="@+id/seekBarCreditoInicial"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin"
@@ -213,7 +213,7 @@
         android:textOn="ENVIAR NOTIFICACIONES  AL MAIL" />
 
         <Switch
-            android:id="@+id/switch1"
+            android:id="@+id/switchEsVendedor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/etiquetas"
@@ -234,7 +234,7 @@
             android:text="Alias CBU" />
 
         <EditText
-            android:id="@+id/editText8"
+            android:id="@+id/editTextNombreVendedor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/etiquetas"
@@ -244,7 +244,7 @@
             android:text="Name" />
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/textViewCBU"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/etiquetas"
@@ -252,7 +252,7 @@
             android:text="CBU" />
 
         <EditText
-            android:id="@+id/editText9"
+            android:id="@+id/editTextCBU"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/etiquetas"
@@ -271,7 +271,7 @@
         android:text="Aceptar Terminos y Condiciones" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonRegistrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/etiquetas"

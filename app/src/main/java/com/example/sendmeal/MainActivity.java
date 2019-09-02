@@ -10,7 +10,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Declaracion de views
     private SeekBar seekBar;
-    private TextView textView7;
+    private TextView textViewTarjeta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,11 +21,11 @@ public class MainActivity extends AppCompatActivity {
         // 02/09 GONZA LOGICA DEL SEEKBAR                                    //
         ///////////////////////////////////////////////////////////////////////
         //Inicializacion de views
-        seekBar = (SeekBar) findViewById(R.id.seekBar);
-        textView7 = (TextView) findViewById(R.id.textView7);
+        seekBar = (SeekBar) findViewById(R.id.seekBarCreditoInicial);
+        textViewTarjeta = (TextView) findViewById(R.id.textViewTarjeta);
 
         //Muestra el valor del seekbar en un textview (textView7)
-        textView7.setText("100");
+        textViewTarjeta.setText("100");
         seekBar.setOnSeekBarChangeListener(new
         SeekBar.OnSeekBarChangeListener() {
         @Override
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
             progress = progress / 100;
             progress = progress * 100;
-            textView7.setText(progress + 100 + "");
+            textViewTarjeta.setText(progress + 100 + "");
         }
         @Override
         public void onStartTrackingTouch(SeekBar seekBar)
