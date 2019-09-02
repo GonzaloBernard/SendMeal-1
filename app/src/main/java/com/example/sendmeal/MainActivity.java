@@ -10,7 +10,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Declaracion de views
     private SeekBar seekBar;
-    private TextView textViewTarjeta;
+    private TextView textViewCreditoInicial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +22,10 @@ public class MainActivity extends AppCompatActivity {
         ///////////////////////////////////////////////////////////////////////
         //Inicializacion de views
         seekBar = (SeekBar) findViewById(R.id.seekBarCreditoInicial);
-        textViewTarjeta = (TextView) findViewById(R.id.textViewTarjeta);
+        textViewCreditoInicial = (TextView) findViewById(R.id.textView7);
 
         //Muestra el valor del seekbar en un textview (textView7)
-        textViewTarjeta.setText("100");
+        textViewCreditoInicial.setText("100");
         seekBar.setOnSeekBarChangeListener(new
         SeekBar.OnSeekBarChangeListener() {
         @Override
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
             progress = progress / 100;
             progress = progress * 100;
-            textViewTarjeta.setText(progress + 100 + "");
+            textViewCreditoInicial.setText(progress + 100 + "");
         }
         @Override
         public void onStartTrackingTouch(SeekBar seekBar)
@@ -46,6 +46,6 @@ public class MainActivity extends AppCompatActivity {
         //                                                                      //
         //////////////////////////////////////////////////////////////////////////
     }
-    
+
 }
 
