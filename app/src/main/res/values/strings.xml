@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">SendMeal</string>
+    <string name="TextviewNombreUsuario">Nombre Usuario</string>
+    <string name="editTextNombreUsuario">Ingrese nombre de usuario</string>
+    <string name="TextviewContaseña">Contraseña</string>
+    <string name="editTextContaseña">Ingrese contraseña</string>
+    <string name="TextRepitaContraseña">Repita contraseña</string>
+    <string name="textViewCorreo">Correo Electrónico</string>
+    <string name="editTextCorreo">Ingrese su e-mail</string>
+    <string name="textViewTarjetaCredito">Tarjeta de Credito</string>
+    <string name="TextNumero">Número</string>
+
 </resources>
