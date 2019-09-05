@@ -1,13 +1,31 @@
 <resources>
     <string name="app_name">SendMeal</string>
-    <string name="TextviewNombreUsuario">Nombre Usuario</string>
+    <string name="textviewNombreUsuario">Nombre Usuario</string>
     <string name="editTextNombreUsuario">Ingrese nombre de usuario</string>
-    <string name="TextviewContaseña">Contraseña</string>
+    <string name="textviewContaseña">Contraseña</string>
     <string name="editTextContaseña">Ingrese contraseña</string>
-    <string name="TextRepitaContraseña">Repita contraseña</string>
+    <string name="textRepitaContraseña">Repita contraseña</string>
     <string name="textViewCorreo">Correo Electrónico</string>
     <string name="editTextCorreo">Ingrese su e-mail</string>
     <string name="textViewTarjetaCredito">Tarjeta de Credito</string>
-    <string name="TextNumero">Número</string>
+    <string name="textViewTarjetaCreditoVencimiento">Código de seguridad y vencimiento</string>
+    <string name="textViewTipoCuenta">Tipo de cuenta</string>
+    <string name="radioButtonBase">Base</string>
+    <string name="radioButtonPremium">Premium</string>
+    <string name="radioButtonFull">Full</string>
+    <string name="textViewCreditoInicial">Credito Inicial: </string>
+    <string name="editTextNumero">Número</string>
+    <string name="hintCCV">CCV</string>
+    <string name="hintFechaTarjeta">MM / AA</string>
+    <string name="textViewNotificarCorreo">Notificar por correo Electronico</string>
+    <string name="toggleButtonNotificarCorreoOff">NO ENVIAR NOTIFICACIONES  AL MAIL</string>
+    <string name="toggleButtonNotificarCorreoOn">ENVIAR NOTIFICACIONES  AL MAIL</string>
+    <string name="switchEsVendedor">Es Vendedor</string>
+    <string name="textViewAlias">Alias</string>
+    <string name="editTextNombreVendedor">nombre</string>
+    <string name="textViewCBU">CBU</string>
+    <string name="hintEditTextCBU">CBU</string>
+    <string name="checkBoxAceptarTerminos">Aceptar Términos y Condiciones</string>
+    <string name="buttonRegistrar">Registrar</string>
 
 </resources>

@@ -1,7 +1,6 @@
 package com.example.sendmeal;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -17,31 +16,33 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    //Declaracion de views
-    private SeekBar seekBar;
-    private TextView textViewSeekBar;
-    private LinearLayout layoutEsVendendor;
-    private Switch switchEsVendedor;
-    private CheckBox checkBoxAceptarTerminos;
-    private Button buttonRegistrar;
-    private EditText nombreUsuario;
-    private EditText password;
-    private EditText passwordR;
-    private EditText correo;
-    private EditText tarjetaNumero;
-    private EditText tarjetaCCV;
-    private EditText tarjetaFecha;
-    private EditText nombreVendedor;
-    private EditText CBUVendedor;
     private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         //Obtener context
         context = getApplicationContext();
+
+        //Declaracion de views
+        final SeekBar seekBar;
+        final TextView textViewSeekBar;
+        final LinearLayout layoutEsVendendor;
+        final Switch switchEsVendedor;
+        final CheckBox checkBoxAceptarTerminos;
+        final Button buttonRegistrar;
+        final EditText nombreUsuario;
+        final EditText password;
+        final EditText passwordR;
+        final EditText correo;
+        final EditText tarjetaNumero;
+        final EditText tarjetaCCV;
+        final EditText tarjetaFecha;
+        final EditText nombreVendedor;
+        final EditText CBUVendedor;
+
+
         //Inicializacion de views
         seekBar = (SeekBar) findViewById(R.id.seekBarCreditoInicial);
         textViewSeekBar = (TextView) findViewById(R.id.textViewSeekBar);
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if(isChecked==true){
+                if(isChecked){
                     layoutEsVendendor.setVisibility(View.VISIBLE);
                 }
                 else
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if(isChecked==true){
+                if(isChecked){
                     buttonRegistrar.setEnabled(true);
                 }
                 else
@@ -123,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(context, "Not implemented yet", Toast.LENGTH_SHORT).show();
             }
         });
-
 
         //cierre del onCreate
     }

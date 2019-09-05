@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
-            android:text="@string/TextviewNombreUsuario"
+            android:text="@string/textviewNombreUsuario"
             android:textSize="@dimen/etiquetas" />
 
         <EditText
@@ -27,14 +28,15 @@
             android:ems="10"
             android:hint="@string/editTextNombreUsuario"
             android:inputType="textPersonName"
-            android:textSize="@dimen/etiquetas" />
+            android:textSize="@dimen/etiquetas"
+            android:maxLength="20"/>
 
         <TextView
             android:id="@+id/TextViewPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
-            android:text="@string/TextviewContaseña"
+            android:text="@string/textviewContaseña"
             android:textSize="@dimen/etiquetas" />
 
         <EditText
@@ -45,14 +47,15 @@
             android:ems="10"
             android:hint="@string/editTextContaseña"
             android:inputType="textPassword"
-            android:textSize="@dimen/etiquetas" />
+            android:textSize="@dimen/etiquetas"
+            android:maxLength="20"/>
 
         <TextView
             android:id="@+id/textViewPassword2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
-            android:text="@string/TextRepitaContraseña"
+            android:text="@string/textRepitaContraseña"
             android:textSize="@dimen/etiquetas" />
 
         <EditText
@@ -61,9 +64,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
             android:ems="10"
-            android:hint="@string/TextRepitaContraseña"
+            android:hint="@string/textRepitaContraseña"
             android:inputType="textPassword"
-            android:textSize="@dimen/etiquetas" />
+            android:textSize="@dimen/etiquetas"
+            android:maxLength="20"/>
 
         <TextView
             android:id="@+id/textViewCorreo"
@@ -81,7 +85,8 @@
             android:ems="10"
             android:hint="@string/editTextCorreo"
             android:inputType="textEmailAddress"
-            android:textSize="@dimen/etiquetas" />
+            android:textSize="@dimen/etiquetas"
+            android:maxLength="40"/>
 
         <TextView
             android:id="@+id/textViewTarjetaCredito"
@@ -90,23 +95,28 @@
             android:layout_margin="@dimen/margin"
             android:text="@string/textViewTarjetaCredito"
             android:textSize="@dimen/etiquetas" />
+        <EditText
+            android:id="@+id/editTextNumero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:ems="10"
+            android:hint="@string/editTextNumero"
+            android:inputType="number"
+            android:maxLength="19"
+            android:textSize="@dimen/etiquetas" />
 
-
+        <TextView
+            android:id="@+id/textViewTarjetaCreditoVencimiento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:text="@string/textViewTarjetaCreditoVencimiento"
+            android:textSize="@dimen/etiquetas" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/editTextNumero"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin"
-                android:ems="8"
-                android:hint="@string/TextNumero"
-                android:inputType="number"
-                android:maxLength="19"
-                android:textSize="@dimen/etiquetas" />
 
 
             <EditText
@@ -116,8 +126,9 @@
                 android:textSize="@dimen/etiquetas"
                 android:layout_margin="@dimen/margin"
                 android:ems="4"
-                android:hint="CCV"
-                android:inputType="number" />
+                android:hint="@string/hintCCV"
+                android:inputType="number"
+                android:maxLength="3"/>
 
             <EditText
                 android:id="@+id/editTextFechaTarjeta"
@@ -126,8 +137,9 @@
                 android:textSize="@dimen/etiquetas"
                 android:layout_margin="@dimen/margin"
                 android:ems="4"
-                android:hint="MM / AA"
-                android:inputType="date" />
+                android:hint="@string/hintFechaTarjeta"
+                android:inputType="date"
+                android:maxLength="5"/>
         </LinearLayout>
 
         <TextView
@@ -135,7 +147,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
-            android:text="Tipo de cuenta"
+            android:text="@string/textViewTipoCuenta"
             android:textSize="@dimen/etiquetas" />
 
         <RadioGroup
@@ -148,7 +160,7 @@
                 android:layout_width="98dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin"
-                android:text="Base"
+                android:text="@string/radioButtonBase"
                 android:textSize="@dimen/etiquetas" />
 
             <RadioButton
@@ -156,7 +168,7 @@
                 android:layout_width="119dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin"
-                android:text="Premium"
+                android:text="@string/radioButtonPremium"
                 android:textSize="@dimen/etiquetas" />
 
             <RadioButton
@@ -164,7 +176,7 @@
                 android:layout_width="85dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin"
-                android:text="Full"
+                android:text="@string/radioButtonFull"
                 android:textSize="@dimen/etiquetas" />
         </RadioGroup>
 
@@ -173,13 +185,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/textViewCreditoInicial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/etiquetas"
                 android:layout_margin="@dimen/margin"
-                android:text="Credito Inicial:" />
+                android:text="@string/textViewCreditoInicial" />
 
             <TextView
                 android:id="@+id/textViewSeekBar"
@@ -198,12 +211,12 @@
             android:max="1400"/>
 
         <TextView
-            android:id="@+id/textNotificarCorreo"
+            android:id="@+id/textViewNotificarCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/etiquetas"
             android:layout_margin="@dimen/margin"
-            android:text="Notificar por correo Electronico" />
+            android:text="@string/textViewNotificarCorreo" />
 
         <ToggleButton
             android:id="@+id/toggleButtonNotificarCorreo"
@@ -212,8 +225,8 @@
             android:textSize="@dimen/etiquetas"
             android:layout_margin="@dimen/margin"
             android:checked="false"
-            android:textOff="NO ENVIAR NOTIFICACIONES  AL MAIL"
-            android:textOn="ENVIAR NOTIFICACIONES  AL MAIL" />
+            android:textOff="@string/toggleButtonNotificarCorreoOff"
+            android:textOn="@string/toggleButtonNotificarCorreoOn" />
 
         <Switch
             android:id="@+id/switchEsVendedor"
@@ -221,14 +234,14 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/etiquetas"
             android:layout_margin="@dimen/margin"
-            android:text="Es Vendedor" />
+            android:text="@string/switchEsVendedor" />
 
         <LinearLayout
             android:id="@+id/layoutEsVendedor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/textAlias"
@@ -236,7 +249,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/etiquetas"
                 android:layout_margin="@dimen/margin"
-                android:text="Alias CBU" />
+                android:text="@string/textViewAlias" />
 
             <EditText
                 android:id="@+id/editTextNombreVendedor"
@@ -246,7 +259,8 @@
                 android:layout_margin="@dimen/margin"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:hint="Name" />
+                android:hint="@string/editTextNombreVendedor"
+                android:maxLength="20"/>
 
             <TextView
                 android:id="@+id/textViewCBU"
@@ -254,7 +268,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/etiquetas"
                 android:layout_margin="@dimen/margin"
-                android:text="CBU" />
+                android:text="@string/textViewCBU" />
 
             <EditText
                 android:id="@+id/editTextCBU"
@@ -264,7 +278,8 @@
                 android:layout_margin="@dimen/margin"
                 android:ems="10"
                 android:inputType="number"
-                android:hint="CBU" />
+                android:hint="@string/hintEditTextCBU"
+                android:maxLength="22"/>
         </LinearLayout>
 
         <CheckBox
@@ -273,7 +288,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/etiquetas"
             android:layout_margin="@dimen/margin"
-            android:text="Aceptar Terminos y Condiciones" />
+            android:text="@string/checkBoxAceptarTerminos" />
 
         <Button
             android:id="@+id/buttonRegistrar"
@@ -282,7 +297,7 @@
             android:textSize="@dimen/etiquetas"
             android:layout_margin="@dimen/margin"
             android:enabled="false"
-            android:text="Registrar" />
+            android:text="@string/buttonRegistrar" />
     </LinearLayout>
 
 </ScrollView>
