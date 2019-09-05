@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+
 public class MainActivity extends AppCompatActivity {
 
     //Declaracion de views
@@ -23,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
         //Inicializacion de views
         seekBar = (SeekBar) findViewById(R.id.seekBarCreditoInicial);
         textViewCreditoInicial = (TextView) findViewById(R.id.textView7);
+
+
 
         //Muestra el valor del seekbar en un textview (textView7)
         textViewCreditoInicial.setText("100");
