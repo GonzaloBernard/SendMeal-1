@@ -15,27 +15,27 @@
             android:id="@+id/TextviewNombreUsuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/etiquetas"
             android:layout_margin="@dimen/margin"
-            android:text="Nombre Usuario" />
+            android:text="@string/TextviewNombreUsuario"
+            android:textSize="@dimen/etiquetas" />
 
         <EditText
             android:id="@+id/editTextNombreUsuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/etiquetas"
             android:layout_margin="@dimen/margin"
             android:ems="10"
-            android:hint="Usuario"
-            android:inputType="textPersonName" />
+            android:hint="@string/editTextNombreUsuario"
+            android:inputType="textPersonName"
+            android:textSize="@dimen/etiquetas" />
 
         <TextView
             android:id="@+id/TextViewPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/etiquetas"
             android:layout_margin="@dimen/margin"
-            android:text="PassWord" />
+            android:text="@string/TextviewContaseña"
+            android:textSize="@dimen/etiquetas" />
 
         <EditText
             android:id="@+id/editTextPassword"
@@ -43,17 +43,17 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
             android:ems="10"
-            android:hint="password"
+            android:hint="@string/editTextContaseña"
             android:inputType="textPassword"
             android:textSize="@dimen/etiquetas" />
 
         <TextView
-            android:id="@+id/textViewPasswordR"
+            android:id="@+id/textViewPassword2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/etiquetas"
             android:layout_margin="@dimen/margin"
-            android:text="Repita contraseña" />
+            android:text="@string/TextRepitaContraseña"
+            android:textSize="@dimen/etiquetas" />
 
         <EditText
             android:id="@+id/editTextPasswordR"
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
             android:ems="10"
-            android:hint="password"
+            android:hint="@string/TextRepitaContraseña"
             android:inputType="textPassword"
             android:textSize="@dimen/etiquetas" />
 
@@ -69,27 +69,28 @@
             android:id="@+id/textViewCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/etiquetas"
             android:layout_margin="@dimen/margin"
-            android:text="Correo Electronico" />
+            android:text="@string/textViewCorreo"
+            android:textSize="@dimen/etiquetas" />
 
         <EditText
             android:id="@+id/editTextCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/etiquetas"
             android:layout_margin="@dimen/margin"
             android:ems="10"
-            android:hint="Ingrese email"
-            android:inputType="textEmailAddress" />
+            android:hint="@string/editTextCorreo"
+            android:inputType="textEmailAddress"
+            android:textSize="@dimen/etiquetas" />
 
         <TextView
-            android:id="@+id/textViewTarjeta"
+            android:id="@+id/textViewTarjetaCredito"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/etiquetas"
             android:layout_margin="@dimen/margin"
-            android:text="Tarjeta de Credito" />
+            android:text="@string/textViewTarjetaCredito"
+            android:textSize="@dimen/etiquetas" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -97,14 +98,16 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/editTextNumeroTarjeta"
+                android:id="@+id/editTextNumero"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/etiquetas"
                 android:layout_margin="@dimen/margin"
                 android:ems="8"
-                android:hint="Número"
-                android:inputType="number" />
+                android:hint="@string/TextNumero"
+                android:inputType="number"
+                android:maxLength="19"
+                android:textSize="@dimen/etiquetas" />
+
 
             <EditText
                 android:id="@+id/editTextCCV"
