@@ -294,10 +294,10 @@
             android:id="@+id/buttonRegistrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/etiquetas"
             android:layout_margin="@dimen/margin"
             android:enabled="false"
-            android:text="@string/buttonRegistrar" />
+            android:text="@string/buttonRegistrar"
+            android:textSize="@dimen/etiquetas" />
     </LinearLayout>
 
 </ScrollView>

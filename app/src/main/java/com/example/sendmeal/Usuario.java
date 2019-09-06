@@ -9,6 +9,9 @@ public class Usuario {
     private String clave;
     private Boolean notificarMail;
     private Double credito;
+    private TipoCuenta tipoCuenta;
+
+
 
     public Usuario() {
     }
@@ -59,6 +62,14 @@ public class Usuario {
 
     public void setCredito(Double credito) {
         this.credito = credito;
+    }
+
+    public void setTipoCuenta(TipoCuenta tipoCuenta) {
+        this.tipoCuenta = tipoCuenta;
+    }
+
+    public TipoCuenta getTipoCuenta() {
+        return tipoCuenta;
     }
 
     @Override

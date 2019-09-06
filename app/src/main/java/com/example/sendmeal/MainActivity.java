@@ -17,6 +17,21 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private Context context;
+    private SeekBar seekBar;
+    private TextView textViewSeekBar;
+    private LinearLayout layoutEsVendendor;
+    private Switch switchEsVendedor;
+    private CheckBox checkBoxAceptarTerminos;
+    private Button buttonRegistrar;
+    private EditText nombreUsuario;
+    private EditText password;
+    private EditText passwordR;
+    private EditText correo;
+    private EditText tarjetaNumero;
+    private EditText tarjetaCCV;
+    private EditText tarjetaFecha;
+    private EditText nombreVendedor;
+    private EditText CBUVendedor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,21 +41,7 @@ public class MainActivity extends AppCompatActivity {
         context = getApplicationContext();
 
         //Declaracion de views
-        final SeekBar seekBar;
-        final TextView textViewSeekBar;
-        final LinearLayout layoutEsVendendor;
-        final Switch switchEsVendedor;
-        final CheckBox checkBoxAceptarTerminos;
-        final Button buttonRegistrar;
-        final EditText nombreUsuario;
-        final EditText password;
-        final EditText passwordR;
-        final EditText correo;
-        final EditText tarjetaNumero;
-        final EditText tarjetaCCV;
-        final EditText tarjetaFecha;
-        final EditText nombreVendedor;
-        final EditText CBUVendedor;
+
 
 
         //Inicializacion de views
@@ -119,7 +120,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 //HACER TODAS LAS VALIDACIONES DE LOS DATOS DE ENTRADA//
-                Boolean validar=false;
+                nombreUsuario = (EditText) findViewById(R.id.editTextNumero);
+                password = (EditText) findViewById(R.id.editTextPassword);
+                passwordR = (EditText) findViewById(R.id.editTextPasswordR);
+                correo = (EditText) findViewById(R.id.editTextCorreo);
+                CBUVendedor = (EditText) findViewById(R.id.editTextCBU);
+                tarjetaCCV = (EditText) findViewById(R.id.editTextCCV);
+                tarjetaNumero = (EditText) findViewById(R.id.editTextNumero);
+                tarjetaFecha = (EditText) findViewById(R.id.editTextFechaTarjeta);
                 ////////////////////////////////////////////////////////
                 Toast.makeText(context, "Not implemented yet", Toast.LENGTH_SHORT).show();
             }
