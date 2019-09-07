@@ -2,7 +2,9 @@ package com.example.sendmeal;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText tarjetaFecha;
     private EditText nombreVendedor;
     private EditText CBUVendedor;
+    private TextView textViewErrorPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         switchEsVendedor = (Switch) findViewById(R.id.switchEsVendedor);
         checkBoxAceptarTerminos = (CheckBox) findViewById(R.id.checkBoxAceptarTerminos);
         buttonRegistrar = (Button) findViewById(R.id.buttonRegistrar);
+        textViewErrorPass = (TextView) findViewById(R.id.textViewErrorPass);
 
         //
         // LOGICA DEL SEEKBAR
@@ -128,10 +132,31 @@ public class MainActivity extends AppCompatActivity {
                 tarjetaCCV = (EditText) findViewById(R.id.editTextCCV);
                 tarjetaNumero = (EditText) findViewById(R.id.editTextNumero);
                 tarjetaFecha = (EditText) findViewById(R.id.editTextFechaTarjeta);
+
+
+                if(!password.getText().equals(passwordR.getText())){
+                  Toast.makeText(context, "Las claves no coinciden", Toast.LENGTH_SHORT).show();
+                  textViewErrorPass.setVisibility(View.VISIBLE);
+                  passwordR.requestFocus();
+                }
+
+                if(!Patterns.EMAIL_ADDRESS.matcher(correo.getText()).matches()){
+                    
+                }
                 ////////////////////////////////////////////////////////
-                Toast.makeText(context, "Not implemented yet", Toast.LENGTH_SHORT).show();
+
             }
         });
+
+        passwordR.setOnClickListener(new EditText.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+
+                textViewErrorPass.setVisibility(View.INVISIBLE);
+            }
+        });
+
 
         //cierre del onCreate
     }

@@ -27,5 +27,7 @@
     <string name="hintEditTextCBU">CBU</string>
     <string name="checkBoxAceptarTerminos">Aceptar Términos y Condiciones</string>
     <string name="buttonRegistrar">Registrar</string>
+    <string name="ErrorPassword">Las contraseñas no coinciden</string>
+
 
 </resources>
