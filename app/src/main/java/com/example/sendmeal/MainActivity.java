@@ -141,21 +141,14 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if(!Patterns.EMAIL_ADDRESS.matcher(correo.getText()).matches()){
-                    
+
                 }
                 ////////////////////////////////////////////////////////
 
             }
         });
 
-        passwordR.setOnClickListener(new EditText.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-
-                textViewErrorPass.setVisibility(View.INVISIBLE);
-            }
-        });
+  
 
 
         //cierre del onCreate

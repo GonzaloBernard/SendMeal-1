@@ -74,8 +74,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
-            android:foregroundTint="#F50606"
             android:text="@string/ErrorPassword"
+            android:textColor="#F80101"
             android:textSize="12sp"
             android:visibility="invisible" />
 
