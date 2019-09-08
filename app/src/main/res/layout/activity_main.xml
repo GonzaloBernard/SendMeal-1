@@ -49,9 +49,18 @@
             android:inputType="textPassword"
             android:textSize="@dimen/etiquetas"
             android:maxLength="20"/>
+        <TextView
+            android:id="@+id/textViewErrorPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:text="@string/errorPassword"
+            android:textColor="@color/colorError"
+            android:textSize="@dimen/error"
+            android:visibility="gone" />
 
         <TextView
-            android:id="@+id/textViewPassword2"
+            android:id="@+id/textViewPasswordR"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
@@ -70,14 +79,14 @@
             android:textSize="@dimen/etiquetas" />
 
         <TextView
-            android:id="@+id/textViewErrorPass"
+            android:id="@+id/textViewErrorPassR"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:text="@string/ErrorPassword"
-            android:textColor="#F80101"
-            android:textSize="12sp"
-            android:visibility="invisible" />
+            android:layout_margin="@dimen/margin"
+            android:text="@string/errorPassword"
+            android:textColor="@color/colorError"
+            android:textSize="@dimen/error"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textViewCorreo"
@@ -99,35 +108,56 @@
             android:maxLength="40"/>
 
         <TextView
+            android:id="@+id/textViewErrorCorreo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:text="@string/errorCorreo"
+            android:textColor="@color/colorError"
+            android:textSize="@dimen/error"
+            android:visibility="gone" />
+
+        <TextView
             android:id="@+id/textViewTarjetaCredito"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
             android:text="@string/textViewTarjetaCredito"
             android:textSize="@dimen/etiquetas" />
+
         <EditText
-            android:id="@+id/editTextNumero"
+            android:id="@+id/editTextTarjetaNumero"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
             android:ems="10"
-            android:hint="@string/editTextNumero"
+            android:hint="@string/editTextTarjetaNumero"
             android:inputType="number"
             android:maxLength="19"
             android:textSize="@dimen/etiquetas" />
 
         <TextView
-            android:id="@+id/textViewTarjetaCreditoVencimiento"
+            android:id="@+id/textViewErrorTarjetaNumero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:text="@string/errorTarjetaNumero"
+            android:textColor="@color/colorError"
+            android:textSize="@dimen/error"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textViewTarjetaVencimiento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
             android:text="@string/textViewTarjetaCreditoVencimiento"
             android:textSize="@dimen/etiquetas" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
 
             <EditText
                 android:id="@+id/editTextCCV"
@@ -141,7 +171,7 @@
                 android:maxLength="3"/>
 
             <EditText
-                android:id="@+id/editTextFechaTarjeta"
+                android:id="@+id/editTextTarjetaVencimiento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/etiquetas"
@@ -151,6 +181,24 @@
                 android:inputType="date"
                 android:maxLength="5"/>
         </LinearLayout>
+        <TextView
+            android:id="@+id/textViewErrorCCV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:text="@string/errorCCV"
+            android:textColor="@color/colorError"
+            android:textSize="@dimen/error"
+            android:visibility="gone" />
+        <TextView
+            android:id="@+id/textViewErrorTarjetaVencimiento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:text="@string/errorTarjetaVencimiento"
+            android:textColor="@color/colorError"
+            android:textSize="@dimen/error"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textViewTipoCuenta"
@@ -189,6 +237,15 @@
                 android:text="@string/radioButtonFull"
                 android:textSize="@dimen/etiquetas" />
         </RadioGroup>
+        <TextView
+            android:id="@+id/textViewErrorTipoCuenta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:text="@string/errorTipoCuenta"
+            android:textColor="@color/colorError"
+            android:textSize="@dimen/error"
+            android:visibility="gone" />
 
 
         <LinearLayout
@@ -262,15 +319,24 @@
                 android:text="@string/textViewAlias" />
 
             <EditText
-                android:id="@+id/editTextNombreVendedor"
+                android:id="@+id/editTextAias"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/etiquetas"
                 android:layout_margin="@dimen/margin"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:hint="@string/editTextNombreVendedor"
+                android:hint="@string/editTextAliasVendedor"
                 android:maxLength="20"/>
+            <TextView
+                android:id="@+id/textViewErrorAliasVendedor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin"
+                android:text="@string/errorAlias"
+                android:textColor="@color/colorError"
+                android:textSize="@dimen/error"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/textViewCBU"
@@ -290,6 +356,16 @@
                 android:inputType="number"
                 android:hint="@string/hintEditTextCBU"
                 android:maxLength="22"/>
+            <TextView
+                android:id="@+id/textViewErrorCBU"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin"
+                android:text="@string/errorCBU"
+                android:textColor="@color/colorError"
+                android:textSize="@dimen/error"
+                android:visibility="gone" />
+
         </LinearLayout>
 
         <CheckBox

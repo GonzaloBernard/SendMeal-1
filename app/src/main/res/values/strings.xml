@@ -14,7 +14,7 @@
     <string name="radioButtonPremium">Premium</string>
     <string name="radioButtonFull">Full</string>
     <string name="textViewCreditoInicial">Credito Inicial: </string>
-    <string name="editTextNumero">Número</string>
+    <string name="editTextTarjetaNumero">Número</string>
     <string name="hintCCV">CCV</string>
     <string name="hintFechaTarjeta">MM / AA</string>
     <string name="textViewNotificarCorreo">Notificar por correo Electronico</string>
@@ -22,12 +22,27 @@
     <string name="toggleButtonNotificarCorreoOn">ENVIAR NOTIFICACIONES  AL MAIL</string>
     <string name="switchEsVendedor">Es Vendedor</string>
     <string name="textViewAlias">Alias</string>
-    <string name="editTextNombreVendedor">nombre</string>
+    <string name="editTextAliasVendedor">Alias</string>
     <string name="textViewCBU">CBU</string>
     <string name="hintEditTextCBU">CBU</string>
     <string name="checkBoxAceptarTerminos">Aceptar Términos y Condiciones</string>
     <string name="buttonRegistrar">Registrar</string>
-    <string name="ErrorPassword">Las contraseñas no coinciden</string>
+    <string name="errorPassword">Las contraseñas no coinciden</string>
+    <string name="errorCorreo">El correo es incorrecto</string>
+    <string name="errorTarjetaNumero">El número es incorrecto</string>
+    <string name="errorCCV">El CCV en incorrecto</string>
+    <string name="errorTarjetaVencimiento">El vencimiento debe ser mayor a 3 meses</string>
+    <string name="errorTipoCuenta">Seleccione tipo de cuenta</string>
+    <string name="errorAlias">El alias es incorrecto</string>
+    <string name="errorCBU">El CBU es incorrecto</string>
+    <string name="campoObligatorio">Campo obligatorio</string>
+    <string name="elijaTipoCuenta">Elija un tipo de cuenta</string>
+    <string name="toastCamposObligatorios">Complete todos los campos obligatorios</string>
+    <string name="contraseñasNoCoinciden">Las contraseñas no coinciden</string>
+    <string name="correoIncorrecto">El e-mail es incorrecto</string>
+    <string name="longitudIncorrecta">La longitud del campo es incorrecta</string>
+    <string name="toastRegistroExitoso">La cuenta fue creada con éxito</string>
+
 
 
 </resources>

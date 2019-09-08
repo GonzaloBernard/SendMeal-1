@@ -2,7 +2,6 @@ package com.example.sendmeal;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -11,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -19,49 +19,90 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private Context context;
-    private SeekBar seekBar;
-    private TextView textViewSeekBar;
-    private LinearLayout layoutEsVendendor;
-    private Switch switchEsVendedor;
-    private CheckBox checkBoxAceptarTerminos;
-    private Button buttonRegistrar;
-    private EditText nombreUsuario;
-    private EditText password;
-    private EditText passwordR;
-    private EditText correo;
-    private EditText tarjetaNumero;
-    private EditText tarjetaCCV;
-    private EditText tarjetaFecha;
-    private EditText nombreVendedor;
-    private EditText CBUVendedor;
-    private TextView textViewErrorPass;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Obtener context
+        /////////////////////
+        // Obtener context //
+        /////////////////////
         context = getApplicationContext();
-
-        //Declaracion de views
-
-
-
-        //Inicializacion de views
+        //////////////////////////
+        // Declaracion de views //
+        //////////////////////////
+        final SeekBar seekBar;
+        final TextView textViewSeekBar;
+        final LinearLayout layoutEsVendendor;
+        final Switch switchEsVendedor;
+        final CheckBox checkBoxAceptarTerminos;
+        final Button buttonRegistrar;
+        final EditText nombreUsuario;
+        final EditText password;
+        final EditText passwordR;
+        final EditText correo;
+        final EditText tarjetaNumero;
+        final EditText tarjetaCCV;
+        final EditText tarjetaVencimiento;
+        final EditText nombreVendedor;
+        final EditText CBUVendedor;
+        final RadioButton esBase;
+        final RadioButton esPremium;
+        final RadioButton esFull;
+        final EditText alias;
+        final TextView errorPass;
+        final TextView errorPassR;
+        final TextView errorCorreo;
+        final TextView errorTarjetaNumero;
+        final TextView errorCCV;
+        final TextView errorTarjetaVencimiento;
+        final TextView errorTipoCuenta;
+        final TextView errorAlias;
+        final TextView errorCBU;
+        /////////////////////////////
+        // Inicializacion de views //
+        /////////////////////////////
         seekBar = (SeekBar) findViewById(R.id.seekBarCreditoInicial);
         textViewSeekBar = (TextView) findViewById(R.id.textViewSeekBar);
         layoutEsVendendor = (LinearLayout) findViewById(R.id.layoutEsVendedor);
         switchEsVendedor = (Switch) findViewById(R.id.switchEsVendedor);
         checkBoxAceptarTerminos = (CheckBox) findViewById(R.id.checkBoxAceptarTerminos);
         buttonRegistrar = (Button) findViewById(R.id.buttonRegistrar);
-        textViewErrorPass = (TextView) findViewById(R.id.textViewErrorPass);
+        nombreUsuario = (EditText) findViewById(R.id.editTextTarjetaNumero);
+        password = (EditText) findViewById(R.id.editTextPassword);
+        passwordR = (EditText) findViewById(R.id.editTextPasswordR);
+        correo = (EditText) findViewById(R.id.editTextCorreo);
+        CBUVendedor = (EditText) findViewById(R.id.editTextCBU);
+        tarjetaCCV = (EditText) findViewById(R.id.editTextCCV);
+        tarjetaNumero = (EditText) findViewById(R.id.editTextTarjetaNumero);
+        tarjetaVencimiento = (EditText) findViewById(R.id.editTextTarjetaVencimiento);
+        ///////////////////
+        // RADIO BUTTONS //
+        ///////////////////
+        esBase = (RadioButton) findViewById(R.id.radioButtonBase);
+        esPremium = (RadioButton) findViewById(R.id.radioButtonPremium);
+        esFull = (RadioButton) findViewById(R.id.radioButtonFull);
+        alias = (EditText) findViewById(R.id.editTextAias);
+        ///////////////////////////////////////////
+        // MENSAJES DE ERROR EN CAMPOS A VALIDAR //
+        ///////////////////////////////////////////
+        errorPass = (TextView) findViewById(R.id.textViewErrorPass);
+        errorPassR = (TextView) findViewById(R.id.textViewErrorPassR);
+        errorCorreo = (TextView) findViewById(R.id.textViewErrorCorreo);
+        errorTarjetaNumero = (TextView) findViewById(R.id.textViewErrorTarjetaNumero);
+        errorCCV = (TextView) findViewById(R.id.textViewErrorCCV);
+        errorTarjetaVencimiento = (TextView) findViewById(R.id.textViewErrorTarjetaVencimiento);
+        errorTipoCuenta = (TextView) findViewById(R.id.textViewErrorTipoCuenta);
+        errorAlias = (TextView) findViewById(R.id.textViewErrorAliasVendedor);
+        errorCBU = (TextView) findViewById(R.id.textViewErrorCBU);
 
-        //
-        // LOGICA DEL SEEKBAR
-        //
-        //Muestra el valor por defecto del seekbar
+        ////////////////////////
+        // LOGICA DEL SEEKBAR //
+        ////////////////////////
+
+        // Muestra el valor por defecto del seekbar
         textViewSeekBar.setText("100");
-
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean user) {
@@ -80,9 +121,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //
-        // LOGICA DEL SWITCH
-        //
+        ///////////////////////
+        // LOGICA DEL SWITCH //
+        ///////////////////////
         switchEsVendedor.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
 
             @Override
@@ -97,9 +138,9 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        //
-        // LOGICA DEL CHECKBOX ACEPTAR TERMINOS
-        //
+        //////////////////////////////////////////
+        // LOGICA DEL CHECKBOX ACEPTAR TERMINOS //
+        //////////////////////////////////////////
         checkBoxAceptarTerminos.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
 
             @Override
@@ -116,40 +157,122 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        //
-        // LOGICA DEL BUTTON ACEPTAR
-        //
+        ///////////////////////////////
+        // LOGICA DEL BUTTON ACEPTAR //
+        ///////////////////////////////
         buttonRegistrar.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                //HACER TODAS LAS VALIDACIONES DE LOS DATOS DE ENTRADA//
-                nombreUsuario = (EditText) findViewById(R.id.editTextNumero);
-                password = (EditText) findViewById(R.id.editTextPassword);
-                passwordR = (EditText) findViewById(R.id.editTextPasswordR);
-                correo = (EditText) findViewById(R.id.editTextCorreo);
-                CBUVendedor = (EditText) findViewById(R.id.editTextCBU);
-                tarjetaCCV = (EditText) findViewById(R.id.editTextCCV);
-                tarjetaNumero = (EditText) findViewById(R.id.editTextNumero);
-                tarjetaFecha = (EditText) findViewById(R.id.editTextFechaTarjeta);
+                //////////////////////////////////////
+                // LIMPIAR TODOS LOS textViewErrors //
+                //////////////////////////////////////
+                errorCorreo.setVisibility(View.GONE);
+                errorPass.setVisibility(View.GONE);
+                errorPassR.setVisibility(View.GONE);
+                errorTipoCuenta.setVisibility(View.GONE);
+                errorAlias.setVisibility(View.GONE);
+                errorCBU.setVisibility(View.GONE);
+                errorTarjetaNumero.setVisibility(View.GONE);
+                errorTarjetaVencimiento.setVisibility(View.GONE);
+                errorCCV.setVisibility(View.GONE);
 
+                //////////////////////////////////////////
+                // VALIDACIONES DE LOS DATOS DE ENTRADA //
+                //////////////////////////////////////////
+                Boolean validar;
+                validar=true;
 
-                if(!password.getText().equals(passwordR.getText())){
-                  Toast.makeText(context, "Las claves no coinciden", Toast.LENGTH_SHORT).show();
-                  textViewErrorPass.setVisibility(View.VISIBLE);
-                  passwordR.requestFocus();
+                ///////////////////////////////////
+                // Validaciones de campos vacios //
+                ///////////////////////////////////
+                if(correo.getText().toString().isEmpty()){
+                    errorCorreo.setText(R.string.campoObligatorio);
+                    errorCorreo.setVisibility(View.VISIBLE);
+                    validar=false;
                 }
-
+                if(password.getText().toString().isEmpty()){
+                    errorPass.setText(R.string.campoObligatorio);
+                    errorPass.setVisibility(View.VISIBLE);
+                    validar=false;
+                }
+                if(tarjetaNumero.getText().toString().isEmpty()){
+                    errorTarjetaNumero.setText(R.string.campoObligatorio);
+                    errorTarjetaNumero.setVisibility(View.VISIBLE);
+                    validar=false;
+                }
+                if(!(esBase.isChecked() || esPremium.isChecked() || esFull.isChecked()) ){
+                    errorTipoCuenta.setText(R.string.elijaTipoCuenta);
+                    errorTipoCuenta.setVisibility(View.VISIBLE);
+                    validar=false;
+                }
+                if(switchEsVendedor.isChecked()){
+                    if(alias.getText().toString().isEmpty()){
+                        errorAlias.setText(R.string.campoObligatorio);
+                        errorAlias.setVisibility(View.VISIBLE);
+                        validar=false;
+                    }
+                    if(CBUVendedor.getText().toString().isEmpty()){
+                        errorCBU.setText(R.string.campoObligatorio);
+                        errorCBU.setVisibility(View.VISIBLE);
+                        validar=false;
+                    }
+                }
+                ////////////////////////////////////////////
+                // VALIDACION DE CONTRASEÑAS COINCIDENTES //
+                ////////////////////////////////////////////
+                if(!password.getText().toString().equals(passwordR.getText().toString())){
+                    errorPassR.setText(R.string.contraseñasNoCoinciden);
+                    errorPassR.setVisibility(View.VISIBLE);
+                    validar=false;
+                }
+                ///////////////////////////
+                // VALIDACION DEL CORREO //
+                ///////////////////////////
                 if(!Patterns.EMAIL_ADDRESS.matcher(correo.getText()).matches()){
-
+                    errorCorreo.setText(R.string.correoIncorrecto);
+                    errorCorreo.setVisibility(View.VISIBLE);
+                    validar=false;
                 }
-                ////////////////////////////////////////////////////////
-
+                ////////////////////////////////////////
+                // VALIDACIONES DE TARJETA DE CREDITO //
+                ////////////////////////////////////////
+                if(!tarjetaNumero.getText().toString().isEmpty()){
+                    if(tarjetaNumero.getText().toString().length()!=16){
+                        errorTarjetaNumero.setText(R.string.longitudIncorrecta);
+                        errorTarjetaNumero.setVisibility(View.VISIBLE);
+                        validar=false;
+                    }
+                    if(tarjetaCCV.getText().toString().length()!=3){
+                        errorCCV.setText(R.string.longitudIncorrecta);
+                        errorCCV.setVisibility(View.VISIBLE);
+                        validar=false;
+                    }
+                    //////////////////////////////////////////////////////////
+                    /////////// FALTA CORROBORAR EL VENCIMIENTO///////////////
+                    //////////////////////////////////////////////////////////
+                }
+                if(tarjetaCCV.getText().toString().isEmpty()){
+                    errorCCV.setText(R.string.campoObligatorio);
+                    errorCCV.setVisibility(View.VISIBLE);
+                    validar=false;
+                }
+                if(tarjetaVencimiento.getText().toString().isEmpty()) {
+                    errorTarjetaVencimiento.setText(R.string.campoObligatorio);
+                    errorTarjetaVencimiento.setVisibility(View.VISIBLE);
+                    validar=false;
+                }
+                if(validar) {
+                    ///////////////////////////
+                    // DAR DE ALTA LA CUENTA //
+                    ///////////////////////////
+                    Toast.makeText(context, R.string.toastRegistroExitoso, Toast.LENGTH_SHORT).show();
+                }
+                    else {
+                    Toast.makeText(context, R.string.toastCamposObligatorios, Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
-  
-
 
         //cierre del onCreate
     }
