@@ -1,4 +1,4 @@
-package com.example.sendmeal;
+package com.example.sendmeal.domain;
 
 import java.util.Objects;
 

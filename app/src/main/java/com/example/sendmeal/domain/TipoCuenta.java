@@ -1,4 +1,4 @@
-package com.example.sendmeal;
+package com.example.sendmeal.domain;
 
 enum TipoCuenta {
     BASICA, PREMIUM, FULL
