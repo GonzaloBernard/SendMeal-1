@@ -132,6 +132,7 @@
             android:layout_margin="@dimen/margin"
             android:ems="10"
             android:hint="@string/editTextTarjetaNumero"
+            android:digits="01234 56789"
             android:inputType="number"
             android:maxLength="19"
             android:textSize="@dimen/etiquetas" />
@@ -178,7 +179,8 @@
                 android:layout_margin="@dimen/margin"
                 android:ems="4"
                 android:hint="@string/hintFechaTarjeta"
-                android:inputType="date"
+                android:digits="1234567890/"
+                android:inputType="number"
                 android:maxLength="5"/>
         </LinearLayout>
         <TextView

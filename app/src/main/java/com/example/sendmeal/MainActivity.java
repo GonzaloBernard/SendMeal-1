@@ -3,7 +3,11 @@ package com.example.sendmeal;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.text.method.KeyListener;
 import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -15,6 +19,11 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -66,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView errorTipoCuenta;
         final TextView errorAlias;
         final TextView errorCBU;
+
         /////////////////////////////
         // Inicializacion de views //
         /////////////////////////////
@@ -83,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         tarjetaCCV = (EditText) findViewById(R.id.editTextCCV);
         tarjetaNumero = (EditText) findViewById(R.id.editTextTarjetaNumero);
         tarjetaVencimiento = (EditText) findViewById(R.id.editTextTarjetaVencimiento);
+
         ///////////////////
         // RADIO BUTTONS //
         ///////////////////
@@ -145,6 +156,63 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //////////////////////////////////////////
+        // LOGICA DEL NUMERO DE LA TARJETA //       Anda, lo saque de "la interné" ejmeplo 3 de ---> https://www.flipandroid.com/formato-de-tarjeta-de-crdito-en-editar-texto-en-android.html
+        //////////////////////////////////////////
+        tarjetaNumero.addTextChangedListener(new TextWatcher() {
+            private static final char space = ' ';
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override public void afterTextChanged(Editable s) { // Remove all spacing char
+                int pos = 0;
+                while (pos < s.length()) {
+
+                    if (space == s.charAt(pos) && (((pos + 1) % 5) != 0 || pos + 1 == s.length())) {
+                        s.delete(pos, pos + 1);
+                    }else { pos++; }
+                } // Insert char where needed.
+
+                pos = 4;
+                while (pos < s.length()) {
+
+                    final char c = s.charAt(pos); // Only if its a digit where there should be a space we insert a space
+                    if ("0123456789".indexOf(c) >= 0) {
+                        s.insert(pos, "" + space);
+                    }
+
+                    pos += 5;
+                }
+            }
+        });
+        //////////////////////////////////////////
+        // LOGICA DEL VENCIMIENTO DE LA TARJETA //
+        //////////////////////////////////////////
+        tarjetaVencimiento.addTextChangedListener(new TextWatcher() {
+            int len=0;
+            @Override
+            public void afterTextChanged(Editable s) {
+                String str = tarjetaVencimiento.getText().toString();
+                if(str.length()==2&& len<str.length()){//len check for backspace
+                    tarjetaVencimiento.append("/");
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+
+                String str = tarjetaVencimiento.getText().toString();
+                len = str.length();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+        });
+        //////////////////////////////////////////
         // LOGICA DEL CHECKBOX ACEPTAR TERMINOS //
         //////////////////////////////////////////
         checkBoxAceptarTerminos.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
@@ -160,7 +228,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-
 
 
         ///////////////////////////////
@@ -254,6 +321,8 @@ public class MainActivity extends AppCompatActivity {
                         errorCCV.setVisibility(View.VISIBLE);
                         validar=false;
                     }
+
+
                     //////////////////////////////////////////////////////////
                     /////////// FALTA CORROBORAR EL VENCIMIENTO///////////////
                     //////////////////////////////////////////////////////////
