@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView errorAlias;
         final TextView errorCBU;
 
+
         /////////////////////////////
         // Inicializacion de views //
         /////////////////////////////
@@ -127,30 +128,35 @@ public class MainActivity extends AppCompatActivity {
         ////////////////////////
         // LOGICA DEL SEEKBAR //
         ////////////////////////
-
         // Muestra el valor por defecto del seekbar
         radioGroupTipoCuenta.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 if(esPremium.isChecked()){
                     textViewSeekBar.setText("250");
+                    seekBar.setProgress(250);
                 }else if(esFull.isChecked()){
                     textViewSeekBar.setText("500");
-                }else{
+                    seekBar.setProgress(500);
+                }else {
                     textViewSeekBar.setText("100");
+                    seekBar.setProgress(100);
+
                 }
             }
         });
 
-
+        textViewSeekBar.setText("0");
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean user) {
-                //Hace que el el seekBar vaya de 100 en 100
-                progress = progress / 100;
-                progress = progress * 100;
-                //Muestra el estado del seekBar + 100
-                textViewSeekBar.setText(progress + 100 + "");
+                //Hace que el el seekBar vaya de 50 en 50
+
+                progress = progress / 50;
+                progress = progress * 50;
+                //Muestra el estado del seekBar + 50
+                System.out.println(progress);
+                textViewSeekBar.setText(progress + "");
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -373,7 +379,7 @@ public class MainActivity extends AppCompatActivity {
                     }else{
 
                         LocalDate today = LocalDate.now();
-                        if((today.getYear() < anio) || (today.getMonthValue() - (mes-1))<3){ //validacion de los 3 meses
+                        if((today.getYear()%100 < anio) || (today.getMonthValue() - (mes-1))<3){ //validacion de los 3 meses
 
                             errorTarjetaVencimiento.setText(R.string.errorTarjetaVencimiento);
                             errorTarjetaVencimiento.setVisibility(View.VISIBLE);
