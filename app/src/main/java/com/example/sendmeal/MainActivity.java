@@ -1,10 +1,13 @@
 package com.example.sendmeal;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.Time;
 import android.text.method.KeyListener;
 import android.util.Patterns;
 import android.view.KeyEvent;
@@ -20,10 +23,14 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -234,6 +241,7 @@ public class MainActivity extends AppCompatActivity {
         // LOGICA DEL BUTTON ACEPTAR //
         ///////////////////////////////
         buttonRegistrar.setOnClickListener(new Button.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
 
@@ -311,7 +319,7 @@ public class MainActivity extends AppCompatActivity {
                 // VALIDACIONES DE TARJETA DE CREDITO //
                 ////////////////////////////////////////
                 if(!tarjetaNumero.getText().toString().isEmpty()){
-                    if(tarjetaNumero.getText().toString().length()!=16){
+                    if(tarjetaNumero.getText().toString().length()!=19){
                         errorTarjetaNumero.setText(R.string.longitudIncorrecta);
                         errorTarjetaNumero.setVisibility(View.VISIBLE);
                         validar=false;
@@ -322,10 +330,12 @@ public class MainActivity extends AppCompatActivity {
                         validar=false;
                     }
 
+                    if(tarjetaVencimiento.getText().toString().length()!=5){
+                        errorTarjetaVencimiento.setText(R.string.longitudIncorrecta);
+                        errorTarjetaVencimiento.setVisibility(View.VISIBLE);
+                        validar=false;
+                    }
 
-                    //////////////////////////////////////////////////////////
-                    /////////// FALTA CORROBORAR EL VENCIMIENTO///////////////
-                    //////////////////////////////////////////////////////////
                 }
                 if(tarjetaCCV.getText().toString().isEmpty()){
                     errorCCV.setText(R.string.campoObligatorio);
@@ -336,7 +346,27 @@ public class MainActivity extends AppCompatActivity {
                     errorTarjetaVencimiento.setText(R.string.campoObligatorio);
                     errorTarjetaVencimiento.setVisibility(View.VISIBLE);
                     validar=false;
-                }
+                }else{
+
+                   int vencimiento = Integer.parseInt(tarjetaVencimiento.getText().toString().substring(0,1));
+
+                    if(vencimiento>12){
+                        errorTarjetaVencimiento.setText(R.string.errorTarjetaVencimiento);
+                        errorTarjetaVencimiento.setVisibility(View.VISIBLE);
+                    }else{
+
+                        LocalDate ahora = LocalDate.now();
+                        ///////////////////////////
+                        // falta lo de los 3 meses //***************************************************************************************
+                        ///////////////////////////
+
+
+                    }
+
+
+
+
+               }
                 if(validar) {
                     ///////////////////////////
                     // DAR DE ALTA LA CUENTA //

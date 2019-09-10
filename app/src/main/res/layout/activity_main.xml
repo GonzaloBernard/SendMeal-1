@@ -179,8 +179,7 @@
                 android:layout_margin="@dimen/margin"
                 android:ems="4"
                 android:hint="@string/hintFechaTarjeta"
-                android:digits="1234567890/"
-                android:inputType="number"
+                android:inputType="date"
                 android:maxLength="5"/>
         </LinearLayout>
         <TextView

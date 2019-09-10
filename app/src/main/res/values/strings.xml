@@ -31,7 +31,7 @@
     <string name="errorCorreo">El correo es incorrecto</string>
     <string name="errorTarjetaNumero">El número es incorrecto</string>
     <string name="errorCCV">El CCV en incorrecto</string>
-    <string name="errorTarjetaVencimiento">El vencimiento debe ser mayor a 3 meses</string>
+    <string name="errorTarjetaVencimiento">La fecha de vencimiento no es válida</string>
     <string name="errorTipoCuenta">Seleccione tipo de cuenta</string>
     <string name="errorAlias">El alias es incorrecto</string>
     <string name="errorCBU">El CBU es incorrecto</string>
