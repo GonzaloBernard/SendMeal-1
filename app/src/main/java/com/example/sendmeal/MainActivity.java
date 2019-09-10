@@ -348,18 +348,20 @@ public class MainActivity extends AppCompatActivity {
                     validar=false;
                 }else{
 
-                   int vencimiento = Integer.parseInt(tarjetaVencimiento.getText().toString().substring(0,1));
+                    int mes = Integer.parseInt(tarjetaVencimiento.getText().toString().substring(0,1));
+                    int anio = Integer.parseInt(tarjetaVencimiento.getText().toString().substring(3,4));
 
-                    if(vencimiento>12){
+                    if(mes>12){
                         errorTarjetaVencimiento.setText(R.string.errorTarjetaVencimiento);
                         errorTarjetaVencimiento.setVisibility(View.VISIBLE);
                     }else{
 
-                        LocalDate ahora = LocalDate.now();
-                        ///////////////////////////
-                        // falta lo de los 3 meses //***************************************************************************************
-                        ///////////////////////////
+                        LocalDate today = LocalDate.now();
+                        if((today.getYear() < anio) || (today.getMonthValue() - (mes-1))<3){ //validacion de los 3 meses
 
+                            errorTarjetaVencimiento.setText(R.string.errorTarjetaVencimiento);
+                            errorTarjetaVencimiento.setVisibility(View.VISIBLE);
+                        }
 
                     }
 
