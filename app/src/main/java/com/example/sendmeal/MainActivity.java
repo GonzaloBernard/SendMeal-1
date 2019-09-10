@@ -18,6 +18,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         final EditText tarjetaVencimiento;
         final EditText nombreVendedor;
         final EditText CBUVendedor;
+        final RadioGroup radioGroupTipoCuenta;
         final RadioButton esBase;
         final RadioButton esPremium;
         final RadioButton esFull;
@@ -86,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         /////////////////////////////
         // Inicializacion de views //
         /////////////////////////////
+        radioGroupTipoCuenta = (RadioGroup) findViewById(R.id.radioGroupTipoCuenta);
         seekBar = (SeekBar) findViewById(R.id.seekBarCreditoInicial);
         textViewSeekBar = (TextView) findViewById(R.id.textViewSeekBar);
         layoutEsVendendor = (LinearLayout) findViewById(R.id.layoutEsVendedor);
@@ -126,7 +129,20 @@ public class MainActivity extends AppCompatActivity {
         ////////////////////////
 
         // Muestra el valor por defecto del seekbar
-        textViewSeekBar.setText("100");
+        radioGroupTipoCuenta.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if(esPremium.isChecked()){
+                    textViewSeekBar.setText("250");
+                }else if(esFull.isChecked()){
+                    textViewSeekBar.setText("500");
+                }else{
+                    textViewSeekBar.setText("100");
+                }
+            }
+        });
+
+
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean user) {
@@ -348,8 +364,8 @@ public class MainActivity extends AppCompatActivity {
                     validar=false;
                 }else{
 
-                    int mes = Integer.parseInt(tarjetaVencimiento.getText().toString().substring(0,1));
-                    int anio = Integer.parseInt(tarjetaVencimiento.getText().toString().substring(3,4));
+                    int mes = Integer.parseInt(tarjetaVencimiento.getText().toString().substring(0,2));
+                    int anio = Integer.parseInt(tarjetaVencimiento.getText().toString().substring(3,5));
 
                     if(mes>12){
                         errorTarjetaVencimiento.setText(R.string.errorTarjetaVencimiento);

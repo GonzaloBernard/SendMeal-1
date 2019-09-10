@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
             android:text="@string/textviewNombreUsuario"
+            android:textColor="@color/colorEtiquetas"
             android:textSize="@dimen/etiquetas" />
 
         <EditText
@@ -37,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
             android:text="@string/textviewContaseña"
+            android:textColor="@color/colorEtiquetas"
             android:textSize="@dimen/etiquetas" />
 
         <EditText
@@ -65,6 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
             android:text="@string/textRepitaContraseña"
+            android:textColor="@color/colorEtiquetas"
             android:textSize="@dimen/etiquetas" />
 
         <EditText
@@ -94,6 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
             android:text="@string/textViewCorreo"
+            android:textColor="@color/colorEtiquetas"
             android:textSize="@dimen/etiquetas" />
 
         <EditText
@@ -123,6 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
             android:text="@string/textViewTarjetaCredito"
+            android:textColor="@color/colorEtiquetas"
             android:textSize="@dimen/etiquetas" />
 
         <EditText
@@ -153,6 +158,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
             android:text="@string/textViewTarjetaCreditoVencimiento"
+            android:textColor="@color/colorEtiquetas"
             android:textSize="@dimen/etiquetas" />
 
         <LinearLayout
@@ -179,27 +185,35 @@
                 android:layout_margin="@dimen/margin"
                 android:ems="4"
                 android:hint="@string/hintFechaTarjeta"
-                android:inputType="date"
+                android:digits="1234567890/"
+                android:inputType="number"
                 android:maxLength="5"/>
         </LinearLayout>
-        <TextView
-            android:id="@+id/textViewErrorCCV"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin"
-            android:text="@string/errorCCV"
-            android:textColor="@color/colorError"
-            android:textSize="@dimen/error"
-            android:visibility="gone" />
-        <TextView
-            android:id="@+id/textViewErrorTarjetaVencimiento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin"
-            android:text="@string/errorTarjetaVencimiento"
-            android:textColor="@color/colorError"
-            android:textSize="@dimen/error"
-            android:visibility="gone" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewErrorCCV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin"
+                android:text="@string/errorCCV"
+                android:textColor="@color/colorError"
+                android:textSize="@dimen/error"
+                android:visibility="gone" />
+            <TextView
+                android:id="@+id/textViewErrorTarjetaVencimiento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin"
+                android:text="@string/errorTarjetaVencimiento"
+                android:textColor="@color/colorError"
+                android:textSize="@dimen/error"
+                android:visibility="gone" />
+    </LinearLayout>
 
         <TextView
             android:id="@+id/textViewTipoCuenta"
@@ -207,9 +221,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
             android:text="@string/textViewTipoCuenta"
+            android:textColor="@color/colorEtiquetas"
             android:textSize="@dimen/etiquetas" />
 
         <RadioGroup
+            android:id="@+id/radioGroupTipoCuenta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -258,9 +274,10 @@
                 android:id="@+id/textViewCreditoInicial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/etiquetas"
                 android:layout_margin="@dimen/margin"
-                android:text="@string/textViewCreditoInicial" />
+                android:text="@string/textViewCreditoInicial"
+                android:textColor="@color/colorEtiquetas"
+                android:textSize="@dimen/etiquetas" />
 
             <TextView
                 android:id="@+id/textViewSeekBar"
@@ -282,9 +299,10 @@
             android:id="@+id/textViewNotificarCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/etiquetas"
             android:layout_margin="@dimen/margin"
-            android:text="@string/textViewNotificarCorreo" />
+            android:text="@string/textViewNotificarCorreo"
+            android:textColor="@color/colorEtiquetas"
+            android:textSize="@dimen/etiquetas" />
 
         <ToggleButton
             android:id="@+id/toggleButtonNotificarCorreo"
@@ -300,9 +318,10 @@
             android:id="@+id/switchEsVendedor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/etiquetas"
             android:layout_margin="@dimen/margin"
-            android:text="@string/switchEsVendedor" />
+            android:text="@string/switchEsVendedor"
+            android:textColor="@color/colorEtiquetas"
+            android:textSize="@dimen/etiquetas" />
 
         <LinearLayout
             android:id="@+id/layoutEsVendedor"
