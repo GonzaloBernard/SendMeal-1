@@ -227,6 +227,7 @@ public class MainActivity extends AppCompatActivity {
                 if(str.length()==2&& len<str.length()){//len check for backspace
                     tarjetaVencimiento.append("/");
                 }
+ 
             }
 
             @Override
@@ -238,6 +239,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
             }
 
         });
@@ -373,22 +375,16 @@ public class MainActivity extends AppCompatActivity {
                     int mes = Integer.parseInt(tarjetaVencimiento.getText().toString().substring(0,2));
                     int anio = Integer.parseInt(tarjetaVencimiento.getText().toString().substring(3,5));
 
-                    if(mes>12){
+                    LocalDate today = LocalDate.now();
+
+                    //convierto las dos fecha a meses y resto
+                    int diferenciaMeses = (anio*12 + mes) - ((today.getYear()%100)*12 + (today.getMonthValue()));
+
+                    if(mes>12 || mes<1 || (today.getYear()%100 > anio) || diferenciaMeses<3){
                         errorTarjetaVencimiento.setText(R.string.errorTarjetaVencimiento);
                         errorTarjetaVencimiento.setVisibility(View.VISIBLE);
-                    }else{
-
-                        LocalDate today = LocalDate.now();
-                        if((today.getYear()%100 < anio) || (today.getMonthValue() - (mes-1))<3){ //validacion de los 3 meses
-
-                            errorTarjetaVencimiento.setText(R.string.errorTarjetaVencimiento);
-                            errorTarjetaVencimiento.setVisibility(View.VISIBLE);
-                        }
-
+                        validar=false;
                     }
-
-
-
 
                }
                 if(validar) {
