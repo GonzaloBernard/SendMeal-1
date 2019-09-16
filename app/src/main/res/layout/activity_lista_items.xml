@@ -5,22 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".HomeActivity">
+    tools:context=".ListaItems">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarHome"
+        android:id="@+id/toolbarListaItems"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/MiEstiloToolbar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/bienvenido"
-        android:textSize="@dimen/titulo"/>
-
 </LinearLayout>

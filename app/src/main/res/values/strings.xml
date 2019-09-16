@@ -42,6 +42,7 @@
     <string name="correoIncorrecto">El e-mail es incorrecto</string>
     <string name="longitudIncorrecta">La longitud del campo es incorrecta</string>
     <string name="toastRegistroExitoso">La cuenta fue creada con éxito</string>
+    <string name="bienvenido">BIENVENIDO</string>
 
 
 </resources>
