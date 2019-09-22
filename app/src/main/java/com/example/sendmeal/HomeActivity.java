@@ -8,19 +8,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.sendmeal.domain.Plato;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class HomeActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private static Integer NUEVO_PLATO_REQUEST = 1;
 
-    // PLATOS HARDCODEADOS (AL IMPLEMENTAR BASE DE DATOS ESTO NO VA MAS)
-    private String titulo1;
-    private Integer precio1;
-    private String titulo2;
-    private Integer precio2;
-    private String titulo3;
-    private Integer precio3;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -40,18 +38,6 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             case R.id.toolBarListaPlatos:
                 Intent i3 = new Intent(HomeActivity.this,ListaItems.class);
-
-                // PLATOS HARDCODEADOS (AL IMPLEMENTAR BASE DE DATOS ESTO NO VA MAS)
-                i3.putExtra("titulo1",titulo1);
-                i3.putExtra("precio1",precio1);
-                i3.putExtra("titulo2",titulo2);
-                i3.putExtra("precio2",precio2);
-                i3.putExtra("titulo3",titulo3);
-                i3.putExtra("precio3",precio3);
-
-
-
-
                 startActivity(i3);
                 return true;
             default:
@@ -65,17 +51,10 @@ public class HomeActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
         if (requestCode == NUEVO_PLATO_REQUEST) {
             if (resultCode == RESULT_OK) {
-
-                // PLATOS HARDCODEADOS (AL IMPLEMENTAR BASE DE DATOS ESTO NO VA MAS)
-                titulo1 = resultIntent.getExtras().getString("titulo1");
-                precio1 = resultIntent.getExtras().getInt("precio1");
-                titulo2 = resultIntent.getExtras().getString("titulo2");
-                precio2 = resultIntent.getExtras().getInt("precio2");
-                titulo3 = resultIntent.getExtras().getString("titulo3");
-                precio3 = resultIntent.getExtras().getInt("precio3");
-
-
+                Toast.makeText(this,"El plato se creó con éxito",Toast.LENGTH_LONG).show();
             }
+            else
+                Toast.makeText(this,"Ha ocurrido un error",Toast.LENGTH_LONG).show();
         }
     }
     @Override

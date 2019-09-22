@@ -9,6 +9,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.sendmeal.domain.Plato;
+
+import java.util.ArrayList;
+
 public class ListaItems extends AppCompatActivity {
 
     private Toolbar toolbar;
@@ -33,19 +37,45 @@ public class ListaItems extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_items);
 
+        //TOOLBAR
         toolbar = (Toolbar) findViewById(R.id.toolbarListaItems);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        // PLATOS HARDCODEADOS (TENIENDO LA BASE DE DATOS SE LEVANTAN DIRECTAMENTE DE AHI)
-        String titulo1 = getIntent().getExtras().getString("titulo1");
-        String titulo2 = getIntent().getExtras().getString("titulo2");
-        String titulo3 = getIntent().getExtras().getString("titulo3");
-        Integer precio1 = getIntent().getExtras().getInt("precio1");
-        Integer precio2 = getIntent().getExtras().getInt("precio2");
-        Integer precio3 = getIntent().getExtras().getInt("precio3");
+        // PLATOS HARDCODEADOS
+        Plato plato1 = new Plato();
+        Plato plato2 = new Plato();
+        Plato plato3 = new Plato();
+        Plato plato4 = new Plato();
+        plato1.setId(1);
+        plato1.setTítulo("Hamburguesa completa");
+        plato1.setDescripcion("Hamburguesa con queso, lechuga, huevo y tomate");
+        plato1.setPrecio(150d);
+        plato1.setCalorías(1500);
+        plato2.setId(2);
+        plato2.setTítulo("Pizza napolitana");
+        plato2.setDescripcion("Muzzarela, tomate y oregano");
+        plato2.setPrecio(150d);
+        plato2.setCalorías(1200);
+        plato3.setId(3);
+        plato3.setTítulo("Triples de miga");
+        plato3.setDescripcion("Sandwich de miga con jamos queso lechuga y tomate");
+        plato3.setPrecio(100d);
+        plato3.setCalorías(600);
+        plato4.setId(4);
+        plato4.setTítulo("Lomo gratinado");
+        plato4.setDescripcion("Sandwich de lomo con queso derretido");
+        plato4.setPrecio(200d);
+        plato4.setCalorías(1300);
 
+
+        //LISTA DE PLATOS
+        ArrayList<Plato> listaPlatos = new ArrayList<Plato>();
+        listaPlatos.add(plato1);
+        listaPlatos.add(plato2);
+        listaPlatos.add(plato3);
+        listaPlatos.add(plato4);
 
 
     }

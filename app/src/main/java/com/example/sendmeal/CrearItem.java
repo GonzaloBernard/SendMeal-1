@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.sendmeal.domain.Plato;
@@ -43,21 +44,43 @@ public class CrearItem extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        final EditText editTextId = (EditText) findViewById(R.id.editTextCrearPlatoID);
+        final EditText editTextTitulo = (EditText) findViewById(R.id.editTextCrearPlatoTitulo);
+        final EditText editTextDescripcion = (EditText) findViewById(R.id.editTextCrearPlatoDescripcion);
+        final EditText editTextPrecio = (EditText) findViewById(R.id.editTextCrearPlatoPrecio);
+        final EditText editTextCalorias = (EditText) findViewById(R.id.editTextCrearPlatoCalorias);
         Button buttonGuardar = (Button) findViewById(R.id.buttonCrearPlatoGuardar);
 
         buttonGuardar.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // PLATOS HARDCODEADOS (AL IMPLEMENTAR PERSISTENCIA DE DATOS CADA PLATO SE DIRECCTAMENTE EN
-                // LA BASE DE DATOS
-                Intent intentResultado = new Intent();
-                intentResultado.putExtra("titulo1", "Fideos con salsa");
-                intentResultado.putExtra("precio1", 70);
-                intentResultado.putExtra("titulo2", "Hamburguesa con queso");
-                intentResultado.putExtra("precio2", 60);
-                intentResultado.putExtra("titulo3", "Pizza Napolitana");
-                intentResultado.putExtra("precio3", 120);
-                setResult(Activity.RESULT_OK, intentResultado);
+
+                try {
+                    //OBTENER DATOS DE ENTRADA
+                    Integer id = Integer.parseInt(editTextId.getText().toString());
+                    String titulo = editTextTitulo.getText().toString();
+                    String descripcion = editTextDescripcion.getText().toString();
+                    Double precio = Double.parseDouble(editTextPrecio.getText().toString());
+                    Integer calorias = Integer.parseInt(editTextCalorias.getText().toString());
+
+                    //CREAR INSTANCIA DE PLATO CON SUS DATOS
+                    Plato plato = new Plato();
+                    plato.setId(id);
+                    plato.setTítulo(titulo);
+                    plato.setDescripcion(descripcion);
+                    plato.setPrecio(precio);
+                    plato.setCalorías(calorias);
+                    setResult(Activity.RESULT_OK);
+
+                    //GUARDAR INSTANCIA DE PLATO
+
+                    /////////////////////////////
+
+                }
+                catch (Exception e){
+                    setResult(Activity.RESULT_CANCELED);
+                }
+
                 finish();
             }
         });
