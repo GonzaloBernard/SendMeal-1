@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class ListaItems extends AppCompatActivity {
 
@@ -36,5 +37,16 @@ public class ListaItems extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        // PLATOS HARDCODEADOS (TENIENDO LA BASE DE DATOS SE LEVANTAN DIRECTAMENTE DE AHI)
+        String titulo1 = getIntent().getExtras().getString("titulo1");
+        String titulo2 = getIntent().getExtras().getString("titulo2");
+        String titulo3 = getIntent().getExtras().getString("titulo3");
+        Integer precio1 = getIntent().getExtras().getInt("precio1");
+        Integer precio2 = getIntent().getExtras().getInt("precio2");
+        Integer precio3 = getIntent().getExtras().getInt("precio3");
+
+
+
     }
 }
