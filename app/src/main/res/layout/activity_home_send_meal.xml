@@ -8,19 +8,4 @@
     tools:context=".HomeSendMeal"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/my_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ToolBarTheme">
-
-        <item android:id="@+id/toolbar_registrar"
-            android:title="Opcion2" />
-        <item android:id="@+id/toolbar_listaItems"
-            android:title="Opcion2" />
-        <item android:id="@+id/toolbar_popu"
-            android:title="Opcion2" />
-    </android.support.v7.widget.Toolbar>
-
 </LinearLayout>
