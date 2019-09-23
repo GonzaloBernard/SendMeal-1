@@ -3,17 +3,22 @@ package com.example.sendmeal;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.sendmeal.domain.Plato;
-
 import java.util.ArrayList;
 
 public class ListaItems extends AppCompatActivity {
 
     private Toolbar toolbar;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -75,6 +80,12 @@ public class ListaItems extends AppCompatActivity {
         listaPlatos.add(plato3);
         listaPlatos.add(plato4);
 
+        mRecyclerView = (RecyclerView) findViewById(R.id.listaItemsRecyclerView);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new PlatoAdapter( listaPlatos );
+        mRecyclerView.setAdapter(mAdapter);
 
 
     }

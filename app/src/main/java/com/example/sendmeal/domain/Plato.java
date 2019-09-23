@@ -1,5 +1,7 @@
 package com.example.sendmeal.domain;
 
+import android.widget.ImageView;
+
 public class Plato {
     private Integer id;
     private String titulo;
@@ -7,7 +9,16 @@ public class Plato {
     private Double precio;
     private Integer calorías;
 
+
     public Plato() {
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public Integer getId() {
