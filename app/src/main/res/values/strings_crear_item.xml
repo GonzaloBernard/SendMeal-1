@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="crearItemID">ID del plato</string>
+    <string name="crearItemTitulo">Titulo del plato</string>
+    <string name="crearItemDescripcion">Descripcion del plato</string>
+    <string name="crearItemPrecio">Precio del plato</string>
+    <string name="crearItemCalorias">Calorias</string>
+    <string name="crearItemGuardar">GUARDAR</string>
+</resources>

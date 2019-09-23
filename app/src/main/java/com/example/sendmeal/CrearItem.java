@@ -62,7 +62,6 @@ public class CrearItem extends AppCompatActivity {
                     String descripcion = editTextDescripcion.getText().toString();
                     Double precio = Double.parseDouble(editTextPrecio.getText().toString());
                     Integer calorias = Integer.parseInt(editTextCalorias.getText().toString());
-
                     //VALIDACIONES
                     if (id < 0)
                         throw new Exception("Error en el id");
