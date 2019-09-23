@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,120 +8,127 @@
     android:orientation="vertical"
     tools:context=".CrearItem">
 
-    <androidx.appcompat.widget.Toolbar
-    android:id="@+id/toolbarCrearItem"
-    android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:background="?attr/colorPrimary"
-    android:elevation="4dp"
-    android:theme="@style/MiEstiloToolbar"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
-    <TextView
-        android:id="@+id/TextviewCrearPlatoID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin"
-        android:text="ID del plato"
-        android:textColor="@color/colorEtiquetas"
-        android:textSize="@dimen/etiquetas" />
-
-    <EditText
-        android:id="@+id/editTextCrearPlatoID"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin"
-        android:ems="10"
-        android:hint="ID"
-        android:inputType="number"
-        android:textSize="@dimen/etiquetas"
-        android:maxLength="20"/>
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/TextviewCrearPlatoTitulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin"
-        android:text="Titulo del plato"
-        android:textColor="@color/colorEtiquetas"
-        android:textSize="@dimen/etiquetas" />
-
-    <EditText
-        android:id="@+id/editTextCrearPlatoTitulo"
+        <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarCrearItem"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin"
-        android:ems="10"
-        android:hint="Titulo"
-        android:inputType="textPersonName"
-        android:textSize="@dimen/etiquetas"
-        android:maxLength="20"/>
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/MiEstiloToolbar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <TextView
-        android:id="@+id/TextviewCrearPlatoDescripcion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin"
-        android:text="Descripcion del plato"
-        android:textColor="@color/colorEtiquetas"
-        android:textSize="@dimen/etiquetas" />
+        <TextView
+            android:id="@+id/TextviewCrearPlatoID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:text="ID del plato"
+            android:textColor="@color/colorEtiquetas"
+            android:textSize="@dimen/etiquetas" />
 
-    <EditText
-        android:id="@+id/editTextCrearPlatoDescripcion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin"
-        android:ems="10"
-        android:hint="Descripcion"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:textSize="@dimen/etiquetas"
-        android:maxLength="100"/>
+        <EditText
+            android:id="@+id/editTextCrearPlatoID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:ems="10"
+            android:hint="ID"
+            android:inputType="number"
+            android:textSize="@dimen/etiquetas"
+            android:maxLength="20"/>
 
-    <TextView
-        android:id="@+id/TextviewCrearPlatoPrecio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin"
-        android:text="Precio del plato"
-        android:textColor="@color/colorEtiquetas"
-        android:textSize="@dimen/etiquetas" />
+        <TextView
+            android:id="@+id/TextviewCrearPlatoTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:text="Titulo del plato"
+            android:textColor="@color/colorEtiquetas"
+            android:textSize="@dimen/etiquetas" />
 
-    <EditText
-        android:id="@+id/editTextCrearPlatoPrecio"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin"
-        android:ems="10"
-        android:hint="Precio"
-        android:inputType="numberDecimal"
-        android:textSize="@dimen/etiquetas"
-        android:maxLength="8"/>
+        <EditText
+            android:id="@+id/editTextCrearPlatoTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:ems="10"
+            android:hint="Titulo"
+            android:inputType="textPersonName"
+            android:textSize="@dimen/etiquetas"
+            android:maxLength="20"/>
 
-    <TextView
-        android:id="@+id/TextviewCrearPlatoCalorias"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin"
-        android:text="Calorias"
-        android:textColor="@color/colorEtiquetas"
-        android:textSize="@dimen/etiquetas" />
+        <TextView
+            android:id="@+id/TextviewCrearPlatoDescripcion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:text="Descripcion del plato"
+            android:textColor="@color/colorEtiquetas"
+            android:textSize="@dimen/etiquetas" />
 
-    <EditText
-        android:id="@+id/editTextCrearPlatoCalorias"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin"
-        android:ems="10"
-        android:hint="Calorias"
-        android:inputType="number"
-        android:textSize="@dimen/etiquetas"
-        android:maxLength="8"/>
+        <EditText
+            android:id="@+id/editTextCrearPlatoDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:ems="10"
+            android:hint="Descripcion"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:textSize="@dimen/etiquetas"
+            android:maxLength="100"/>
 
-    <Button
-        android:id="@+id/buttonCrearPlatoGuardar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Guardar" />
+        <TextView
+            android:id="@+id/TextviewCrearPlatoPrecio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:text="Precio del plato"
+            android:textColor="@color/colorEtiquetas"
+            android:textSize="@dimen/etiquetas" />
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/editTextCrearPlatoPrecio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:ems="10"
+            android:hint="Precio"
+            android:inputType="numberDecimal"
+            android:textSize="@dimen/etiquetas"
+            android:maxLength="8"/>
+
+        <TextView
+            android:id="@+id/TextviewCrearPlatoCalorias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:text="Calorias"
+            android:textColor="@color/colorEtiquetas"
+            android:textSize="@dimen/etiquetas" />
+
+        <EditText
+            android:id="@+id/editTextCrearPlatoCalorias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:ems="10"
+            android:hint="Calorias"
+            android:inputType="number"
+            android:textSize="@dimen/etiquetas"
+            android:maxLength="8"/>
+
+        <Button
+            android:id="@+id/buttonCrearPlatoGuardar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guardar" />
+
+    </LinearLayout>
+
+</ScrollView>
