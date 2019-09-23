@@ -71,11 +71,12 @@ public class ListaItems extends AppCompatActivity {
 
 
         //LISTA DE PLATOS
-        ArrayList<Plato> listaPlatos = new ArrayList<Plato>();
+        ArrayList<Plato> listaPlatos = new ArrayList<>();
         listaPlatos.add(plato1);
         listaPlatos.add(plato2);
         listaPlatos.add(plato3);
         listaPlatos.add(plato4);
+
 
 
     }

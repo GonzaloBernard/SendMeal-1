@@ -63,6 +63,16 @@ public class CrearItem extends AppCompatActivity {
                     Double precio = Double.parseDouble(editTextPrecio.getText().toString());
                     Integer calorias = Integer.parseInt(editTextCalorias.getText().toString());
 
+                    //VALIDACIONES
+                    if (id < 0)
+                        throw new Exception("Error en el id");
+                    if (titulo.length() < 3)
+                        throw new Exception("Error en el titulo");
+                    if (precio < 0)
+                        throw new Exception("Error en el precio");
+                    if (calorias < 0)
+                        throw new Exception("Error en las calorias");
+
                     //CREAR INSTANCIA DE PLATO CON SUS DATOS
                     Plato plato = new Plato();
                     plato.setId(id);
@@ -70,18 +80,18 @@ public class CrearItem extends AppCompatActivity {
                     plato.setDescripcion(descripcion);
                     plato.setPrecio(precio);
                     plato.setCalorías(calorias);
+                    ///////////////////////////////
+                    //GUARDAR INSTANCIA DE PLATO //
+                    ///////////////////////////////
                     setResult(Activity.RESULT_OK);
-
-                    //GUARDAR INSTANCIA DE PLATO
-
-                    /////////////////////////////
-
+                    finish();
                 }
-                catch (Exception e){
-                    setResult(Activity.RESULT_CANCELED);
+                catch (NumberFormatException e) {
+                    Toast.makeText(CrearItem.this,"Error en los campos numericos",Toast.LENGTH_LONG).show();
                 }
-
-                finish();
+                catch (Exception e) {
+                    Toast.makeText(CrearItem.this,e.getMessage(),Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

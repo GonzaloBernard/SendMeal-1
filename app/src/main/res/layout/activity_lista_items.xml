@@ -13,6 +13,5 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        android:theme="@style/MiEstiloToolbar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 </LinearLayout>
