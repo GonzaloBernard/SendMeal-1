@@ -3,6 +3,7 @@ package com.example.sendmeal;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +19,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private static Integer NUEVO_PLATO_REQUEST = 1;
-
+    private Resources resources = getResources();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -51,10 +52,10 @@ public class HomeActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
         if (requestCode == NUEVO_PLATO_REQUEST) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(this,"El plato se creó con éxito",Toast.LENGTH_LONG).show();
+                Toast.makeText(this,resources.getString(R.string.homePlatoCreado) ,Toast.LENGTH_LONG).show();
             }
             else
-                Toast.makeText(this,"Ha ocurrido un error",Toast.LENGTH_LONG).show();
+                Toast.makeText(this,resources.getString(R.string.homePlatoError),Toast.LENGTH_LONG).show();
         }
     }
     @Override
@@ -63,6 +64,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         toolbar = (Toolbar) findViewById(R.id.toolbarHome);
         setSupportActionBar(toolbar);
+
     }
 
 }

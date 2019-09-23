@@ -6,4 +6,8 @@
     <string name="crearItemPrecio">Precio del plato</string>
     <string name="crearItemCalorias">Calorias</string>
     <string name="crearItemGuardar">GUARDAR</string>
+    <string name="crearItemErrorID">Error en el ID</string>
+    <string name="crearItemErrorPrecio">Error en el precio</string>
+    <string name="crearItemErrorCalorias">Error en las calorías</string>
+    <string name="crearItemErrorCamposNumericos">Error en los campos numéricos</string>
 </resources>

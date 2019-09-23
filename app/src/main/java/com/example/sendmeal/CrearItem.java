@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +19,6 @@ import com.example.sendmeal.domain.Plato;
 public class CrearItem extends AppCompatActivity {
 
     private Toolbar toolbar;
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_volver, menu);
@@ -50,6 +50,7 @@ public class CrearItem extends AppCompatActivity {
         final EditText editTextPrecio = (EditText) findViewById(R.id.editTextCrearPlatoPrecio);
         final EditText editTextCalorias = (EditText) findViewById(R.id.editTextCrearPlatoCalorias);
         Button buttonGuardar = (Button) findViewById(R.id.buttonCrearPlatoGuardar);
+        final Resources resources = getResources();
 
         buttonGuardar.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -64,13 +65,13 @@ public class CrearItem extends AppCompatActivity {
                     Integer calorias = Integer.parseInt(editTextCalorias.getText().toString());
                     //VALIDACIONES
                     if (id < 0)
-                        throw new Exception("Error en el id");
+                        throw new Exception();
                     if (titulo.length() < 3)
-                        throw new Exception("Error en el titulo");
+                        throw new Exception(resources.getString(R.string.crearItemErrorID));
                     if (precio < 0)
-                        throw new Exception("Error en el precio");
+                        throw new Exception(resources.getString(R.string.crearItemErrorPrecio));
                     if (calorias < 0)
-                        throw new Exception("Error en las calorias");
+                        throw new Exception(resources.getString(R.string.crearItemErrorCalorias));
 
                     //CREAR INSTANCIA DE PLATO CON SUS DATOS
                     Plato plato = new Plato();
@@ -86,7 +87,7 @@ public class CrearItem extends AppCompatActivity {
                     finish();
                 }
                 catch (NumberFormatException e) {
-                    Toast.makeText(CrearItem.this,"Error en los campos numericos",Toast.LENGTH_LONG).show();
+                    Toast.makeText(CrearItem.this,resources.getString(R.string.crearItemErrorCamposNumericos),Toast.LENGTH_LONG).show();
                 }
                 catch (Exception e) {
                     Toast.makeText(CrearItem.this,e.getMessage(),Toast.LENGTH_LONG).show();
