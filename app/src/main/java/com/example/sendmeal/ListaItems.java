@@ -45,6 +45,7 @@ public class ListaItems extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(R.string.tituloToolbarListarItems);
 
         // PLATOS HARDCODEADOS
         Plato plato1 = new Plato();

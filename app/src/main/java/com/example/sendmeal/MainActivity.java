@@ -65,10 +65,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbarMain);
+        toolbar = (Toolbar) findViewById(R.id.toolbarMainActivity);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(R.string.tituloToolbarMainActivity);
 
         /////////////////////
         // Obtener context //

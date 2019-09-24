@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="tituloToolbarCrearItem">CREAR PLATO</string>
     <string name="crearItemID">ID del plato</string>
     <string name="crearItemTitulo">Titulo del plato</string>
     <string name="crearItemDescripcion">Descripcion del plato</string>

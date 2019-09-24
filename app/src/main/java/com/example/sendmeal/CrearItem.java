@@ -42,6 +42,7 @@ public class CrearItem extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(R.string.tituloToolbarCrearItem);
 
         final EditText editTextId = (EditText) findViewById(R.id.editTextCrearPlatoID);
         final EditText editTextTitulo = (EditText) findViewById(R.id.editTextCrearPlatoTitulo);
