@@ -8,6 +8,7 @@ public class Plato {
     private String descripcion;
     private Double precio;
     private Integer calorías;
+    private Integer imagen;
 
 
     public Plato() {
@@ -15,6 +16,14 @@ public class Plato {
 
     public String getTitulo() {
         return titulo;
+    }
+
+    public Integer getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Integer imagen) {
+        this.imagen = imagen;
     }
 
     public void setTitulo(String titulo) {

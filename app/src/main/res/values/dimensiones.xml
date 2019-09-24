@@ -4,4 +4,5 @@
     <dimen name="etiquetas">16sp</dimen>
     <dimen name="error">12sp</dimen>
     <dimen name="margin">6dp</dimen>
+    <dimen name="padding">4dp</dimen>
 </resources>

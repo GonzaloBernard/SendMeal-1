@@ -33,10 +33,9 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
     @Override
     public void onBindViewHolder(PlatoHolder holder, int position) {
         Plato plato = mDataset.get(position);
-        holder.imagen.setImageResource(R.drawable.ic_launcher_foreground);
+        holder.imagen.setImageResource(plato.getImagen());
         holder.titulo.setText(plato.getTítulo());
         holder.precio.setText(plato.getPrecio().toString());
-
     }
 
     public class PlatoHolder extends RecyclerView.ViewHolder {
