@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#D32F2F</color>
-    <color name="colorPrimaryDark">#B71C1C</color>
+    <color name="colorPrimaryDark">#970D0D</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorError">#F80101</color>
     <color name="colorEtiquetas">#000000</color>
     <color name="ic_launcher_background">#FFFFFF</color>
-
+    <color name="colorTextoToolbar">#FFFFFF</color>
 
 </resources>

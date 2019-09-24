@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".HomeActivity">
+    android:background="@mipmap/ic_launcher_foreground"
+    tools:context=".HomeActivity"
+    >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarHome"
@@ -13,13 +14,20 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+
+        />
+
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewBienvenido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="?attr/actionBarSize"
         android:text="@string/bienvenido"
-        android:textSize="@dimen/titulo"/>
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/titulo" />
 
-</LinearLayout>
+
+</RelativeLayout>

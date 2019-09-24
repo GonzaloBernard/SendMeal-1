@@ -3,6 +3,7 @@ package com.example.sendmeal;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,11 +15,18 @@ public class HomeActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private static Integer NUEVO_PLATO_REQUEST = 1;
+    private MediaPlayer mp;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_principal, menu);
+
+        mp = MediaPlayer.create(this, R.raw.misc222);
+        mp.start();
+
         return super.onCreateOptionsMenu(menu);
+
+
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
