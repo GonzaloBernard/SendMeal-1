@@ -12,6 +12,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.Time;
 import android.text.method.KeyListener;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -255,14 +256,16 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-
                 String str = tarjetaVencimiento.getText().toString();
                 len = str.length();
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                String str = tarjetaVencimiento.getText().toString();
+                if (str.length()==2 && before==1){
+                    tarjetaVencimiento.dispatchKeyEvent(new KeyEvent(0,0, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL,0));
+                }
             }
 
         });
