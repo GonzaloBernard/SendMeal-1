@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="tituloToolbarListarItems">PLATOS</string>
+    <string name="buttonOferta">oferta</string>
+    <string name="buttonEditar">editar</string>
+    <string name="buttonQuitar">quitar</string>
 </resources>
