@@ -7,7 +7,7 @@ public class Plato {
     private String titulo;
     private String descripcion;
     private Double precio;
-    private Integer calorías;
+    private Integer calorias;
     private Integer imagen;
 
 
@@ -18,17 +18,11 @@ public class Plato {
         return titulo;
     }
 
-    public Integer getImagen() {
-        return imagen;
-    }
+    public void setTitulo(String titulo) { this.titulo = titulo; }
 
-    public void setImagen(Integer imagen) {
-        this.imagen = imagen;
-    }
+    public Integer getImagen() { return imagen; }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
+    public void setImagen(Integer imagen) { this.imagen = imagen; }
 
     public Integer getId() {
         return id;
@@ -38,13 +32,12 @@ public class Plato {
         this.id = id;
     }
 
-
-    public Integer getCalorías() {
-        return calorías;
+    public Integer getCalorias() {
+        return calorias;
     }
 
-    public void setCalorías(Integer calorías) {
-        this.calorías = calorías;
+    public void setCalorias(Integer calorias) {
+        this.calorias = calorias;
     }
 
     public Double getPrecio() {
@@ -61,14 +54,6 @@ public class Plato {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public String getTítulo() {
-        return titulo;
-    }
-
-    public void setTítulo(String título) {
-        this.titulo = título;
     }
 
     @Override

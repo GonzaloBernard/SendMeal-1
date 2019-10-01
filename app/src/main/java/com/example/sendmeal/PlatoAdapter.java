@@ -1,5 +1,7 @@
 package com.example.sendmeal;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +17,13 @@ import java.util.List;
 
 public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder> {
 
+    private static final int REQUEST_CODE_EDITAR_PLATO = 2;
     private List<Plato> mDataset;
-
     public PlatoAdapter(List<Plato> myDataset) {
         mDataset = myDataset;
+
     }
+
 
 
     @Override
@@ -36,17 +40,22 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
 
     @Override
     public void onBindViewHolder(PlatoHolder holder, int position) {
-        Plato plato = mDataset.get(position);
+        final Plato plato = mDataset.get(position);
         holder.imagen.setImageResource(plato.getImagen());
-        holder.titulo.setText(plato.getTítulo());
+        holder.titulo.setText(plato.getTitulo());
         holder.precio.setText(plato.getPrecio().toString());
 
         holder.buttonEditar.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Editar plato", Toast.LENGTH_SHORT).show();
-                Intent i1 = new Intent(view.getContext(),CrearItem.class);
-                view.getContext().startActivity(i1);
+
+                Intent i1 = new Intent(view.getContext(),EditarPlato.class);
+                i1.putExtra("idPlato",plato.getId());
+                i1.putExtra("titulo",plato.getTitulo());
+                i1.putExtra("descripcion",plato.getDescripcion());
+                i1.putExtra("precio",plato.getPrecio());
+                i1.putExtra("calorias",plato.getCalorias());
+                ((Activity) view.getContext()).startActivityForResult(i1, REQUEST_CODE_EDITAR_PLATO);
             }
         });
     }
@@ -62,7 +71,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
             this.precio = (TextView) base.findViewById(R.id.filaPlatoTextViewPrecio);
             this.buttonEditar = (Button) base.findViewById(R.id.buttonEditar);
         }
-        
+
     }
 
 }

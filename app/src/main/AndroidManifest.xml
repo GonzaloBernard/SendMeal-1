@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,15 +17,17 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".EditarPlato"
+            android:parentActivityName=".HomeActivity" />
+        <activity
             android:name=".CrearItem"
-            android:parentActivityName=".HomeActivity"></activity>
+            android:parentActivityName=".HomeActivity" />
         <activity
             android:name=".MainActivity"
-            android:parentActivityName=".HomeActivity"></activity>
+            android:parentActivityName=".HomeActivity" />
         <activity
             android:name=".ListaItems"
-            android:parentActivityName=".HomeActivity"></activity>
-
+            android:parentActivityName=".HomeActivity" />
     </application>
 
 </manifest>

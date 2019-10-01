@@ -76,14 +76,15 @@ public class CrearItem extends AppCompatActivity {
                     //CREAR INSTANCIA DE PLATO CON SUS DATOS
                     Plato plato = new Plato();
                     plato.setId(id);
-                    plato.setTítulo(titulo);
+                    plato.setTitulo(titulo);
                     plato.setDescripcion(descripcion);
                     plato.setPrecio(precio);
-                    plato.setCalorías(calorias);
+                    plato.setCalorias(calorias);
                     ///////////////////////////////
                     //GUARDAR INSTANCIA DE PLATO //
                     ///////////////////////////////
                     setResult(Activity.RESULT_OK);
+
                     finish();
                 }
                 catch (NumberFormatException e) {

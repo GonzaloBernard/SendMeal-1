@@ -9,12 +9,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.sendmeal.domain.Plato;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class HomeActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private static Integer NUEVO_PLATO_REQUEST = 1;
+    public static List<Plato> _PLATOS = new ArrayList<>();
     private MediaPlayer mp;
 
     @Override
@@ -55,6 +60,7 @@ public class HomeActivity extends AppCompatActivity {
         if (requestCode == NUEVO_PLATO_REQUEST) {
             if (resultCode == RESULT_OK) {
                Toast.makeText(this,R.string.homePlatoCreado ,Toast.LENGTH_LONG).show();
+
             }
             else
                 Toast.makeText(this,R.string.homePlatoError,Toast.LENGTH_LONG).show();
