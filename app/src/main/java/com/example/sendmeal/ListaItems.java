@@ -1,17 +1,15 @@
 package com.example.sendmeal;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import com.example.sendmeal.domain.Plato;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListaItems extends AppCompatActivity {
 
@@ -19,7 +17,7 @@ public class ListaItems extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
+    public static List<Plato> _PLATOS = new ArrayList<>();
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_volver, menu);
@@ -78,17 +76,18 @@ public class ListaItems extends AppCompatActivity {
         plato4.setImagen(R.drawable.lomito);
 
         //LISTA DE PLATOS
-        ArrayList<Plato> listaPlatos = new ArrayList<>();
-        listaPlatos.add(plato1);
-        listaPlatos.add(plato2);
-        listaPlatos.add(plato3);
-        listaPlatos.add(plato4);
+
+        _PLATOS.add(plato1);
+        _PLATOS.add(plato2);
+        _PLATOS.add(plato3);
+        _PLATOS.add(plato4);
+        ////////////////////////////////////////////////////////////////////////
 
         mRecyclerView = (RecyclerView) findViewById(R.id.listaItemsRecyclerView);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new PlatoAdapter( listaPlatos );
+        mAdapter = new PlatoAdapter( _PLATOS );
         mRecyclerView.setAdapter(mAdapter);
 
 
