@@ -52,7 +52,6 @@ public class ListaItems extends AppCompatActivity {
                 String descripcion = extras.getString("descripcion");
                 Double precio = extras.getDouble("precio");
                 Integer calorias = extras.getInt("calorias");
-
                 // RECUPERANDO EL PLATO POR ID
                 Plato plato = getPlatoById(id);
                 //SE SACA DE LA LISTA PARA ACTUALIZARLO
@@ -64,6 +63,7 @@ public class ListaItems extends AppCompatActivity {
                 plato.setCalorias(calorias);
                 //SE VUELVE A CARGAR EL LA LISTA
                 _PLATOS.add(plato);
+                Toast.makeText(this,R.string.listaItemsPlatoEditado ,Toast.LENGTH_LONG).show();
                 //SE LE DICE AL ADAPTER QUE ACTUALICE LA DATA
                 mAdapter.notifyDataSetChanged();
             }
@@ -97,7 +97,12 @@ public class ListaItems extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(R.string.tituloToolbarListarItems);
 
-        // PLATOS HARDCODEADOS
+
+        ArrayList<Plato> platosNuevos = (ArrayList<Plato>) getIntent().getSerializableExtra("_PLATOS");
+        _PLATOS.addAll(platosNuevos);
+
+
+        // PLATOS HARDCODEADOS EN CASO DE NO CREAR NINGUN PLATO MANUEALMENTE
         if(_PLATOS.isEmpty()) {
             Plato plato1 = new Plato();
             Plato plato2 = new Plato();

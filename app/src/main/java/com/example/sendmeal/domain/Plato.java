@@ -2,7 +2,9 @@ package com.example.sendmeal.domain;
 
 import android.widget.ImageView;
 
-public class Plato {
+import java.io.Serializable;
+
+public class Plato implements Serializable {
     private Integer id;
     private String titulo;
     private String descripcion;

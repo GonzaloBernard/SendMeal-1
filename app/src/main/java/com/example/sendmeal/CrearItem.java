@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Menu;
@@ -80,11 +81,13 @@ public class CrearItem extends AppCompatActivity {
                     plato.setDescripcion(descripcion);
                     plato.setPrecio(precio);
                     plato.setCalorias(calorias);
+                    plato.setImagen(R.drawable.hamburguesa);
                     ///////////////////////////////
-                    //GUARDAR INSTANCIA DE PLATO //
+                    //DEVOLVER DATOS A HOME ACTIVITY //
                     ///////////////////////////////
-                    setResult(Activity.RESULT_OK);
-
+                    Intent intentResultado = new Intent();
+                    intentResultado.putExtra("plato",plato);
+                    setResult(Activity.RESULT_OK, intentResultado);
                     finish();
                 }
                 catch (NumberFormatException e) {

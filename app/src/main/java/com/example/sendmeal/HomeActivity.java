@@ -1,5 +1,6 @@
 package com.example.sendmeal;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
@@ -19,7 +20,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private static Integer NUEVO_PLATO_REQUEST = 1;
-    public static List<Plato> _PLATOS = new ArrayList<>();
+    public static ArrayList<Plato> _PLATOS = new ArrayList<>();
     private MediaPlayer mp;
 
     @Override
@@ -46,7 +47,11 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             case R.id.toolBarListaPlatos:
                 Intent i3 = new Intent(HomeActivity.this,ListaItems.class);
+                //SE LE PASAN LOS PLATOS CREADOS
+                i3.putExtra("_PLATOS",_PLATOS);
                 startActivity(i3);
+                //SE LIMPIA LA LISTA PARA EVITAR ERRORES
+                _PLATOS.clear();
                 return true;
             default:
                 Toast.makeText(this,". . . . ",Toast.LENGTH_LONG).show();
@@ -56,11 +61,14 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
+    protected void onActivityResult(int requestCode, int resultCode,@Nullable Intent data) {
         if (requestCode == NUEVO_PLATO_REQUEST) {
             if (resultCode == RESULT_OK) {
+                // OBTENIENDO EL NUEVO PLATO
+                Plato plato = (Plato) data.getSerializableExtra("plato");
+                //SE VUELVE A CARGAR EL LA LISTA
+                _PLATOS.add(plato);
                Toast.makeText(this,R.string.homePlatoCreado ,Toast.LENGTH_LONG).show();
-
             }
             else
                 Toast.makeText(this,R.string.homePlatoError,Toast.LENGTH_LONG).show();

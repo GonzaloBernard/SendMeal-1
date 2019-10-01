@@ -4,4 +4,6 @@
     <string name="buttonOferta">oferta</string>
     <string name="buttonEditar">editar</string>
     <string name="buttonQuitar">quitar</string>
+    <string name="listaItemsPlatoEditado">Plato editado con éxito</string>
+
 </resources>

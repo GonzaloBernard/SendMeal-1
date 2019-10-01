@@ -91,19 +91,6 @@ public class EditarPlato extends AppCompatActivity {
                     if (calorias < 0)
                         throw new Exception(resources.getString(R.string.crearItemErrorCalorias));
 
-                    //RECUPERAR INSTANCIA DE PLATO
-
-                    ///////////////////////////////
-                    //ACTUALIZAR INSTANCIA DE PLATO //
-                    ///////////////////////////////
-                    //CREAR INSTANCIA DE PLATO CON SUS DATOS
-                    Plato plato = new Plato();
-                    plato.setId(idPlato);
-                    plato.setTitulo(titulo);
-                    plato.setDescripcion(descripcion);
-                    plato.setPrecio(precio);
-                    plato.setCalorias(calorias);
-
                     Intent intentResultado = new Intent();
                     intentResultado.putExtra("idPlato", idPlato);
                     intentResultado.putExtra("titulo", titulo);
@@ -126,4 +113,6 @@ public class EditarPlato extends AppCompatActivity {
 
 
     }
+
+
 }
