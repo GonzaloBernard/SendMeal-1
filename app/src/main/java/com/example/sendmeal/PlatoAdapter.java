@@ -1,7 +1,8 @@
 package com.example.sendmeal;
 
 import android.app.Activity;
-import android.content.Context;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,18 +45,39 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
         holder.imagen.setImageResource(plato.getImagen());
         holder.titulo.setText(plato.getTitulo());
         holder.precio.setText(plato.getPrecio().toString());
-
         holder.buttonEditar.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent i1 = new Intent(view.getContext(),EditarPlato.class);
-                i1.putExtra("idPlato",plato.getId());
-                i1.putExtra("titulo",plato.getTitulo());
-                i1.putExtra("descripcion",plato.getDescripcion());
-                i1.putExtra("precio",plato.getPrecio());
-                i1.putExtra("calorias",plato.getCalorias());
-                ((Activity) view.getContext()).startActivityForResult(i1, REQUEST_CODE_EDITAR_PLATO);
+                Intent i = new Intent(view.getContext(),EditarPlato.class);
+                i.putExtra("idPlato",plato.getId());
+                i.putExtra("titulo",plato.getTitulo());
+                i.putExtra("descripcion",plato.getDescripcion());
+                i.putExtra("precio",plato.getPrecio());
+                i.putExtra("calorias",plato.getCalorias());
+                ((Activity) view.getContext()).startActivityForResult(i, REQUEST_CODE_EDITAR_PLATO);
+            }
+        });
+        holder.buttonEliminar.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setMessage("Quiere eliminar el plato?")
+                        .setTitle("ELIMINAR PLATO")
+                        .setPositiveButton("ELIMINAR",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dlgInt, int i) {
+                                        mDataset.remove(plato);
+                                        notifyDataSetChanged();
+                                    }
+                                }).setNegativeButton("CONSERVAR",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dlgInt, int i) {
+                            }
+                        });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
     }
@@ -64,12 +86,14 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
         TextView titulo;
         TextView precio;
         Button buttonEditar;
+        Button buttonEliminar;
         public PlatoHolder(View base){
             super(base);
             this.imagen = (ImageView) base.findViewById(R.id.filaPlatoImageView);
             this.titulo = (TextView) base.findViewById(R.id.filaPlatoTextViewTitulo);
             this.precio = (TextView) base.findViewById(R.id.filaPlatoTextViewPrecio);
             this.buttonEditar = (Button) base.findViewById(R.id.buttonEditar);
+            this.buttonEliminar = (Button) base.findViewById(R.id.buttonEliminar);
         }
 
     }
