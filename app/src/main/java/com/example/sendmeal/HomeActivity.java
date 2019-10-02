@@ -20,18 +20,15 @@ public class HomeActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private static Integer NUEVO_PLATO_REQUEST = 1;
-    public static ArrayList<Plato> _PLATOS = new ArrayList<>();
-    private MediaPlayer mp;
+    private static ArrayList<Plato> _PLATOS = new ArrayList<>();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_principal, menu);
-
-        mp = MediaPlayer.create(this, R.raw.misc222);
+        //SONIDO DE INICIO
+        MediaPlayer mp = MediaPlayer.create(this, R.raw.misc222);
         mp.start();
-
         return super.onCreateOptionsMenu(menu);
-
 
     }
     @Override

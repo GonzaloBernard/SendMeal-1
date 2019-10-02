@@ -24,7 +24,7 @@ public class ListaItems extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    public static List<Plato> _PLATOS = new ArrayList<>();
+    private static List<Plato> _PLATOS = new ArrayList<>();
 
     public static List<Plato> getPlatos() {
         return _PLATOS;
