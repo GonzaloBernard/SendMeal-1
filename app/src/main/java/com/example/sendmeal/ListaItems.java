@@ -5,14 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import com.example.sendmeal.domain.Plato;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,15 +18,8 @@ import java.util.List;
 public class ListaItems extends AppCompatActivity {
 
     private static final int REQUEST_CODE_EDITAR_PLATO = 2;
-    private Toolbar toolbar;
-    private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     private static List<Plato> _PLATOS = new ArrayList<>();
-
-    public static List<Plato> getPlatos() {
-        return _PLATOS;
-    }
     private Plato getPlatoById(Integer id){
 
         for(Plato plato: _PLATOS){
@@ -46,26 +37,30 @@ public class ListaItems extends AppCompatActivity {
         if( resultCode== Activity.RESULT_OK){
             if(requestCode==REQUEST_CODE_EDITAR_PLATO){
                 // OBTENIENDO LOS DATOS DEL PLATO MODIFICADO
-                Bundle extras = data.getExtras();
-                Integer id = extras.getInt("idPlato");
-                String titulo = extras.getString("titulo");
-                String descripcion = extras.getString("descripcion");
-                Double precio = extras.getDouble("precio");
-                Integer calorias = extras.getInt("calorias");
-                // RECUPERANDO EL PLATO POR ID
-                Plato plato = getPlatoById(id);
-                //SE SACA DE LA LISTA PARA ACTUALIZARLO
-                _PLATOS.remove(plato);
-                //SE SETEAN LOS CAMBIOS
-                plato.setTitulo(titulo);
-                plato.setDescripcion(descripcion);
-                plato.setPrecio(precio);
-                plato.setCalorias(calorias);
-                //SE VUELVE A CARGAR EL LA LISTA
-                _PLATOS.add(plato);
-                Toast.makeText(this,R.string.listaItemsPlatoEditado ,Toast.LENGTH_LONG).show();
-                //SE LE DICE AL ADAPTER QUE ACTUALICE LA DATA
-                mAdapter.notifyDataSetChanged();
+                try {
+                    Bundle extras = data.getExtras();
+                    Integer id = extras.getInt("idPlato");
+                    String titulo = extras.getString("titulo");
+                    String descripcion = extras.getString("descripcion");
+                    Double precio = extras.getDouble("precio");
+                    Integer calorias = extras.getInt("calorias");
+                    // RECUPERANDO EL PLATO POR ID
+                    Plato plato = getPlatoById(id);
+                    //SE SACA DE LA LISTA PARA ACTUALIZARLO
+                    _PLATOS.remove(plato);
+                    //SE SETEAN LOS CAMBIOS
+                    plato.setTitulo(titulo);
+                    plato.setDescripcion(descripcion);
+                    plato.setPrecio(precio);
+                    plato.setCalorias(calorias);
+                    //SE VUELVE A CARGAR EL LA LISTA
+                    _PLATOS.add(plato);
+                    Toast.makeText(this, R.string.listaItemsPlatoEditado, Toast.LENGTH_LONG).show();
+                    //SE LE DICE AL ADAPTER QUE ACTUALICE LA DATA
+                    mAdapter.notifyDataSetChanged();
+                } catch (Exception e) {
+                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+                }
             }
         }
     }
@@ -91,15 +86,22 @@ public class ListaItems extends AppCompatActivity {
         setContentView(R.layout.activity_lista_items);
 
         //TOOLBAR
-        toolbar = (Toolbar) findViewById(R.id.toolbarListaItems);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(R.string.tituloToolbarListarItems);
+        try {
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarListaItems);
+            setSupportActionBar(toolbar);
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(R.string.tituloToolbarListarItems);
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
 
-
-        ArrayList<Plato> platosNuevos = (ArrayList<Plato>) getIntent().getSerializableExtra("_PLATOS");
-        _PLATOS.addAll(platosNuevos);
+        try {
+            ArrayList<Plato> platosNuevos = (ArrayList<Plato>) getIntent().getSerializableExtra("_PLATOS");
+            _PLATOS.addAll(platosNuevos);
+        } catch (Exception e){
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
 
 
         // PLATOS HARDCODEADOS EN CASO DE NO CREAR NINGUN PLATO MANUEALMENTE
@@ -141,10 +143,9 @@ public class ListaItems extends AppCompatActivity {
             _PLATOS.add(plato4);
         }
         ////////////////////////////////////////////////////////////////////////
-
-        mRecyclerView = (RecyclerView) findViewById(R.id.listaItemsRecyclerView);
+        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.listaItemsRecyclerView);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new PlatoAdapter( _PLATOS );
         mRecyclerView.setAdapter(mAdapter);

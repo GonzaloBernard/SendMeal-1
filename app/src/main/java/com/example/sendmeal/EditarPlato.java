@@ -1,9 +1,7 @@
 package com.example.sendmeal;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -16,11 +14,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sendmeal.domain.Plato;
-
 public class EditarPlato extends AppCompatActivity {
 
-    private Toolbar toolbar;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_volver, menu);
@@ -28,11 +23,10 @@ public class EditarPlato extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                onBackPressed();
-                return true;
+        // Respond to the action bar's Up/Home button
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -41,11 +35,15 @@ public class EditarPlato extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_plato);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbarEditarPlato);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(R.string.tituloToolbarModificarPlato);
+        try {
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarEditarPlato);
+            setSupportActionBar(toolbar);
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(R.string.tituloToolbarModificarPlato);
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
 
         final TextView textViewID = (TextView) findViewById(R.id.TextViewEditarPlatoID);
         final EditText editTextTitulo = (EditText) findViewById(R.id.editTextEditarPlatoTitulo);

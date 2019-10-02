@@ -1,5 +1,4 @@
 package com.example.sendmeal;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -9,16 +8,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import com.example.sendmeal.domain.Plato;
-
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class HomeActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
     private static Integer NUEVO_PLATO_REQUEST = 1;
     private static ArrayList<Plato> _PLATOS = new ArrayList<>();
 
@@ -62,11 +57,16 @@ public class HomeActivity extends AppCompatActivity {
         if (requestCode == NUEVO_PLATO_REQUEST) {
             if (resultCode == RESULT_OK) {
                 // OBTENIENDO EL NUEVO PLATO
-                Plato plato = (Plato) data.getSerializableExtra("plato");
-                //SE VUELVE A CARGAR EL LA LISTA
-                _PLATOS.add(plato);
-               Toast.makeText(this,R.string.homePlatoCreado ,Toast.LENGTH_LONG).show();
-            }
+                try {
+                    Plato plato = (Plato) data.getSerializableExtra("plato");
+                    //SE VUELVE A CARGAR EL LA LISTA
+                    _PLATOS.add(plato);
+                    Toast.makeText(this,R.string.homePlatoCreado ,Toast.LENGTH_LONG).show();
+                }
+                catch (Exception e){
+                    Toast.makeText(this,e.getMessage(),Toast.LENGTH_LONG).show();
+                }
+                }
             else
                 Toast.makeText(this,R.string.homePlatoError,Toast.LENGTH_LONG).show();
         }
@@ -75,7 +75,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        toolbar = (Toolbar) findViewById(R.id.toolbarHome);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarHome);
         setSupportActionBar(toolbar);
 
     }

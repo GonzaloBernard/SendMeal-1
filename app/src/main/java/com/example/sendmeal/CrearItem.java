@@ -1,5 +1,4 @@
 package com.example.sendmeal;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -18,7 +17,6 @@ import com.example.sendmeal.domain.Plato;
 
 public class CrearItem extends AppCompatActivity {
 
-    private Toolbar toolbar;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_volver, menu);
@@ -26,11 +24,10 @@ public class CrearItem extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                onBackPressed();
-                return true;
+        // Respond to the action bar's Up/Home button
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -39,11 +36,15 @@ public class CrearItem extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_item);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbarCrearItem);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(R.string.tituloToolbarCrearItem);
+        try{
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarCrearItem);
+            setSupportActionBar(toolbar);
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(R.string.tituloToolbarCrearItem);
+        } catch (Exception e){
+            Toast.makeText(this,e.getMessage(),Toast.LENGTH_LONG).show();
+        }
 
         final EditText editTextId = (EditText) findViewById(R.id.editTextCrearPlatoID);
         final EditText editTextTitulo = (EditText) findViewById(R.id.editTextCrearPlatoTitulo);
