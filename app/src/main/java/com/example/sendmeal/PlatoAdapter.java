@@ -2,6 +2,7 @@ package com.example.sendmeal;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -10,11 +11,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.sendmeal.domain.Plato;
 import java.util.List;
 
 public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder> {
+
+    private Context context;
 
     private static final int REQUEST_CODE_EDITAR_PLATO = 2;
     private List<Plato> mDataset;
@@ -38,7 +43,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
     }
 
     @Override
-    public void onBindViewHolder(PlatoHolder holder, int position) {
+    public void onBindViewHolder(final PlatoHolder holder, final int position) {
         final Plato plato = mDataset.get(position);
         holder.imagen.setImageResource(plato.getImagen());
         holder.titulo.setText(plato.getTitulo());
@@ -55,6 +60,38 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
                 ((Activity) view.getContext()).startActivityForResult(i, REQUEST_CODE_EDITAR_PLATO);
             }
         });
+
+        ///////////////////////////////
+        //CLICK EN BOTON OFERTA////////
+        ///////////////////////////////
+        holder.buttonOferta.setOnClickListener(new Button.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(context.getApplicationContext());
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.EVENTO");
+                localBroadcastManager.sendBroadcast(intent);
+                plato.setEnOferta(true);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+                            Thread.sleep(10000);
+
+                        }catch (Exception e){
+
+                        }
+
+
+                    }
+                });
+        }
+        });
+        ///////////////////////////////
+        //CLICK EN BOTON ELIMINAR//////
+        ///////////////////////////////
         holder.buttonEliminar.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,6 +122,8 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
         TextView precio;
         Button buttonEditar;
         Button buttonEliminar;
+        Button buttonOferta;
+
         public PlatoHolder(View base){
             super(base);
             this.imagen = (ImageView) base.findViewById(R.id.filaPlatoImageView);
@@ -92,6 +131,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
             this.precio = (TextView) base.findViewById(R.id.filaPlatoTextViewPrecio);
             this.buttonEditar = (Button) base.findViewById(R.id.buttonEditar);
             this.buttonEliminar = (Button) base.findViewById(R.id.buttonEliminar);
+            this.buttonOferta = (Button) base.findViewById(R.id.buttonOferta);
         }
 
     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sendmeal">
-
+    <uses-permission android:name="com.danielme.blog.permission.EVENTO" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -28,6 +28,11 @@
         <activity
             android:name=".ListaItems"
             android:parentActivityName=".HomeActivity" />
+        <receiver android:name=".MyReceiver" android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.EVENTO"/> />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

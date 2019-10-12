@@ -11,7 +11,7 @@ public class Plato implements Serializable {
     private Double precio;
     private Integer calorias;
     private Integer imagen;
-
+    private Boolean enOferta;
 
     public Plato() {
     }
@@ -63,5 +63,13 @@ public class Plato implements Serializable {
         return "Plato{" +
                 "titulo='" + titulo + '\'' +
                 '}';
+    }
+
+    public Boolean getEnOferta() {
+        return enOferta;
+    }
+
+    public void setEnOferta(Boolean enOferta) {
+        this.enOferta = enOferta;
     }
 }

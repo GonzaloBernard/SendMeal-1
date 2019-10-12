@@ -83,6 +83,7 @@ public class CrearItem extends AppCompatActivity {
                     plato.setPrecio(precio);
                     plato.setCalorias(calorias);
                     plato.setImagen(R.drawable.hamburguesa);
+                    plato.setEnOferta(false);
                     ///////////////////////////////
                     //DEVOLVER DATOS A HOME ACTIVITY //
                     ///////////////////////////////

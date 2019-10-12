@@ -110,30 +110,38 @@ public class ListaItems extends AppCompatActivity {
             Plato plato2 = new Plato();
             Plato plato3 = new Plato();
             Plato plato4 = new Plato();
+
             plato1.setId(56);
             plato1.setTitulo("Hamburguesa completa");
             plato1.setDescripcion("Hamburguesa con queso, lechuga, huevo y tomate");
             plato1.setPrecio(150d);
             plato1.setCalorias(1500);
             plato1.setImagen(R.drawable.hamburguesa);
+            plato1.setEnOferta(false);
+
             plato2.setId(2);
             plato2.setTitulo("Pizza napolitana");
             plato2.setDescripcion("Muzzarela, tomate y oregano");
             plato2.setPrecio(150d);
             plato2.setCalorias(1200);
             plato2.setImagen(R.drawable.pizza);
+            plato2.setEnOferta(false);
+
             plato3.setId(3);
             plato3.setTitulo("Triples de miga");
             plato3.setDescripcion("Sandwich de miga con jamos queso lechuga y tomate");
             plato3.setPrecio(100d);
             plato3.setCalorias(600);
             plato3.setImagen(R.drawable.sandwich);
+            plato3.setEnOferta(false);
+
             plato4.setId(4);
             plato4.setTitulo("Lomo gratinado");
             plato4.setDescripcion("Sandwich de lomo con queso derretido");
             plato4.setPrecio(200d);
             plato4.setCalorias(1300);
             plato4.setImagen(R.drawable.lomito);
+            plato4.setEnOferta(false);
 
             //LISTA DE PLATOS
 
