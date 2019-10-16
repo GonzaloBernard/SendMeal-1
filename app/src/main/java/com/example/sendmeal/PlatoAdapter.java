@@ -68,26 +68,29 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
 
             @Override
             public void onClick(View view) {
-                LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(context.getApplicationContext());
-                Intent intent = new Intent();
-                intent.setAction("android.intent.action.EVENTO");
-                localBroadcastManager.sendBroadcast(intent);
+
                 plato.setEnOferta(true);
-                new Thread(new Runnable() {
+                Runnable r = new Runnable() {
                     @Override
                     public void run() {
 
                         try {
-                            Thread.sleep(10000);
+                            Thread.currentThread().sleep(10000);
 
-                        }catch (Exception e){
+                        }catch (InterruptedException e) {
+                            e.printStackTrace();
+                         }
 
-                        }
-
-
+                        Intent intent = new Intent();
+                        intent.setAction(MyReceiver.EVENTO_EN_OFERTA);
+                        intent.putExtra("posicion", position);
+                        context.sendBroadcast(intent);
                     }
-                });
-        }
+                };
+
+                Thread t1 = new Thread(r);
+                t1.start();
+            }
         });
         ///////////////////////////////
         //CLICK EN BOTON ELIMINAR//////

@@ -6,7 +6,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +21,8 @@ import java.util.List;
 public class ListaItems extends AppCompatActivity {
 
     private static final int REQUEST_CODE_EDITAR_PLATO = 2;
+    public static final String CHANNEL_ID="10001";
+
     private RecyclerView.Adapter mAdapter;
     private static List<Plato> _PLATOS = new ArrayList<>();
     private Plato getPlatoById(Integer id){
@@ -158,6 +163,24 @@ public class ListaItems extends AppCompatActivity {
         mAdapter = new PlatoAdapter( _PLATOS );
         mRecyclerView.setAdapter(mAdapter);
 
+        createNotificationChannel();
+        BroadcastNotificaction broadcastNotificaction = new BroadcastNotificaction();
+        broadcastNotificaction.onCreate(new Bundle());
+    }
 
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            //CharSequence name = getString(R.string.channel_name);
+            //String description = getString(R.string.channel_description);
+            CharSequence name = "nombre del canal";
+            String description = "descripcion del canal";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel =
+                    new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager =
+                    getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }
