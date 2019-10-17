@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.sendmeal.domain.Plato;
 import java.util.List;
@@ -25,10 +23,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
     private List<Plato> mDataset;
     public PlatoAdapter(List<Plato> myDataset) {
         mDataset = myDataset;
-
     }
-
-
 
     @Override
     public PlatoAdapter.PlatoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -49,42 +44,39 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
         holder.imagen.setImageResource(plato.getImagen());
         holder.titulo.setText(plato.getTitulo());
         holder.precio.setText(plato.getPrecio().toString());
+        ///////////////////////////////
+        //CLICK EN BOTON EDITAR////////
+        ///////////////////////////////
         holder.buttonEditar.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(),EditarPlato.class);
-                i.putExtra("idPlato",plato.getId());
-                i.putExtra("titulo",plato.getTitulo());
-                i.putExtra("descripcion",plato.getDescripcion());
-                i.putExtra("precio",plato.getPrecio());
-                i.putExtra("calorias",plato.getCalorias());
+                Intent i = new Intent(view.getContext(), ABMPlato.class);
+                i.putExtra("plato", plato);
+                //EL MODO DETERMINA LA ACCION A REALIZAR( CREAR=0 EDITAR=1 CONSULTAR=2 )
+                i.putExtra("modo", 1);
                 ((Activity) view.getContext()).startActivityForResult(i, REQUEST_CODE_EDITAR_PLATO);
             }
         });
-
         ///////////////////////////////
         //CLICK EN BOTON OFERTA////////
         ///////////////////////////////
         holder.buttonOferta.setOnClickListener(new Button.OnClickListener(){
-
             @Override
             public void onClick(View view) {
-
                 plato.setEnOferta(true);
-               Runnable r = new Runnable() {
+                Runnable r = new Runnable() {
                     @Override
                     public void run() {
-
                         try {
                             Thread.currentThread().sleep(5000);
 
                         }catch (InterruptedException e) {
                             e.printStackTrace();
                          }
-
                         Intent intent = new Intent();
+                        intent.putExtra("plato",plato);
                         intent.putExtra("posicion", position);
-                        intent.putExtra("idPlato", plato.getId());
+                        //intent.putExtra("idPlato", plato.getId());
                         intent.putExtra("Titulo", "Nuevo mensaje recibido");
                         intent.putExtra("Descripcion", "Esta es la descripcion de la notificacion");
                         intent.setAction(MyReceiver.EVENTO_EN_OFERTA);

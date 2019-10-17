@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
 
-    tools:context=".EditarPlato">
+    tools:context=".ABMPlato">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,8 +31,8 @@
             android:textColor="@color/colorEtiquetas"
             android:textSize="@dimen/etiquetas" />
 
-        <TextView
-            android:id="@+id/TextViewEditarPlatoID"
+        <EditText
+            android:id="@+id/EditTextEditarPlatoID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"

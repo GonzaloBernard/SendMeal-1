@@ -46,20 +46,12 @@ public class ListaItems extends AppCompatActivity {
                 // OBTENIENDO LOS DATOS DEL PLATO MODIFICADO
                 try {
                     Bundle extras = data.getExtras();
-                    Integer id = extras.getInt("idPlato");
-                    String titulo = extras.getString("titulo");
-                    String descripcion = extras.getString("descripcion");
-                    Double precio = extras.getDouble("precio");
-                    Integer calorias = extras.getInt("calorias");
-                    // RECUPERANDO EL PLATO POR ID
-                    Plato plato = getPlatoById(id);
+                    Plato plato = (Plato) data.getSerializableExtra("plato");
+
+                    // RECUPERANDO EL PLATO VIEJO POR SU ID
+                    Plato platoViejo = getPlatoById(plato.getId());
                     //SE SACA DE LA LISTA PARA ACTUALIZARLO
-                    _PLATOS.remove(plato);
-                    //SE SETEAN LOS CAMBIOS
-                    plato.setTitulo(titulo);
-                    plato.setDescripcion(descripcion);
-                    plato.setPrecio(precio);
-                    plato.setCalorias(calorias);
+                    _PLATOS.remove(platoViejo);
                     //SE VUELVE A CARGAR EL LA LISTA
                     _PLATOS.add(plato);
                     Toast.makeText(this, R.string.listaItemsPlatoEditado, Toast.LENGTH_LONG).show();

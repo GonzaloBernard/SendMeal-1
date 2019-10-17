@@ -12,15 +12,11 @@
         <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".EditarPlato"
-            android:parentActivityName=".HomeActivity" />
-        <activity
-            android:name=".CrearItem"
+            android:name=".ABMPlato"
             android:parentActivityName=".HomeActivity" />
         <activity
             android:name=".MainActivity"
@@ -28,11 +24,7 @@
         <activity
             android:name=".ListaItems"
             android:parentActivityName=".HomeActivity" />
-        <receiver android:name=".MyReceiver" android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.EVENTO_EN_OFERTA"/> />
-            </intent-filter>
-        </receiver>
+        <receiver android:name=".MyReceiver" android:exported="false"></receiver>
     </application>
 
 </manifest>

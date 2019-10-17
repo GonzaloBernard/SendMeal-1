@@ -34,7 +34,9 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(i1);
                 return true;
             case R.id.toolBarNuevoPlato:
-                Intent i2 = new Intent(HomeActivity.this,CrearItem.class);
+                Intent i2 = new Intent(HomeActivity.this, ABMPlato.class);
+                //SE INDICA QUE EL MODO ES CREAR PLATO ( CREAR=0 EDITAR=1 CONSULTAR=2 )
+                i2.putExtra("modo",0);
                 startActivityForResult(i2, NUEVO_PLATO_REQUEST);
                 return true;
             case R.id.toolBarListaPlatos:
