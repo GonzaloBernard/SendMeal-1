@@ -34,7 +34,7 @@ public class ABMPlato extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editar_plato);
+        setContentView(R.layout.activity_abm_plato);
 
         try {
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarEditarPlato);
