@@ -34,6 +34,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
     public PlatoAdapter.PlatoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.fila_plato, parent, false);
         PlatoHolder vh = new PlatoHolder(v);
+        context=parent.getContext();
         return vh;
     }
 
@@ -83,8 +84,9 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
 
                         Intent intent = new Intent();
                         intent.putExtra("posicion", position);
-                        intent.putExtra("Titulo", "la notificacion");
-                        intent.putExtra("Descripcion", "esta es la descri");
+                        intent.putExtra("idPlato", plato.getId());
+                        intent.putExtra("Titulo", "Nuevo mensaje recibido");
+                        intent.putExtra("Descripcion", "Esta es la descripcion de la notificacion");
                         intent.setAction(MyReceiver.EVENTO_EN_OFERTA);
                         context.sendBroadcast(intent);
                     }

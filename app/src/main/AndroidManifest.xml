@@ -30,7 +30,7 @@
             android:parentActivityName=".HomeActivity" />
         <receiver android:name=".MyReceiver" android:exported="false">
             <intent-filter>
-                <action android:name="android.intent.action.EVENTO"/> />
+                <action android:name="android.intent.action.EVENTO_EN_OFERTA"/> />
             </intent-filter>
         </receiver>
     </application>

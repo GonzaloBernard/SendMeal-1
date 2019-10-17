@@ -15,14 +15,11 @@ public class MyReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Toast.makeText(context, "mensaje recibido", Toast.LENGTH_LONG).show();
 
         Intent destino = new Intent(context, CrearItem.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent =
-                PendingIntent.getActivity(context, 0, destino, 0);
-
-
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, destino, 0);
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context, ListaItems.CHANNEL_ID)
                         .setSmallIcon(R.drawable.ic_launcher_background)
@@ -31,8 +28,8 @@ public class MyReceiver extends BroadcastReceiver {
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setContentIntent(pendingIntent)
                         .setAutoCancel(true);
-
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         notificationManager.notify(99, mBuilder.build());
+
     }
 }
