@@ -70,20 +70,22 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
             public void onClick(View view) {
 
                 plato.setEnOferta(true);
-                Runnable r = new Runnable() {
+               Runnable r = new Runnable() {
                     @Override
                     public void run() {
 
                         try {
-                            Thread.currentThread().sleep(10000);
+                            Thread.currentThread().sleep(5000);
 
                         }catch (InterruptedException e) {
                             e.printStackTrace();
                          }
 
                         Intent intent = new Intent();
-                        intent.setAction(MyReceiver.EVENTO_EN_OFERTA);
                         intent.putExtra("posicion", position);
+                        intent.putExtra("Titulo", "la notificacion");
+                        intent.putExtra("Descripcion", "esta es la descri");
+                        intent.setAction(MyReceiver.EVENTO_EN_OFERTA);
                         context.sendBroadcast(intent);
                     }
                 };

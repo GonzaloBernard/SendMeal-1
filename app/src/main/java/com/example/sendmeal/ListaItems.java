@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -164,8 +166,12 @@ public class ListaItems extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
 
         createNotificationChannel();
-        BroadcastNotificaction broadcastNotificaction = new BroadcastNotificaction();
-        broadcastNotificaction.onCreate(new Bundle());
+        BroadcastReceiver br = new MyReceiver();
+        IntentFilter filtro = new IntentFilter();
+        filtro.addAction(MyReceiver.EVENTO_EN_OFERTA);
+        getApplication().getApplicationContext().registerReceiver(br, filtro);
+
+
     }
 
     private void createNotificationChannel() {
@@ -178,8 +184,7 @@ public class ListaItems extends AppCompatActivity {
             NotificationChannel channel =
                     new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
-            NotificationManager notificationManager =
-                    getSystemService(NotificationManager.class);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
     }
