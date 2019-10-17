@@ -27,7 +27,7 @@ public class MyReceiver extends BroadcastReceiver {
         // LOGIA DE LA NOTIFICACION
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context, ListaItems.CHANNEL_ID)
-                        .setSmallIcon(R.drawable.ic_launcher_background)
+                        .setSmallIcon(R.drawable.hamburguesa)
                         .setContentTitle(intent.getExtras().getString("Titulo"))
                         .setContentText(intent.getExtras().getString("Descripcion"))
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)

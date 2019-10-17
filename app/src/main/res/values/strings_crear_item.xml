@@ -12,4 +12,5 @@
     <string name="crearItemErrorPrecio">Error en el precio</string>
     <string name="crearItemErrorCalorias">Error en las calorías</string>
     <string name="crearItemErrorCamposNumericos">Error en los campos numéricos</string>
+    <string name="tituloToolbarConsultarPlato">CONSULTAR PLATO</string>
 </resources>

@@ -35,11 +35,10 @@ public class ABMPlato extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_abm_plato);
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarEditarPlato);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
         try {
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarEditarPlato);
-            setSupportActionBar(toolbar);
-            ActionBar actionBar = getSupportActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(R.string.tituloToolbarModificarPlato);
         } catch (Exception e) {
@@ -61,6 +60,7 @@ public class ABMPlato extends AppCompatActivity {
         switch(modo) {
             case 0:
                 Toast.makeText(ABMPlato.this,"CREAR",Toast.LENGTH_LONG).show();
+                actionBar.setTitle(R.string.tituloToolbarCrearItem);
                 buttonGuardar.setOnClickListener(new Button.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -113,6 +113,7 @@ public class ABMPlato extends AppCompatActivity {
             ///////////////////
             case 1:
                 Toast.makeText(ABMPlato.this,"EDITAR",Toast.LENGTH_LONG).show();
+                actionBar.setTitle(R.string.tituloToolbarModificarPlato);
                 // SE OBTIENE EL PLATO A MODIFICAR
                 plato = (Plato) getIntent().getSerializableExtra("plato");
                 //SE LLENAN LOS VIEWS CON LA INFORMACION DEL PLATO A MODIFICAR
@@ -175,6 +176,7 @@ public class ABMPlato extends AppCompatActivity {
             ///////////////////
             default:
                 Toast.makeText(ABMPlato.this,"CONSULTAR",Toast.LENGTH_LONG).show();
+                actionBar.setTitle(R.string.tituloToolbarConsultarPlato);
                 // SE OBTIENE EL PLATO A CONSULTAR
                 plato = (Plato) getIntent().getSerializableExtra("plato");
                 //SE LLENAN LOS VIEWS CON LA INFORMACION DEL PLATO A MODIFICAR
