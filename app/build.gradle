@@ -32,4 +32,8 @@ dependencies {
 
 
 
+    def rf_version = "2.6.2"
+    implementation "com.squareup.retrofit2:retrofit:$rf_version"
+    implementation "com.squareup.retrofit2:converter-gson:$rf_version"
+
 }
