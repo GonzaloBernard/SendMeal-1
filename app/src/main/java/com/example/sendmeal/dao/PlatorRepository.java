@@ -2,8 +2,10 @@ package com.example.sendmeal.dao;
 
 
 import android.util.Log;
-
 import com.example.sendmeal.dao.rest.PlatoRest;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 //SINGLETON
@@ -11,7 +13,7 @@ import com.example.sendmeal.dao.rest.PlatoRest;
 
 public class PlatorRepository {
 
-    public static String _SERVER = "http://10.0.2.2:5000/"; //esto tengo que cambiarlo pero ni idea de como
+    public static String _SERVER = "http://10.0.2.2:3000/"; //esto tengo que cambiarlo pero ni idea de como
 
     private static PlatorRepository _INSTANCE;
 

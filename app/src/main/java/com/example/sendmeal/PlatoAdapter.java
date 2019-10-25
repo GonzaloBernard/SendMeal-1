@@ -11,16 +11,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.sendmeal.domain.Plato;
 import java.util.List;
 
 public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder> {
 
     private Context context;
-
     private static final int REQUEST_CODE_EDITAR_PLATO = 2;
     private List<Plato> mDataset;
     public PlatoAdapter(List<Plato> myDataset) {
@@ -53,9 +50,10 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(view.getContext(), ABMPlato.class);
+                //SE AGREGA EL PLATO
                 i.putExtra("plato", plato);
-                //EL MODO DETERMINA LA ACCION A REALIZAR( CREAR=0 EDITAR=1 CONSULTAR=2 )
-                i.putExtra("modo", 1);
+                //EL MODO DETERMINA LA ACCION A REALIZAR( CREAR=1 EDITAR=2 CONSULTAR=3 )
+                i.putExtra("modo", 2);
                 ((Activity) view.getContext()).startActivityForResult(i, REQUEST_CODE_EDITAR_PLATO);
             }
         });
@@ -71,16 +69,13 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
                     public void run() {
                         try {
                             Thread.currentThread().sleep(5000);
-
                         }catch (InterruptedException e) {
                             e.printStackTrace();
                          }
                         Intent intent = new Intent();
                         intent.putExtra("plato",plato);
-                        intent.putExtra("posicion", position);
-                        //intent.putExtra("idPlato", plato.getId());
-                        intent.putExtra("Titulo", plato.getTitulo());
-                        intent.putExtra("Descripcion", plato.getDescripcion());
+                        intent.putExtra("titulo",plato.getTitulo());
+                        intent.putExtra("descripcion",plato.getDescripcion());
                         intent.setAction(MyReceiver.EVENTO_EN_OFERTA);
                         context.sendBroadcast(intent);
                     }

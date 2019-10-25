@@ -3,6 +3,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -52,14 +53,16 @@ public class ABMPlato extends AppCompatActivity {
         final EditText editTextPrecio = (EditText) findViewById(R.id.editTextEditarPlatoPrecio);
         final EditText editTextCalorias = (EditText) findViewById(R.id.editTextEditarPlatoCalorias);
         Button buttonGuardar = (Button) findViewById(R.id.buttonEditarPlatoGuardar);
-        final Resources resources = getResources();
 
-        Integer modo = getIntent().getExtras().getInt("modo");
-        // SE CREA UN PLATO VACIO
-        final Plato plato;
+        final Resources resources = getResources();
+        Bundle extras = getIntent().getExtras();
+
+        Integer modo=-5;
+        if (extras != null) {
+            modo = extras.getInt("modo");
+        }
         switch(modo) {
-            case 0:
-                Toast.makeText(ABMPlato.this,"CREAR",Toast.LENGTH_LONG).show();
+            case 1:
                 actionBar.setTitle(R.string.tituloToolbarCrearItem);
                 buttonGuardar.setOnClickListener(new Button.OnClickListener() {
                     @Override
@@ -83,19 +86,19 @@ public class ABMPlato extends AppCompatActivity {
                                 throw new Exception(resources.getString(R.string.crearItemErrorCalorias));
 
                             //CREAR INSTANCIA DE PLATO CON SUS DATOS
-                            Plato plato = new Plato();
-                            plato.setId(id);
-                            plato.setTitulo(titulo);
-                            plato.setDescripcion(descripcion);
-                            plato.setPrecio(precio);
-                            plato.setCalorias(calorias);
-                            plato.setImagen(R.drawable.hamburguesa);
-                            plato.setEnOferta(false);
+                            Plato platoAlta = new Plato();
+                            platoAlta.setId(id);
+                            platoAlta.setTitulo(titulo);
+                            platoAlta.setDescripcion(descripcion);
+                            platoAlta.setPrecio(precio);
+                            platoAlta.setCalorias(calorias);
+                            platoAlta.setImagen(R.drawable.hamburguesa);
+                            platoAlta.setEnOferta(false);
                             ///////////////////////////////
                             //DEVOLVER DATOS A HOME ACTIVITY //
                             ///////////////////////////////
                             Intent intentResultado = new Intent();
-                            intentResultado.putExtra("plato",plato);
+                            intentResultado.putExtra("plato",platoAlta);
                             setResult(Activity.RESULT_OK, intentResultado);
                             finish();
                         }
@@ -111,18 +114,17 @@ public class ABMPlato extends AppCompatActivity {
             ///////////////////
             //  EDITAR PLATO //
             ///////////////////
-            case 1:
-                Toast.makeText(ABMPlato.this,"EDITAR",Toast.LENGTH_LONG).show();
+            case 2:
                 actionBar.setTitle(R.string.tituloToolbarModificarPlato);
                 // SE OBTIENE EL PLATO A MODIFICAR
-                plato = (Plato) getIntent().getSerializableExtra("plato");
+                final Plato platoModificacion = (Plato) extras.getSerializable("plato");
                 //SE LLENAN LOS VIEWS CON LA INFORMACION DEL PLATO A MODIFICAR
-                editTextID.setText(plato.getId().toString());
+                editTextID.setText(platoModificacion.getId().toString());
                 editTextID.setEnabled(false);
-                editTextTitulo.setText(plato.getTitulo());
-                editTextDescripcion.setText(plato.getDescripcion());
-                editTextPrecio.setText(plato.getPrecio().toString());
-                editTextCalorias.setText(plato.getCalorias().toString());
+                editTextTitulo.setText(platoModificacion.getTitulo());
+                editTextDescripcion.setText(platoModificacion.getDescripcion());
+                editTextPrecio.setText(platoModificacion.getPrecio().toString());
+                editTextCalorias.setText(platoModificacion.getCalorias().toString());
                 buttonGuardar.setOnClickListener(new Button.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -149,13 +151,13 @@ public class ABMPlato extends AppCompatActivity {
                                 throw new Exception(resources.getString(R.string.crearItemErrorCalorias));
 
                             //SE ACTUALIZAN LOS DATOS DEL PLATO
-                            plato.setTitulo(titulo);
-                            plato.setDescripcion(descripcion);
-                            plato.setPrecio(precio);
-                            plato.setCalorias(calorias);
+                            platoModificacion.setTitulo(titulo);
+                            platoModificacion.setDescripcion(descripcion);
+                            platoModificacion.setPrecio(precio);
+                            platoModificacion.setCalorias(calorias);
                             //SE CREA UN INTENT Y SE AGREGA EL PLATO
                             Intent intentResultado = new Intent();
-                            intentResultado.putExtra("plato", plato);
+                            intentResultado.putExtra("plato", platoModificacion);
                             setResult(Activity.RESULT_OK, intentResultado);
                             //FIN DE LA ACTIVITY FOR RESULT
                             finish();
@@ -174,21 +176,20 @@ public class ABMPlato extends AppCompatActivity {
             ///////////////////
             //  EDITAR PLATO //
             ///////////////////
-            default:
-                Toast.makeText(ABMPlato.this,"CONSULTAR",Toast.LENGTH_LONG).show();
+            case 3:
                 actionBar.setTitle(R.string.tituloToolbarConsultarPlato);
                 // SE OBTIENE EL PLATO A CONSULTAR
-                plato = (Plato) getIntent().getSerializableExtra("plato");
+                Plato platoConsulta = (Plato) extras.getSerializable("plato");
                 //SE LLENAN LOS VIEWS CON LA INFORMACION DEL PLATO A MODIFICAR
-                editTextID.setText(plato.getId().toString());
+                editTextID.setText(platoConsulta.getId().toString());
                 editTextID.setEnabled(false);
-                editTextTitulo.setText(plato.getTitulo());
+                editTextTitulo.setText(platoConsulta.getTitulo());
                 editTextTitulo.setEnabled(false);
-                editTextDescripcion.setText(plato.getDescripcion());
+                editTextDescripcion.setText(platoConsulta.getDescripcion());
                 editTextDescripcion.setEnabled(false);
-                editTextPrecio.setText(plato.getPrecio().toString());
+                editTextPrecio.setText(platoConsulta.getPrecio().toString());
                 editTextPrecio.setEnabled(false);
-                editTextCalorias.setText(plato.getCalorias().toString());
+                editTextCalorias.setText(platoConsulta.getCalorias().toString());
                 editTextCalorias.setEnabled(false);
                 buttonGuardar.setVisibility(View.INVISIBLE);
                 break;
