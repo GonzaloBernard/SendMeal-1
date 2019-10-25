@@ -22,8 +22,7 @@ public class MyReceiver extends BroadcastReceiver {
         destino.putExtra("modo",2);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         //SE LANZA EL INTENT
-        // EL requestCode FUNCIONA COMO FORMA DE DECIR QUE SE QUIERE CONSULTAR EL PLATO
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 2, destino, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, destino, 0);
         // LOGIA DE LA NOTIFICACION
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context, ListaItems.CHANNEL_ID)

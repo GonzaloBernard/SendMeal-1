@@ -83,7 +83,7 @@ public class ListaItems extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_items);
-
+        this.createNotificationChannel();
         //TOOLBAR
         try {
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarListaItems);
@@ -103,7 +103,7 @@ public class ListaItems extends AppCompatActivity {
         }
 
 
-        // PLATOS HARDCODEADOS EN CASO DE NO CREAR NINGUN PLATO MANUEALMENTE
+        // PLATOS HARDCODEADOS EN CASO DE NO CREAR NINGUN PLATO MANUALMENTE
         if(_PLATOS.isEmpty()) {
             Plato plato1 = new Plato();
             Plato plato2 = new Plato();
@@ -157,7 +157,6 @@ public class ListaItems extends AppCompatActivity {
         mAdapter = new PlatoAdapter( _PLATOS );
         mRecyclerView.setAdapter(mAdapter);
 
-        createNotificationChannel();
         BroadcastReceiver br = new MyReceiver();
         IntentFilter filtro = new IntentFilter();
         filtro.addAction(MyReceiver.EVENTO_EN_OFERTA);
@@ -170,12 +169,10 @@ public class ListaItems extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             //CharSequence name = getString(R.string.channel_name);
             //String description = getString(R.string.channel_description);
-            CharSequence name = "nombre del canal";
-            String description = "descripcion del canal";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel =
-                    new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription(description);
+                    new NotificationChannel(CHANNEL_ID, "nombre del canal", importance);
+            channel.setDescription("descripcion del canal");
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }

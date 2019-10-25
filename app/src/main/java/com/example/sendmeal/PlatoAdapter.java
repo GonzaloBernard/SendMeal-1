@@ -77,8 +77,8 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
                         intent.putExtra("plato",plato);
                         intent.putExtra("posicion", position);
                         //intent.putExtra("idPlato", plato.getId());
-                        intent.putExtra("Titulo", "Nuevo mensaje recibido");
-                        intent.putExtra("Descripcion", "Esta es la descripcion de la notificacion");
+                        intent.putExtra("Titulo", plato.getTitulo());
+                        intent.putExtra("Descripcion", plato.getDescripcion());
                         intent.setAction(MyReceiver.EVENTO_EN_OFERTA);
                         context.sendBroadcast(intent);
                     }
