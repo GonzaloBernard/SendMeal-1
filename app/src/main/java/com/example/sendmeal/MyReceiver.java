@@ -11,6 +11,8 @@ public class MyReceiver extends BroadcastReceiver {
 
     public static final String EVENTO_EN_OFERTA = "android.intent.action.EVENTO";
 
+    //ES UN ID AUTOINCREMENTAL PARA LAS NOTIFICACIONES
+    private Integer idNotificacion=0;
     @Override
     public void onReceive(Context context, Intent intent) {
         Toast.makeText(context, "mensaje recibido", Toast.LENGTH_LONG).show();
@@ -24,6 +26,7 @@ public class MyReceiver extends BroadcastReceiver {
         //SE LANZA EL INTENT
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, destino, 0);
         // LOGIA DE LA NOTIFICACION
+
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context, ListaItems.CHANNEL_ID)
                         .setSmallIcon(R.drawable.hamburguesa)
@@ -33,7 +36,7 @@ public class MyReceiver extends BroadcastReceiver {
                         .setContentIntent(pendingIntent)
                         .setAutoCancel(true);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-        notificationManager.notify(99, mBuilder.build());
+        notificationManager.notify(idNotificacion++, mBuilder.build());
 
     }
 }
