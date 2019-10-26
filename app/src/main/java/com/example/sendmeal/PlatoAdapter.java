@@ -50,10 +50,10 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(view.getContext(), ABMPlato.class);
+                //EL MODO DETERMINA LA ACCION A REALIZAR
+                i.putExtra(HomeActivity.PLATO_MODO_KEY, HomeActivity.KEY_EDITAR_PLATO);
                 //SE AGREGA EL PLATO
-                i.putExtra("plato", plato);
-                //EL MODO DETERMINA LA ACCION A REALIZAR( CREAR=1 EDITAR=2 CONSULTAR=3 )
-                i.putExtra("modo", 2);
+                i.putExtra(HomeActivity.PLATO_INDIVIDUAL_KEY, plato);
                 ((Activity) view.getContext()).startActivityForResult(i, REQUEST_CODE_EDITAR_PLATO);
             }
         });
@@ -73,7 +73,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
                             e.printStackTrace();
                          }
                         Intent intent = new Intent();
-                        intent.putExtra("plato",plato);
+                        intent.putExtra(HomeActivity.PLATO_INDIVIDUAL_KEY, plato);
                         intent.putExtra("titulo",plato.getTitulo());
                         intent.putExtra("descripcion",plato.getDescripcion());
                         intent.setAction(MyReceiver.EVENTO_EN_OFERTA);

@@ -3,7 +3,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -13,11 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.example.sendmeal.domain.Plato;
 
 public class ABMPlato extends AppCompatActivity {
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_volver, menu);
@@ -56,12 +53,7 @@ public class ABMPlato extends AppCompatActivity {
 
         final Resources resources = getResources();
         Bundle extras = getIntent().getExtras();
-
-        Integer modo=-5;
-        if (extras != null) {
-            modo = extras.getInt("modo");
-        }
-        switch(modo) {
+        switch( extras.getInt(HomeActivity.PLATO_MODO_KEY) ) {
             case 1:
                 actionBar.setTitle(R.string.tituloToolbarCrearItem);
                 buttonGuardar.setOnClickListener(new Button.OnClickListener() {
@@ -98,7 +90,7 @@ public class ABMPlato extends AppCompatActivity {
                             //DEVOLVER DATOS A HOME ACTIVITY //
                             ///////////////////////////////
                             Intent intentResultado = new Intent();
-                            intentResultado.putExtra("plato",platoAlta);
+                            intentResultado.putExtra(HomeActivity.PLATO_INDIVIDUAL_KEY,platoAlta);
                             setResult(Activity.RESULT_OK, intentResultado);
                             finish();
                         }
@@ -117,7 +109,7 @@ public class ABMPlato extends AppCompatActivity {
             case 2:
                 actionBar.setTitle(R.string.tituloToolbarModificarPlato);
                 // SE OBTIENE EL PLATO A MODIFICAR
-                final Plato platoModificacion = (Plato) extras.getSerializable("plato");
+                final Plato platoModificacion = (Plato) extras.getParcelable(HomeActivity.PLATO_INDIVIDUAL_KEY);
                 //SE LLENAN LOS VIEWS CON LA INFORMACION DEL PLATO A MODIFICAR
                 editTextID.setText(platoModificacion.getId().toString());
                 editTextID.setEnabled(false);
@@ -129,14 +121,12 @@ public class ABMPlato extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         //VARIABLES QUE CONTENDRAN LOS NUEVOS DATOS
-                        Integer idPlato;
                         String titulo;
                         String descripcion;
                         Double precio;
                         Integer calorias;
                         try {
                             //OBTENER DATOS DE ENTRADA
-                            idPlato = Integer.parseInt(editTextID.getText().toString());
                             titulo = editTextTitulo.getText().toString();
                             descripcion = editTextDescripcion.getText().toString();
                             precio = Double.parseDouble(editTextPrecio.getText().toString());
@@ -157,7 +147,7 @@ public class ABMPlato extends AppCompatActivity {
                             platoModificacion.setCalorias(calorias);
                             //SE CREA UN INTENT Y SE AGREGA EL PLATO
                             Intent intentResultado = new Intent();
-                            intentResultado.putExtra("plato", platoModificacion);
+                            intentResultado.putExtra(HomeActivity.PLATO_INDIVIDUAL_KEY, platoModificacion);
                             setResult(Activity.RESULT_OK, intentResultado);
                             //FIN DE LA ACTIVITY FOR RESULT
                             finish();
@@ -174,12 +164,12 @@ public class ABMPlato extends AppCompatActivity {
 
                 break;
             ///////////////////
-            //  EDITAR PLATO //
+            //  CONSULTAR PLATO //
             ///////////////////
             case 3:
                 actionBar.setTitle(R.string.tituloToolbarConsultarPlato);
                 // SE OBTIENE EL PLATO A CONSULTAR
-                Plato platoConsulta = (Plato) extras.getSerializable("plato");
+                Plato platoConsulta = (Plato) extras.getParcelable(HomeActivity.PLATO_INDIVIDUAL_KEY);
                 //SE LLENAN LOS VIEWS CON LA INFORMACION DEL PLATO A MODIFICAR
                 editTextID.setText(platoConsulta.getId().toString());
                 editTextID.setEnabled(false);
@@ -193,12 +183,8 @@ public class ABMPlato extends AppCompatActivity {
                 editTextCalorias.setEnabled(false);
                 buttonGuardar.setVisibility(View.INVISIBLE);
                 break;
+
+            default:;
         }
-
-
-
-
     }
-
-
 }

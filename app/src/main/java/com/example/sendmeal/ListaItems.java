@@ -28,13 +28,11 @@ public class ListaItems extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private static List<Plato> _PLATOS = new ArrayList<>();
     private Plato getPlatoById(Integer id){
-
         for(Plato plato: _PLATOS){
             if(plato.getId().equals(id)){
                 return plato;
             }
         }
-
         return null;
     }
 
@@ -46,7 +44,7 @@ public class ListaItems extends AppCompatActivity {
                 // OBTENIENDO LOS DATOS DEL PLATO MODIFICADO
                 try {
                     Bundle extras = data.getExtras();
-                    Plato plato = (Plato) data.getSerializableExtra("plato");
+                    Plato plato = (Plato) data.getParcelableExtra(HomeActivity.PLATO_INDIVIDUAL_KEY);
 
                     // RECUPERANDO EL PLATO VIEJO POR SU ID
                     Plato platoViejo = getPlatoById(plato.getId());
@@ -58,6 +56,7 @@ public class ListaItems extends AppCompatActivity {
                     //SE LE DICE AL ADAPTER QUE ACTUALICE LA DATA
                     mAdapter.notifyDataSetChanged();
                 } catch (Exception e) {
+                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
@@ -96,9 +95,10 @@ public class ListaItems extends AppCompatActivity {
         }
 
         try {
-            ArrayList<Plato> platosNuevos = (ArrayList<Plato>) getIntent().getSerializableExtra("_PLATOS");
+            ArrayList<Plato> platosNuevos = getIntent().getParcelableArrayListExtra(HomeActivity.PLATOS_LISTA_KEY);
             _PLATOS.addAll(platosNuevos);
         } catch (Exception e){
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
 

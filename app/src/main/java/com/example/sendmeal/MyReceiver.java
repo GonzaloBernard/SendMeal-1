@@ -16,17 +16,23 @@ public class MyReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intentOrigen) {
         Toast.makeText(context, "Mensaje recibido", Toast.LENGTH_LONG).show();
+        Plato plato = (Plato) intentOrigen.getParcelableExtra(HomeActivity.PLATO_INDIVIDUAL_KEY);
+        // LOGICA DEL INTENT PARA CONSULTAR EL PLATO
         Intent intent = new Intent(context, ABMPlato.class);
-        intent.putExtra("plato", (Plato) intentOrigen.getSerializableExtra("plato"));
-        intent.putExtra("modo", 3);
+        intent.putExtra(HomeActivity.PLATO_INDIVIDUAL_KEY ,plato);
+        intent.putExtra(HomeActivity.PLATO_MODO_KEY , HomeActivity.KEY_CONSULTAR_PLATO);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        Plato platito = intent.getParcelableExtra(HomeActivity.PLATO_INDIVIDUAL_KEY);
+        Integer s  =  intent.getExtras().getInt(HomeActivity.PLATO_MODO_KEY);
         //SE LANZA EL INTENT
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, i++, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+
         // LOGIA DE LA NOTIFICACION
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(context, ListaItems.CHANNEL_ID)
-                        .setSmallIcon(R.drawable.hamburguesa)
-                        .setContentTitle(intentOrigen.getStringExtra("titulo"))
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, ListaItems.CHANNEL_ID)
+
+                .setSmallIcon(R.drawable.hamburguesa)
+                .setContentTitle(intentOrigen.getStringExtra("titulo"))
                         .setContentText(intentOrigen.getStringExtra("descripcion"))
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setContentIntent(pendingIntent)
