@@ -17,6 +17,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.example.sendmeal.dao.PlatoRepository;
 import com.example.sendmeal.domain.Plato;
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +96,6 @@ public class ListaItems extends AppCompatActivity {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
-
         // PLATOS HARDCODEADOS EN CASO DE NO CREAR NINGUN PLATO MANUALMENTE
         if(_PLATOS.isEmpty()) {
             Plato plato1 = new Plato();
@@ -155,6 +156,11 @@ public class ListaItems extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new PlatoAdapter( _PLATOS );
         mRecyclerView.setAdapter(mAdapter);
+
+        
+        //  PROBANDO LA API REST
+        // LLAMO A getPlatos() PARA CORROBORAR LA COMUNICACION CON EL JSON SERVER
+        PlatoRepository.getInstance().getPlatos();
 
 
     }
