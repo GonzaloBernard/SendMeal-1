@@ -157,7 +157,7 @@ public class ListaItems extends AppCompatActivity {
         mAdapter = new PlatoAdapter( _PLATOS );
         mRecyclerView.setAdapter(mAdapter);
 
-        
+
         //  PROBANDO LA API REST
         // LLAMO A getPlatos() PARA CORROBORAR LA COMUNICACION CON EL JSON SERVER
         PlatoRepository.getInstance().getPlatos();
