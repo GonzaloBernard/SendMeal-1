@@ -48,7 +48,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
         holder.buttonEditar.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(), ABMPlato.class);
+                Intent i = new Intent(view.getContext(), AbmPlato.class);
                 //EL MODO DETERMINA LA ACCION A REALIZAR
                 i.putExtra(HomeActivity.PLATO_MODO_KEY, HomeActivity.KEY_EDITAR_PLATO);
                 //SE AGREGA EL PLATO

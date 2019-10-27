@@ -35,11 +35,11 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.toolBarRegistrar:
-                Intent i1 = new Intent(HomeActivity.this,MainActivity.class);
+                Intent i1 = new Intent(HomeActivity.this, AbmUsuario.class);
                 startActivity(i1);
                 return true;
             case R.id.toolBarNuevoPlato:
-                Intent i2 = new Intent(HomeActivity.this, ABMPlato.class);
+                Intent i2 = new Intent(HomeActivity.this, AbmPlato.class);
                 //SE INDICA QUE EL MODO ES CREAR PLATO
                 i2.putExtra(HomeActivity.PLATO_MODO_KEY  ,  KEY_CREAR_PLATO);
                 startActivityForResult(i2, NUEVO_PLATO_REQUEST);

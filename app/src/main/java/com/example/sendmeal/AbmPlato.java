@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.example.sendmeal.domain.Plato;
 
-public class ABMPlato extends AppCompatActivity {
+public class AbmPlato extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_volver, menu);
@@ -94,10 +94,10 @@ public class ABMPlato extends AppCompatActivity {
                             finish();
                         }
                         catch (NumberFormatException e) {
-                            Toast.makeText(ABMPlato.this,resources.getString(R.string.crearItemErrorCamposNumericos),Toast.LENGTH_LONG).show();
+                            Toast.makeText(AbmPlato.this,resources.getString(R.string.crearItemErrorCamposNumericos),Toast.LENGTH_LONG).show();
                         }
                         catch (Exception e) {
-                            Toast.makeText(ABMPlato.this,e.getMessage(),Toast.LENGTH_LONG).show();
+                            Toast.makeText(AbmPlato.this,e.getMessage(),Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -152,10 +152,10 @@ public class ABMPlato extends AppCompatActivity {
                             finish();
                         }
                         catch (NumberFormatException e) {
-                            Toast.makeText(ABMPlato.this,resources.getString(R.string.crearItemErrorCamposNumericos),Toast.LENGTH_LONG).show();
+                            Toast.makeText(AbmPlato.this,resources.getString(R.string.crearItemErrorCamposNumericos),Toast.LENGTH_LONG).show();
                         }
                         catch (Exception e) {
-                            Toast.makeText(ABMPlato.this,e.getMessage(),Toast.LENGTH_LONG).show();
+                            Toast.makeText(AbmPlato.this,e.getMessage(),Toast.LENGTH_LONG).show();
                         }
                     }
                 });
