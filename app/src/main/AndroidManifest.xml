@@ -17,6 +17,7 @@
         </activity>
         <activity
             android:name=".ABMPlato"
+            android:taskAffinity=""
             android:parentActivityName=".HomeActivity" />
         <activity
             android:name=".MainActivity"

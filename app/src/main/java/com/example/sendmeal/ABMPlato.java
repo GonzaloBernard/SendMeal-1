@@ -38,7 +38,6 @@ public class ABMPlato extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         try {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(R.string.tituloToolbarModificarPlato);
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }

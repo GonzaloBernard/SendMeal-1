@@ -3,6 +3,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
@@ -21,20 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListaItems extends AppCompatActivity {
-
+    private final BroadcastReceiver br = new MyReceiver();
     private static final int REQUEST_CODE_EDITAR_PLATO = 2;
     public static final String CHANNEL_ID="10001";
-
     private RecyclerView.Adapter mAdapter;
     private static List<Plato> _PLATOS = new ArrayList<>();
-    private Plato getPlatoById(Integer id){
-        for(Plato plato: _PLATOS){
-            if(plato.getId().equals(id)){
-                return plato;
-            }
-        }
-        return null;
-    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -45,7 +38,6 @@ public class ListaItems extends AppCompatActivity {
                 try {
                     Bundle extras = data.getExtras();
                     Plato plato = (Plato) data.getParcelableExtra(HomeActivity.PLATO_INDIVIDUAL_KEY);
-
                     // RECUPERANDO EL PLATO VIEJO POR SU ID
                     Plato platoViejo = getPlatoById(plato.getId());
                     //SE SACA DE LA LISTA PARA ACTUALIZARLO
@@ -82,7 +74,7 @@ public class ListaItems extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_items);
-        this.createNotificationChannel();
+
         //TOOLBAR
         try {
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarListaItems);
@@ -143,13 +135,20 @@ public class ListaItems extends AppCompatActivity {
             plato4.setEnOferta(false);
 
             //LISTA DE PLATOS
-
             _PLATOS.add(plato1);
             _PLATOS.add(plato2);
             _PLATOS.add(plato3);
             _PLATOS.add(plato4);
         }
         ////////////////////////////////////////////////////////////////////////
+        //CREACION DEL CANAL DE NOTIFICACIONES
+        this.createNotificationChannel();
+        IntentFilter filtro = new IntentFilter();
+        filtro.addAction(MyReceiver.EVENTO_EN_OFERTA);
+        registerReceiver(br, filtro);
+        //LocalBroadcastManager.getInstance(this).registerReceiver(br,filtro);
+
+        // RECYCLER VIEW
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.listaItemsRecyclerView);
         mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
@@ -157,24 +156,37 @@ public class ListaItems extends AppCompatActivity {
         mAdapter = new PlatoAdapter( _PLATOS );
         mRecyclerView.setAdapter(mAdapter);
 
-        BroadcastReceiver br = new MyReceiver();
-        IntentFilter filtro = new IntentFilter();
-        filtro.addAction(MyReceiver.EVENTO_EN_OFERTA);
-        getApplication().getApplicationContext().registerReceiver(br, filtro);
 
+    }
+
+    @Override
+    public void onDestroy() {
+        unregisterReceiver(br);
+        //LocalBroadcastManager.getInstance(this).unregisterReceiver(br);
+        super.onDestroy();
 
     }
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            //CharSequence name = getString(R.string.channel_name);
-            //String description = getString(R.string.channel_description);
+            CharSequence name = "CANAL SEND MEAL";
+            String description = "Este canal esta creado para configurar las notificaciones de Send Meal";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel =
-                    new NotificationChannel(CHANNEL_ID, "nombre del canal", importance);
-            channel.setDescription("descripcion del canal");
+                    new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
     }
+
+    private Plato getPlatoById(Integer id){
+        for(Plato plato: _PLATOS){
+            if(plato.getId().equals(id)){
+                return plato;
+            }
+        }
+        return null;
+    }
+
 }
