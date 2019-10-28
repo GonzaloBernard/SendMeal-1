@@ -1,6 +1,8 @@
 package com.example.sendmeal.dao;
 import android.os.Message;
 import android.util.Log;
+
+import com.example.sendmeal.HomeActivity;
 import com.example.sendmeal.dao.rest.PlatoRest;
 import com.example.sendmeal.domain.Plato;
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ import android.os.Handler;
 
 public class PlatoRepository {
 
-    public static String _SERVER = "http://10.0.2.2:3000/";
+
     public static final int _ALTA_PLATO = 1;
     public static final int _UPDATE_PLATO = 2;
     public static final int _BORRADO_PLATO = 3;
@@ -38,7 +40,7 @@ public class PlatoRepository {
     private PlatoRest platoRest;
     private void configurarRetrofit(){
         this.rf = new Retrofit.Builder()
-                .baseUrl(_SERVER)
+                .baseUrl(HomeActivity._SERVER)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Log.d("APP_2","INSTANCIA CREADA");

@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#970D0D</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorError">#F80101</color>
+    <color name="colorGreenIP">#00FF00</color>
     <color name="colorEtiquetas">#000000</color>
     <color name="ic_launcher_background">#FFFFFF</color>
 

@@ -23,10 +23,68 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginTop="@dimen/margin"
         android:text="@string/bienvenido"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/titulo" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/separador60dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin"
+                android:text="IP: "
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/etiquetas" />
+            <TextView
+                android:id="@+id/textViewServerIP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin"
+                android:text=""
+                android:textColor="@color/colorGreenIP"
+                android:textSize="@dimen/etiquetas" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutServerIP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin"
+                android:text="IP: "
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/etiquetas" />
+
+            <EditText
+                android:id="@+id/editTextServerIP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin"
+                android:ems="10"
+                android:inputType="textWebEditText"
+                android:text="http://10.0.2.2:3000/" />
+
+            <Button
+                android:id="@+id/buttonServerIP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cambiar IP" />
+        </LinearLayout>
+    </LinearLayout>
 
 
 </RelativeLayout>

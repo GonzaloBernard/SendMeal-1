@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="separador60dp">60dp</dimen>
     <dimen name="titulo">36sp</dimen>
     <dimen name="etiquetas">16sp</dimen>
     <dimen name="error">12sp</dimen>
