@@ -3,6 +3,8 @@ package com.example.sendmeal;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,13 +20,30 @@ public class BuscarPlatos extends AppCompatActivity {
     private Context context;
 
     @SuppressLint("ResourceType")
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_volver, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Respond to the action bar's Up/Home button
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscar_platos);
 
         try {
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarMainActivity);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarBuscarItems);
             setSupportActionBar(toolbar);
             ActionBar actionBar = getSupportActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -44,7 +63,7 @@ public class BuscarPlatos extends AppCompatActivity {
         final EditText editTextPrecioMax;
         final EditText editTextPrecioMin;
         final Button buttonBuscar;
-        final String errorMaxMin = "Error, el valor mínimo debe ser menor al valor máximo"";
+
 
         /////////////////////////////
         // Inicializacion de views //
@@ -72,7 +91,7 @@ public class BuscarPlatos extends AppCompatActivity {
                     precioMin = Integer.parseInt(editTextPrecioMin.getText().toString());
 
                     if(precioMin > precioMax){
-                        Toast.makeText(context, errorMaxMin, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Error, ingrese precios validos", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
