@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity_buscar_platos">
+    tools:context=".BuscarPlatos">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarBuscarItems"
@@ -13,11 +13,10 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="@string/tituloToolbarBuscarItems" />
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <TextView
-        android:id="@+id/TextViewNombrePlato"
+        android:id="@+id/textViewNombrePlato"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin"
@@ -26,7 +25,7 @@
         android:textSize="@dimen/etiquetas" />
 
     <EditText
-        android:id="@+id/EditTextEditarPlatoID"
+        android:id="@+id/editTextEditarNombrePlato"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin"
@@ -37,7 +36,7 @@
         android:maxLength="20"/>
 
     <TextView
-    android:id="@+id/TextViewPrecioMin"
+    android:id="@+id/textViewPrecioMin"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin"
@@ -46,7 +45,7 @@
     android:textSize="@dimen/etiquetas" />
 
     <EditText
-        android:id="@+id/EditTextPrecioMin"
+        android:id="@+id/editTextPrecioMin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin"
@@ -57,7 +56,7 @@
         android:maxLength="20"/>
 
     <TextView
-        android:id="@+id/TextViewPrecioMax"
+        android:id="@+id/textViewPrecioMax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin"
@@ -66,7 +65,7 @@
         android:textSize="@dimen/etiquetas" />
 
     <EditText
-        android:id="@+id/EditTextPrecioMax"
+        android:id="@+id/editTextPrecioMax"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin"
