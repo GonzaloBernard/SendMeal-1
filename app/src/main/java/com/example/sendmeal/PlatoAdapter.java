@@ -39,7 +39,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
     @Override
     public void onBindViewHolder(final PlatoHolder holder, final int position) {
         final Plato plato = mDataset.get(position);
-        holder.imagen.setImageResource(plato.getImagen());
+        holder.imagen.setImageResource(R.drawable.hamburguesa);
         holder.titulo.setText(plato.getTitulo());
         holder.precio.setText(plato.getPrecio().toString());
         ///////////////////////////////
