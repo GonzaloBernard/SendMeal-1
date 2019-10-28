@@ -5,15 +5,23 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.sendmeal.dao.PlatoRepository;
 import com.example.sendmeal.domain.Plato;
 import java.util.ArrayList;
 
 
 public class HomeActivity extends AppCompatActivity {
-
+    public static String _SERVER = "http://10.0.2.2:3000/";
     private static Integer NUEVO_PLATO_REQUEST = 1;
     private static ArrayList<Plato> _PLATOS = new ArrayList<>();
     //KEY PARA UN ArrayList<PLATOS>
@@ -26,6 +34,39 @@ public class HomeActivity extends AppCompatActivity {
     public static final Integer KEY_CREAR_PLATO = 1;
     public static final Integer KEY_EDITAR_PLATO = 2;
     public static final Integer KEY_CONSULTAR_PLATO = 3;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarHome);
+        setSupportActionBar(toolbar);
+
+        //SONIDO DE INICIO
+        MediaPlayer mp = MediaPlayer.create(this, R.raw.misc222);
+        mp.start();
+        final EditText server = (EditText) findViewById(R.id.editTextServerIP);
+        final TextView tvServer = (TextView) findViewById(R.id.textViewServerIP);
+        final Button buttonCambiarIP = (Button) findViewById(R.id.buttonServerIP);
+        final LinearLayout layoutCambiarIP = (LinearLayout) findViewById(R.id.layoutServerIP);
+        toolbar.setVisibility(View.INVISIBLE);
+        tvServer.setText(_SERVER);
+
+        buttonCambiarIP.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                _SERVER = server.getText().toString() ;
+                tvServer.setText(_SERVER);
+                //DESHABILITAR EL CAMBIO DE IP
+                tvServer.setEnabled(false);
+                buttonCambiarIP.setEnabled(false);
+                layoutCambiarIP.setVisibility(View.INVISIBLE);
+                toolbar.setVisibility(View.VISIBLE);
+            }
+        });
+
+
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_principal, menu);
@@ -33,6 +74,9 @@ public class HomeActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+
+
         switch (item.getItemId()) {
             case R.id.toolBarRegistrar:
                 Intent i1 = new Intent(HomeActivity.this, AbmUsuario.class);
@@ -80,18 +124,6 @@ public class HomeActivity extends AppCompatActivity {
             else
                 Toast.makeText(this,R.string.homePlatoError,Toast.LENGTH_LONG).show();
         }
-    }
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarHome);
-        setSupportActionBar(toolbar);
-
-        //SONIDO DE INICIO
-        MediaPlayer mp = MediaPlayer.create(this, R.raw.misc222);
-        mp.start();
-
     }
 
 }
