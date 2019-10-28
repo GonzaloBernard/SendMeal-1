@@ -22,7 +22,7 @@ public class HomeActivity extends AppCompatActivity {
     public static final String PLATO_INDIVIDUAL_KEY = "plato";
     //KEY PARA EL MODO
     public static final String PLATO_MODO_KEY = "modo";
-    //KEY's PARA LOS DISTINTOS MODOS (para el ABMC)
+    //KEY's PARA LOS DISTINTOS MODOS (para el ABM)
     public static final Integer KEY_CREAR_PLATO = 1;
     public static final Integer KEY_EDITAR_PLATO = 2;
     public static final Integer KEY_CONSULTAR_PLATO = 3;
@@ -52,6 +52,9 @@ public class HomeActivity extends AppCompatActivity {
                 //SE LIMPIA LA LISTA PARA EVITAR ERRORES
                 _PLATOS.clear();
                 return true;
+            case R.id.toolBuscarPlatos:
+                Intent i4 = new Intent(HomeActivity.this, BuscarPlatos.class);
+                startActivity(i4);
             default:
                 Toast.makeText(this,". . . . ",Toast.LENGTH_LONG).show();
                 return super.onOptionsItemSelected(item);

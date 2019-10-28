@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity_buscar_platos">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarBuscarItems"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="@string/tituloToolbarBuscarItems" />
+
+    <TextView
+        android:id="@+id/TextViewNombrePlato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:text="@string/NombrePlato"
+        android:textColor="@color/colorEtiquetas"
+        android:textSize="@dimen/etiquetas" />
+
+    <EditText
+        android:id="@+id/EditTextEditarPlatoID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:ems="10"
+        android:hint="@string/NombrePlato"
+        android:inputType="textPersonName"
+        android:textSize="@dimen/etiquetas"
+        android:maxLength="20"/>
+
+    <TextView
+    android:id="@+id/TextViewPrecioMin"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin"
+    android:text="@string/PrecioMin"
+    android:textColor="@color/colorEtiquetas"
+    android:textSize="@dimen/etiquetas" />
+
+    <EditText
+        android:id="@+id/EditTextPrecioMin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:ems="10"
+        android:hint="@string/PrecioMin"
+        android:inputType="numberDecimal"
+        android:textSize="@dimen/etiquetas"
+        android:maxLength="20"/>
+
+    <TextView
+        android:id="@+id/TextViewPrecioMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:text="@string/PrecioMax"
+        android:textColor="@color/colorEtiquetas"
+        android:textSize="@dimen/etiquetas" />
+
+    <EditText
+        android:id="@+id/EditTextPrecioMax"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:ems="10"
+        android:hint="@string/PrecioMax"
+        android:inputType="numberDecimal"
+        android:textSize="@dimen/etiquetas"
+        android:maxLength="20"/>
+
+    <Button
+        android:id="@+id/buttonBuscar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Buscar" />
+
+
+</LinearLayout>

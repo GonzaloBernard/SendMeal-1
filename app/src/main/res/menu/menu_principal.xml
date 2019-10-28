@@ -11,5 +11,8 @@
     <item android:id="@+id/toolBarListaPlatos"
         android:title="Ver lista de platos"
         android:orderInCategory="3" app:showAsAction="never"></item>
+    <item android:id="@+id/toolBuscarPlatos"
+        android:title="Buscar platos"
+        android:orderInCategory="4" app:showAsAction="never"></item>
 
 </menu>

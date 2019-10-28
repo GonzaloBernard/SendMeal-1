@@ -14,7 +14,7 @@ import android.os.Handler;
 
 public class PlatoRepository {
 
-    public static String _SERVER = "http://10.0.2.2:3000/";
+    public static String _SERVER = "http://192.168.100.35:5000/";
     public static final int _ALTA_PLATO = 1;
     public static final int _UPDATE_PLATO = 2;
     public static final int _BORRADO_PLATO = 3;
