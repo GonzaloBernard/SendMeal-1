@@ -27,6 +27,7 @@ import java.util.List;
 public class ListaItems extends AppCompatActivity {
     private final BroadcastReceiver br = new MyReceiver();
     private static final int REQUEST_CODE_EDITAR_PLATO = 2;
+    private static final int REQUEST_CODE_BORRAR_PLATO = 3;
     public static final String CHANNEL_ID="10001";
     private RecyclerView.Adapter mAdapter;
     private RecyclerView mRecyclerView;
@@ -44,6 +45,16 @@ public class ListaItems extends AppCompatActivity {
                     Plato plato = (Plato) data.getParcelableExtra(HomeActivity.PLATO_INDIVIDUAL_KEY);
                     // SE ACTUALIZA EL PLATO EN EL SERVIDOR
                     PlatoRepository.getInstance().actualizarPlato(plato, miHandler);
+                } catch (Exception e) {
+                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            } else if(requestCode==REQUEST_CODE_BORRAR_PLATO){
+                try {
+                    Bundle extras = data.getExtras();
+                    // SE OBTIENE EL PLATO A MODIFICAR
+                    Plato plato = (Plato) data.getParcelableExtra(HomeActivity.PLATO_INDIVIDUAL_KEY);
+                    // SE ACTUALIZA EL PLATO EN EL SERVIDOR
+                    PlatoRepository.getInstance().borrarPlato(plato, miHandler);
                 } catch (Exception e) {
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
