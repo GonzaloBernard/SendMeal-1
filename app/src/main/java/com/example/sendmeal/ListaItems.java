@@ -26,8 +26,8 @@ import java.util.List;
 
 public class ListaItems extends AppCompatActivity {
     private final BroadcastReceiver br = new MyReceiver();
-    private static final int REQUEST_CODE_EDITAR_PLATO = 2;
-    private static final int REQUEST_CODE_BORRAR_PLATO = 3;
+    public static final int REQUEST_CODE_EDITAR_PLATO = 2;
+    public static final int REQUEST_CODE_BORRAR_PLATO = 3;
     public static final String CHANNEL_ID="10001";
     private RecyclerView.Adapter mAdapter;
     private RecyclerView mRecyclerView;
@@ -42,7 +42,7 @@ public class ListaItems extends AppCompatActivity {
                 try {
                     Bundle extras = data.getExtras();
                     // SE OBTIENE EL PLATO A MODIFICAR
-                    Plato plato = (Plato) data.getParcelableExtra(HomeActivity.PLATO_INDIVIDUAL_KEY);
+                    Plato plato = (Plato) data.getParcelableExtra(AbmPlato._PLATO_INDIVIDUAL_KEY);
                     // SE ACTUALIZA EL PLATO EN EL SERVIDOR
                     PlatoRepository.getInstance().actualizarPlato(plato, miHandler);
                 } catch (Exception e) {
@@ -52,8 +52,8 @@ public class ListaItems extends AppCompatActivity {
                 try {
                     Bundle extras = data.getExtras();
                     // SE OBTIENE EL PLATO A MODIFICAR
-                    Plato plato = (Plato) data.getParcelableExtra(HomeActivity.PLATO_INDIVIDUAL_KEY);
-                    // SE ACTUALIZA EL PLATO EN EL SERVIDOR
+                    Plato plato = (Plato) data.getParcelableExtra(AbmPlato._PLATO_INDIVIDUAL_KEY);
+                    // SE BORRA EL PLATO EN EL SERVIDOR
                     PlatoRepository.getInstance().borrarPlato(plato, miHandler);
                 } catch (Exception e) {
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -82,7 +82,6 @@ public class ListaItems extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_items);
-        mRecyclerView = (RecyclerView) findViewById(R.id.listaItemsRecyclerView);
         //TOOLBAR
         try {
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarListaItems);
@@ -93,6 +92,12 @@ public class ListaItems extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
+
+        // RECYCLER VIEW
+        mRecyclerView = (RecyclerView) findViewById(R.id.listaItemsRecyclerView);
+        mRecyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ListaItems.this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
 
         //CREACION DEL CANAL DE NOTIFICACIONES
         this.createNotificationChannel();
@@ -109,18 +114,14 @@ public class ListaItems extends AppCompatActivity {
         public void handleMessage(Message msg) {
             //Lista de platos traidos del json server
             listaDataSet = PlatoRepository.getInstance().getListaPlatos();
-            switch (msg.arg1 ){
+            switch (msg.arg1 ) {
                 case PlatoRepository._CONSULTA_PLATO:
                 case PlatoRepository._UPDATE_PLATO:
-                    // RECYCLER VIEW
-                    mRecyclerView.setHasFixedSize(true);
-                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ListaItems.this);
-                    mRecyclerView.setLayoutManager(mLayoutManager);
+                case PlatoRepository._BORRADO_PLATO:
+                    // ACTUALIZAR RECYCLER VIEW
                     mAdapter = new PlatoAdapter( listaDataSet );
                     mRecyclerView.setAdapter(mAdapter);
-                    break;
-                default:
-                    break;
+                default:break;
             }
         }
     };

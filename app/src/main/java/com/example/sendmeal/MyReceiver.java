@@ -16,11 +16,11 @@ public class MyReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intentOrigen) {
         Toast.makeText(context, "Mensaje recibido", Toast.LENGTH_LONG).show();
-        Plato plato = (Plato) intentOrigen.getParcelableExtra(HomeActivity.PLATO_INDIVIDUAL_KEY);
+        Plato plato = (Plato) intentOrigen.getParcelableExtra(AbmPlato._PLATO_INDIVIDUAL_KEY);
         // LOGICA DEL INTENT PARA CONSULTAR EL PLATO
         Intent intent = new Intent(context.getApplicationContext(), AbmPlato.class);
-        intent.putExtra(HomeActivity.PLATO_INDIVIDUAL_KEY ,plato);
-        intent.putExtra(HomeActivity.PLATO_MODO_KEY , HomeActivity.KEY_CONSULTAR_PLATO);
+        intent.putExtra(AbmPlato._PLATO_INDIVIDUAL_KEY ,plato);
+        intent.putExtra(AbmPlato._PLATO_MODO_KEY , AbmPlato._KEY_CONSULTAR_PLATO);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         //SE CREA EL PendingIntent
         PendingIntent pendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, intent, 0);

@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,16 +30,6 @@ public class HomeActivity extends AppCompatActivity {
     public static String _SERVER = "10.0.2.2:3000/";
     private static Integer NUEVO_PLATO_REQUEST = 1;
     private static ArrayList<Plato> _PLATOS = new ArrayList<>();
-    //KEY PARA UN ArrayList<PLATOS>
-    public static final String PLATOS_LISTA_KEY = "_PLATOS";
-    //KEY PARA ENVIAR UN PLATO
-    public static final String PLATO_INDIVIDUAL_KEY = "plato";
-    //KEY PARA EL MODO
-    public static final String PLATO_MODO_KEY = "modo";
-    //KEY's PARA LOS DISTINTOS MODOS (para el ABM)
-    public static final Integer KEY_CREAR_PLATO = 1;
-    public static final Integer KEY_EDITAR_PLATO = 2;
-    public static final Integer KEY_CONSULTAR_PLATO = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,13 +81,13 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.toolBarNuevoPlato:
                 Intent i2 = new Intent(HomeActivity.this, AbmPlato.class);
                 //SE INDICA QUE EL MODO ES CREAR PLATO
-                i2.putExtra(HomeActivity.PLATO_MODO_KEY  ,  KEY_CREAR_PLATO);
+                i2.putExtra(AbmPlato._PLATO_MODO_KEY  ,  AbmPlato._KEY_CREAR_PLATO);
                 startActivityForResult(i2, NUEVO_PLATO_REQUEST);
                 return true;
             case R.id.toolBarListaPlatos:
                 Intent i3 = new Intent(HomeActivity.this,ListaItems.class);
                 //SE LE PASAN LOS PLATOS CREADOS
-                i3.putExtra(PLATOS_LISTA_KEY  ,  _PLATOS);
+                i3.putExtra(AbmPlato._PLATOS_LISTA_KEY  ,  _PLATOS);
                 startActivity(i3);
                 //SE LIMPIA LA LISTA PARA EVITAR ERRORES
                 _PLATOS.clear();
@@ -113,20 +106,30 @@ public class HomeActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode,@Nullable Intent data) {
         if (requestCode == NUEVO_PLATO_REQUEST) {
             if (resultCode == RESULT_OK) {
-                // OBTENIENDO EL NUEVO PLATO
                 try {
-                    Plato plato = data.getParcelableExtra(HomeActivity.PLATO_INDIVIDUAL_KEY);
-                    //SE VUELVE A CARGAR EL LA LISTA
-                    _PLATOS.add(plato);
-                    Toast.makeText(this,R.string.homePlatoCreado ,Toast.LENGTH_LONG).show();
+                    Bundle extras = data.getExtras();
+                    // SE OBTIENE EL NUEVO PLATO
+                    Plato plato = (Plato) data.getParcelableExtra(AbmPlato._PLATO_INDIVIDUAL_KEY);
+                    // SE GUARDA EL PLATO EN EL SERVIDOR
+                    PlatoRepository.getInstance().crearPlato(plato, miHandler);
+                } catch (Exception e) {
+                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
-                catch (Exception e){
-                    Toast.makeText(this,e.getMessage(),Toast.LENGTH_LONG).show();
-                }
-                }
+            }
             else
                 Toast.makeText(this,R.string.homePlatoError,Toast.LENGTH_LONG).show();
         }
     }
 
+    Handler miHandler = new Handler(Looper.myLooper()){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.arg1 ){
+                case PlatoRepository._ALTA_PLATO:
+                    Toast.makeText(HomeActivity.this,R.string.homePlatoCreado,Toast.LENGTH_LONG).show();
+                    break;
+                default:break;
+            }
+        }
+    };
 }

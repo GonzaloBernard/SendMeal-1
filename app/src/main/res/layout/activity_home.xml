@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="10"
         android:layout_margin="@dimen/margin"
+        android:layout_gravity="center_horizontal"
         android:text="@string/bienvenido"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/titulo" />

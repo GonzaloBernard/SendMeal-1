@@ -15,6 +15,17 @@ import android.widget.Toast;
 import com.example.sendmeal.domain.Plato;
 
 public class AbmPlato extends AppCompatActivity {
+    //KEY PARA EL MODO
+    public static final String _PLATO_MODO_KEY = "modo";
+    //KEY's PARA LOS DISTINTOS MODOS (para el ABM)
+    public static final Integer _KEY_CREAR_PLATO = 1;
+    public static final Integer _KEY_EDITAR_PLATO = 2;
+    public static final Integer _KEY_CONSULTAR_PLATO = 3;
+    public static final Integer _KEY_BORRAR_PLATO = 4;
+    //KEY PARA UN ArrayList<PLATOS>
+    public static final String _PLATOS_LISTA_KEY = "_PLATOS";
+    //KEY PARA ENVIAR UN PLATO
+    public static final String _PLATO_INDIVIDUAL_KEY = "plato";
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_volver, menu);
@@ -52,7 +63,7 @@ public class AbmPlato extends AppCompatActivity {
 
         final Resources resources = getResources();
         Bundle extras = getIntent().getExtras();
-        switch( extras.getInt(HomeActivity.PLATO_MODO_KEY) ) {
+        switch( extras.getInt(_PLATO_MODO_KEY) ) {
             case 1:
                 actionBar.setTitle(R.string.tituloToolbarCrearItem);
                 buttonGuardar.setOnClickListener(new Button.OnClickListener() {
@@ -89,7 +100,7 @@ public class AbmPlato extends AppCompatActivity {
                             //DEVOLVER DATOS A HOME ACTIVITY //
                             ///////////////////////////////
                             Intent intentResultado = new Intent();
-                            intentResultado.putExtra(HomeActivity.PLATO_INDIVIDUAL_KEY,platoAlta);
+                            intentResultado.putExtra(_PLATO_INDIVIDUAL_KEY,platoAlta);
                             setResult(Activity.RESULT_OK, intentResultado);
                             finish();
                         }
@@ -108,7 +119,7 @@ public class AbmPlato extends AppCompatActivity {
             case 2:
                 actionBar.setTitle(R.string.tituloToolbarModificarPlato);
                 // SE OBTIENE EL PLATO A MODIFICAR
-                final Plato platoModificacion = (Plato) extras.getParcelable(HomeActivity.PLATO_INDIVIDUAL_KEY);
+                final Plato platoModificacion = (Plato) extras.getParcelable(_PLATO_INDIVIDUAL_KEY);
                 //SE LLENAN LOS VIEWS CON LA INFORMACION DEL PLATO A MODIFICAR
                 editTextID.setText(platoModificacion.getId().toString());
                 editTextID.setEnabled(false);
@@ -146,7 +157,7 @@ public class AbmPlato extends AppCompatActivity {
                             platoModificacion.setCalorias(calorias);
                             //SE CREA UN INTENT Y SE AGREGA EL PLATO
                             Intent intentResultado = new Intent();
-                            intentResultado.putExtra(HomeActivity.PLATO_INDIVIDUAL_KEY, platoModificacion);
+                            intentResultado.putExtra(_PLATO_INDIVIDUAL_KEY, platoModificacion);
                             setResult(Activity.RESULT_OK, intentResultado);
                             //FIN DE LA ACTIVITY FOR RESULT
                             finish();
@@ -168,7 +179,7 @@ public class AbmPlato extends AppCompatActivity {
             case 3:
                 actionBar.setTitle(R.string.tituloToolbarConsultarPlato);
                 // SE OBTIENE EL PLATO A CONSULTAR
-                Plato platoConsulta = (Plato) extras.getParcelable(HomeActivity.PLATO_INDIVIDUAL_KEY);
+                Plato platoConsulta = (Plato) extras.getParcelable(_PLATO_INDIVIDUAL_KEY);
                 //SE LLENAN LOS VIEWS CON LA INFORMACION DEL PLATO A MODIFICAR
                 editTextID.setText(platoConsulta.getId().toString());
                 editTextID.setEnabled(false);
@@ -181,6 +192,16 @@ public class AbmPlato extends AppCompatActivity {
                 editTextCalorias.setText(platoConsulta.getCalorias().toString());
                 editTextCalorias.setEnabled(false);
                 buttonGuardar.setVisibility(View.INVISIBLE);
+                break;
+            case 4:
+                //SE RECUPERA EL PLATO A BORRAR
+                final Plato platoBorrar = (Plato) extras.getParcelable(_PLATO_INDIVIDUAL_KEY);
+                //SE CREA UN INTENT Y SE AGREGA EL PLATO
+                Intent intentResultado = new Intent();
+                intentResultado.putExtra(_PLATO_INDIVIDUAL_KEY, platoBorrar);
+                setResult(Activity.RESULT_OK, intentResultado);
+                //FIN DE LA ACTIVITY FOR RESULT
+                finish();
                 break;
 
             default:;

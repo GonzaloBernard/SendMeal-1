@@ -17,7 +17,6 @@ import java.util.List;
 public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder> {
 
     private Context context;
-    private static final int REQUEST_CODE_EDITAR_PLATO = 2;
     private List<Plato> mDataset;
     public PlatoAdapter(List<Plato> myDataset) {
         mDataset = myDataset;
@@ -50,10 +49,10 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
             public void onClick(View view) {
                 Intent i = new Intent(view.getContext(), AbmPlato.class);
                 //EL MODO DETERMINA LA ACCION A REALIZAR
-                i.putExtra(HomeActivity.PLATO_MODO_KEY, HomeActivity.KEY_EDITAR_PLATO);
+                i.putExtra(AbmPlato._PLATO_MODO_KEY, AbmPlato._KEY_EDITAR_PLATO);
                 //SE AGREGA EL PLATO
-                i.putExtra(HomeActivity.PLATO_INDIVIDUAL_KEY, plato);
-                ((Activity) view.getContext()).startActivityForResult(i, REQUEST_CODE_EDITAR_PLATO);
+                i.putExtra(AbmPlato._PLATO_INDIVIDUAL_KEY, plato);
+                ((Activity) view.getContext()).startActivityForResult(i, ListaItems.REQUEST_CODE_EDITAR_PLATO);
             }
         });
         ///////////////////////////////
@@ -72,7 +71,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
                             e.printStackTrace();
                          }
                         Intent intent = new Intent();
-                        intent.putExtra(HomeActivity.PLATO_INDIVIDUAL_KEY, plato);
+                        intent.putExtra(AbmPlato._PLATO_INDIVIDUAL_KEY, plato);
                         intent.putExtra("titulo",plato.getTitulo());
                         intent.putExtra("descripcion",plato.getDescripcion());
                         intent.setAction(MyReceiver.EVENTO_EN_OFERTA);
@@ -97,8 +96,12 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dlgInt, int i) {
-                                        mDataset.remove(plato);
-                                        notifyDataSetChanged();
+                                        Intent intent = new Intent(context, AbmPlato.class);
+                                        //EL MODO DETERMINA LA ACCION A REALIZAR
+                                        intent.putExtra(AbmPlato._PLATO_MODO_KEY, AbmPlato._KEY_BORRAR_PLATO);
+                                        //SE AGREGA EL PLATO
+                                        intent.putExtra(AbmPlato._PLATO_INDIVIDUAL_KEY, plato);
+                                        ((Activity) context).startActivityForResult(intent, ListaItems.REQUEST_CODE_BORRAR_PLATO);
                                     }
                                 }).setNegativeButton("CONSERVAR",
                         new DialogInterface.OnClickListener() {

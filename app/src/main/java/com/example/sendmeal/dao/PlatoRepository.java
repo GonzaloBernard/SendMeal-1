@@ -79,6 +79,7 @@ public class PlatoRepository {
             @Override
             public void onResponse(Call<Plato> call, Response<Plato> response) {
                 if(response.isSuccessful()){
+                    // NO ESTA FUNCIONANDO ESTE remove( <Plato> )
                     listaPlatos.remove(o);
                     listaPlatos.add(response.body());
                     Message m = new Message();
@@ -127,6 +128,7 @@ public class PlatoRepository {
             public void onResponse(Call<Void> call, Response<Void> response) {
 
                 if(response.isSuccessful()){
+                    // NO ESTA FUNCIONANDO ESTE remove( <Plato> )
                     listaPlatos.remove(p);
                     Message m = new Message();
                     m.arg1 = _BORRADO_PLATO;
