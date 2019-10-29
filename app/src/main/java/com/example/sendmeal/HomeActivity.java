@@ -3,6 +3,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Layout;
@@ -21,12 +22,14 @@ import java.util.ArrayList;
 
 
 public class HomeActivity extends AppCompatActivity {
-    public static String _SERVER = "http://10.0.2.2:3000/";
+
+    //  SE ESTABLECE POR DEFAULT LA IP/DIRECCION del servidor JSON
+    public static String _SERVER = "10.0.2.2:3000/";
     private static Integer NUEVO_PLATO_REQUEST = 1;
     private static ArrayList<Plato> _PLATOS = new ArrayList<>();
     //KEY PARA UN ArrayList<PLATOS>
     public static final String PLATOS_LISTA_KEY = "_PLATOS";
-    //KEY PARA UN PLATO SOLO
+    //KEY PARA ENVIAR UN PLATO
     public static final String PLATO_INDIVIDUAL_KEY = "plato";
     //KEY PARA EL MODO
     public static final String PLATO_MODO_KEY = "modo";
@@ -45,22 +48,22 @@ public class HomeActivity extends AppCompatActivity {
         //SONIDO DE INICIO
         MediaPlayer mp = MediaPlayer.create(this, R.raw.misc222);
         mp.start();
-        final EditText server = (EditText) findViewById(R.id.editTextServerIP);
-        final TextView tvServer = (TextView) findViewById(R.id.textViewServerIP);
+        final EditText etServer = (EditText) findViewById(R.id.editTextServerIP);
         final Button buttonCambiarIP = (Button) findViewById(R.id.buttonServerIP);
         final LinearLayout layoutCambiarIP = (LinearLayout) findViewById(R.id.layoutServerIP);
         toolbar.setVisibility(View.INVISIBLE);
-        tvServer.setText(_SERVER);
+        etServer.setText(_SERVER);
 
         buttonCambiarIP.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                _SERVER = server.getText().toString() ;
-                tvServer.setText(_SERVER);
-                //DESHABILITAR EL CAMBIO DE IP
-                tvServer.setEnabled(false);
+                etServer.setEnabled(false);
                 buttonCambiarIP.setEnabled(false);
-                layoutCambiarIP.setVisibility(View.INVISIBLE);
+                buttonCambiarIP.setVisibility(View.GONE);
+                // SE GUARDA LA IP DEL SERVIDOR
+                _SERVER="http://"+etServer.getText().toString();
+                etServer.setTextColor(Color.GREEN);
+                //SE HABILITAN LAS FUNCIONES DE LA APP
                 toolbar.setVisibility(View.VISIBLE);
             }
         });
