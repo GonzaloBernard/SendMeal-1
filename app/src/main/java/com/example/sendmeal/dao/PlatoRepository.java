@@ -94,5 +94,55 @@ public class PlatoRepository {
             }
         });
     }
+
+    public void crearPlato(Plato p, final Handler h){
+        Call<Plato> llamada = this.platoRest.crear(p);
+        llamada.enqueue(new Callback<Plato>() {
+            @Override
+            public void onResponse(Call<Plato> call, Response<Plato> response) {
+
+
+                if(response.isSuccessful()){
+                    listaPlatos.add(response.body());
+                    Message m = new Message();
+                    m.arg1 = _ALTA_PLATO;
+                    h.sendMessage(m);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Plato> call, Throwable t) {
+                Log.d("APP_2","ERROR "+t.getMessage());
+                Message m = new Message();
+                m.arg1 = _ERROR_PLATO;
+                h.sendMessage(m);
+            }
+        });
+    }
+
+    public void borrarPlato(final Plato p, final Handler h){
+        Call<Void> llamada = this.platoRest.borrar(p.getId());
+        llamada.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+                if(response.isSuccessful()){
+                    listaPlatos.remove(p);
+                    Message m = new Message();
+                    m.arg1 = _BORRADO_PLATO;
+                    h.sendMessage(m);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d("APP_2","ERROR "+t.getMessage());
+                Message m = new Message();
+                m.arg1 = _ERROR_PLATO ;
+                h.sendMessage(m);
+            }
+        });
+    }
+
     public List<Plato> getListaPlatos(){return this.listaPlatos; }
 }
