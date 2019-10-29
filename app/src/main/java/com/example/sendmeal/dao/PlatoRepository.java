@@ -20,7 +20,7 @@ public class PlatoRepository {
     public static final int _ALTA_PLATO = 1;
     public static final int _UPDATE_PLATO = 2;
     public static final int _BORRADO_PLATO = 3;
-    public static final int CONSULTA_PLATO = 4;
+    public static final int _CONSULTA_PLATO = 4;
     public static final int _ERROR_PLATO = 9;
     private List<Plato> listaPlatos;
 
@@ -47,7 +47,7 @@ public class PlatoRepository {
         this.platoRest = this.rf.create(PlatoRest.class);
     }
 
-    //HANDLER PARA MANEJAR LA COMUNICACION CON EL API REST
+
     public void listarPlatos(final Handler h){
         //SE GENERA UN HTTP REQUEST
         Call<List<Plato>> call = this.platoRest.getPlatos();
@@ -62,7 +62,7 @@ public class PlatoRepository {
                     // UNA VEZ RECUPERADOS LOS PLATOS DE LA API SE CREA Y ENVIA UN MENSAJE PARA
                     // QUE EL HANDLER DE ListaItems ACTUALICE SU LISTA DE PLATOS
                     Message m = new Message();
-                    m.arg1 = CONSULTA_PLATO;
+                    m.arg1 = _CONSULTA_PLATO;
                     h.sendMessage(m);
                 }
             }
@@ -72,6 +72,27 @@ public class PlatoRepository {
             }
         });
     }
-    public List<Plato> getListaPlatos(){return this.listaPlatos; }
 
+    public void actualizarPlato(final Plato o, final Handler h){
+        Call<Plato> llamada = this.platoRest.actualizar(o.getId(),o);
+        llamada.enqueue(new Callback<Plato>() {
+            @Override
+            public void onResponse(Call<Plato> call, Response<Plato> response) {
+                if(response.isSuccessful()){
+                    listaPlatos.remove(o);
+                    listaPlatos.add(response.body());
+                    Message m = new Message();
+                    m.arg1 = _UPDATE_PLATO;
+                    h.sendMessage(m);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Plato> call, Throwable t) {
+                Log.d("APP_2","ERROR "+t.getMessage());
+
+            }
+        });
+    }
+    public List<Plato> getListaPlatos(){return this.listaPlatos; }
 }

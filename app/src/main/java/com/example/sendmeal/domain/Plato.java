@@ -19,56 +19,56 @@ public class Plato implements Parcelable {
         readFromParcel(in);
     }
 
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public Integer getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(Integer imagen) {
-        this.imagen = imagen;
-    }
-
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getCalorias() {
-        return calorias;
-    }
-
-    public void setCalorias(Integer calorias) {
-        this.calorias = calorias;
-    }
-
-    public Double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(Double precio) {
-        this.precio = precio;
+    public String getTitulo() {
+        return titulo;
     }
 
     public String getDescripcion() {
         return descripcion;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public Integer getCalorias() {
+        return calorias;
+    }
+
+    public Integer getImagen() {
+        return imagen;
     }
 
     public Boolean getEnOferta() {
         return enOferta;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    public void setCalorias(Integer calorias) {
+        this.calorias = calorias;
+    }
+
+    public void setImagen(Integer imagen) {
+        this.imagen = imagen;
     }
 
     public void setEnOferta(Boolean enOferta) {

@@ -38,19 +38,12 @@ public class ListaItems extends AppCompatActivity {
 
         if( resultCode== Activity.RESULT_OK){
             if(requestCode==REQUEST_CODE_EDITAR_PLATO){
-                // OBTENIENDO LOS DATOS DEL PLATO MODIFICADO
                 try {
                     Bundle extras = data.getExtras();
+                    // SE OBTIENE EL PLATO A MODIFICAR
                     Plato plato = (Plato) data.getParcelableExtra(HomeActivity.PLATO_INDIVIDUAL_KEY);
-                    // RECUPERANDO EL PLATO VIEJO POR SU ID
-                    Plato platoViejo = getPlatoById(plato.getId());
-                    //SE SACA DE LA LISTA PARA ACTUALIZARLO
-                    _PLATOS.remove(platoViejo);
-                    //SE VUELVE A CARGAR EL LA LISTA
-                    _PLATOS.add(plato);
-                    Toast.makeText(this, R.string.listaItemsPlatoEditado, Toast.LENGTH_LONG).show();
-                    //SE LE DICE AL ADAPTER QUE ACTUALICE LA DATA
-                    mAdapter.notifyDataSetChanged();
+                    // SE ACTUALIZA EL PLATO EN EL SERVIDOR
+                    PlatoRepository.getInstance().actualizarPlato(plato, miHandler);
                 } catch (Exception e) {
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
@@ -90,34 +83,11 @@ public class ListaItems extends AppCompatActivity {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
-        try {
-            ArrayList<Plato> platosNuevos = getIntent().getParcelableArrayListExtra(HomeActivity.PLATOS_LISTA_KEY);
-            _PLATOS.addAll(platosNuevos);
-        } catch (Exception e){
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-
-        ////////////////////////////////////////////////////////////////////////
-        // PLATOS HARDCODEADOS EN CASO DE NO CREAR NINGUN PLATO MANUALMENTE
-        if(_PLATOS.isEmpty()) {
-            Plato plato1 = new Plato();
-            plato1.setId(56);
-            plato1.setTitulo("Hamburguesa completa");
-            plato1.setDescripcion("Hamburguesa con queso, lechuga, huevo y tomate");
-            plato1.setPrecio(150d);
-            plato1.setCalorias(1500);
-            plato1.setImagen(R.drawable.hamburguesa);
-            plato1.setEnOferta(false);
-            //LISTA DE PLATOS
-            _PLATOS.add(plato1);
-        }
-
         //CREACION DEL CANAL DE NOTIFICACIONES
         this.createNotificationChannel();
         IntentFilter filtro = new IntentFilter();
         filtro.addAction(MyReceiver.EVENTO_EN_OFERTA);
         registerReceiver(br, filtro);
-        //LocalBroadcastManager.getInstance(this).registerReceiver(br,filtro);
 
         // SE PIDEN LOS PLATOS A PlatoRepository
         PlatoRepository.getInstance().listarPlatos(miHandler);
@@ -126,10 +96,11 @@ public class ListaItems extends AppCompatActivity {
     Handler miHandler = new Handler(Looper.myLooper()){
         @Override
         public void handleMessage(Message msg) {
+            //Lista de platos traidos del json server
             listaDataSet = PlatoRepository.getInstance().getListaPlatos();
-
             switch (msg.arg1 ){
-                case PlatoRepository.CONSULTA_PLATO:
+                case PlatoRepository._CONSULTA_PLATO:
+                case PlatoRepository._UPDATE_PLATO:
                     // RECYCLER VIEW
                     mRecyclerView.setHasFixedSize(true);
                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ListaItems.this);
@@ -138,17 +109,15 @@ public class ListaItems extends AppCompatActivity {
                     mRecyclerView.setAdapter(mAdapter);
                     break;
                 default:
-                    Toast.makeText(ListaItems.this, "HANDLER DEFAULT CASE", Toast.LENGTH_LONG).show();
                     break;
             }
         }
     };
+
     @Override
     public void onDestroy() {
         unregisterReceiver(br);
-        //LocalBroadcastManager.getInstance(this).unregisterReceiver(br);
         super.onDestroy();
-
     }
 
     private void createNotificationChannel() {
@@ -163,8 +132,6 @@ public class ListaItems extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
-
-
 
     private Plato getPlatoById(Integer id){
         for(Plato plato: _PLATOS){
