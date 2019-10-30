@@ -13,14 +13,14 @@ import androidx.room.Update;
 @Dao
 public interface ItemsPedidoDao {
 
-    @Query("SELECT * FROM ")
+    @Query("SELECT * FROM itemsPedido")
     List<ItemsPedido> getAll();
 
     @Insert
     void insert(ItemsPedido itemsPedido);
 
     @Insert
-    void insertAll(ItemsPedido itemsPedido);
+    void insertAll(ItemsPedido... itemsPedido);
 
     @Delete
     void delete(ItemsPedido itemsPedido);
