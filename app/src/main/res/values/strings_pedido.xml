@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tituloToolbarPedido">PEDIDO</string>
+    <string name="crearPedido">Crear pedido</string>
+    <string name="enviarPedido">Enviar pedido</string>
+</resources>

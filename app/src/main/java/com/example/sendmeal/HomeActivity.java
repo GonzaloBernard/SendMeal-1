@@ -127,6 +127,7 @@ public class HomeActivity extends AppCompatActivity {
             switch (msg.arg1 ){
                 case PlatoRepository._ALTA_PLATO:
                     Toast.makeText(HomeActivity.this,R.string.homePlatoCreado,Toast.LENGTH_LONG).show();
+
                     break;
                 default:break;
             }

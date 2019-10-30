@@ -52,7 +52,7 @@ public class AbmUsuario extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_abm_usuario);
         try {
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarMainActivity);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarPedido);
             setSupportActionBar(toolbar);
             ActionBar actionBar = getSupportActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
