@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey;
 @Entity (tableName = "itemsPedido")
 public class ItemsPedido {
 
-    public static final String COLUMN_ID = BaseColumns._ID;
+   // public static final String COLUMN_ID = BaseColumns._ID;
 
     @PrimaryKey(autoGenerate = true)
    // @ColumnInfo(index = true, name = COLUMN_ID)

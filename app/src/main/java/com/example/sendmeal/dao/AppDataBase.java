@@ -13,5 +13,5 @@ import com.example.sendmeal.domain.ItemsPedido;
 public abstract class AppDataBase extends RoomDatabase {
 
     public abstract PedidoDao pedidoDao(); //que permisos va a tener
-    public abstract ItemsPedido itemsPedido();
+    public abstract ItemsPedidoDao itemsPedidoDao();
 }
