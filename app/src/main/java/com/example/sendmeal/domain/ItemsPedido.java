@@ -13,20 +13,20 @@ public class ItemsPedido {
     public static final String COLUMN_ID = BaseColumns._ID;
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(index = true, name = COLUMN_ID)
+   // @ColumnInfo(index = true, name = COLUMN_ID)
     private Integer id;
 
     @ForeignKey(entity = Pedido.class, parentColumns = "id", childColumns = "id")
-    @ColumnInfo(name = "pedido")
+    //@ColumnInfo(name = "pedido")
     private Pedido pedido;
 
-    @ColumnInfo(name = "plato")//aca plato no es una entidad en la BD, entonces me parece que hay que poner un int id que es el del plato
+   // @ColumnInfo(name = "plato")//aca plato no es una entidad en la BD, entonces me parece que hay que poner un int id que es el del plato
     private Plato plato;
 
-    @ColumnInfo(name = "cantidad")
+    //@ColumnInfo(name = "cantidad")
     private Integer cantidad;
 
-    @ColumnInfo(name = "precio")
+    //@ColumnInfo(name = "precio")
     private Double precio;
 
     public ItemsPedido(){}

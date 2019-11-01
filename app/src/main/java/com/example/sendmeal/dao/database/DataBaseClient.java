@@ -1,8 +1,11 @@
-/*package com.example.sendmeal.dao.database;
+package com.example.sendmeal.dao.database;
 
 import android.content.Context;
 
 import androidx.room.Room;
+
+import com.example.sendmeal.dao.AppDataBase;
+
 public class DataBaseClient {
     private static DataBaseClient DB = null;
 
@@ -23,4 +26,4 @@ public class DataBaseClient {
     public AppDataBase getAppDataBase() {
         return pedidoDataBase;
     }
-}*/
+}

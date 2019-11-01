@@ -1,7 +1,9 @@
 package com.example.sendmeal.domain;
 
 public enum EstadoPedido {
-    PENDIENTE, ENVIADO, ACEPTADO, RECHAZADO, EN_PREPARACION, EN_ENVIO, ENTREGADO, CANCELADO
+    PENDIENTE ("pendiente"), ENVIADO ("enviado"), ACEPTADO ("aceptado"),
+    RECHAZADO ("rechazado"), EN_PREPARACION ("en_reparacion"), EN_ENVIO ("en_envio"),
+    ENTREGADO ("entregado"), CANCELADO ("cancelado");
 
 /*
     1. PENDIENTE: el pedido fue creado, pero no fue enviado al servidor por lo que aún está
@@ -16,4 +18,16 @@ public enum EstadoPedido {
     7. ENTREGADO: el pedido ha sido entregado.
     8. CANCELADO: Cuando el pedido está en los estados 1 o 2 se puede cancelar.
 */
+
+    private final String text;
+
+    EstadoPedido(String text) {
+        this.text = text;
+    }
+
+    @Override
+    public String toString() {
+        return text;
+    }
+
 }

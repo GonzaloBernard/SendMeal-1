@@ -15,22 +15,22 @@ import java.util.List;
 @Entity (tableName = "pedido")
 public class Pedido {
 
-    public static final String COLUMN_ID = BaseColumns._ID;
+    //public static final String COLUMN_ID = BaseColumns._ID;
 
         @PrimaryKey(autoGenerate = true)
-        @ColumnInfo(index = true, name = COLUMN_ID)
+      //  @ColumnInfo(index = true, name = COLUMN_ID)
         private Integer id;
 
-        @ColumnInfo(name = "fecha")
+      //  @ColumnInfo(name = "fecha")
         private Date fecha;
 
-        @ColumnInfo(name = "estado")
+        //@ColumnInfo(name = "estado")
         private EstadoPedido estado;
 
-        @ColumnInfo(name = "latitud")
+       // @ColumnInfo(name = "latitud")
         private Double latitud;
 
-        @ColumnInfo(name = "longitud")
+        //@ColumnInfo(name = "longitud")
         private Double longitud;
 
 
