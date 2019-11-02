@@ -6,29 +6,25 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+import androidx.room.Relation;
 
 @Entity (tableName = "itemsPedido")
 public class ItemsPedido {
 
-   // public static final String COLUMN_ID = BaseColumns._ID;
+   // ATRIBUTOS
 
     @PrimaryKey(autoGenerate = true)
-   // @ColumnInfo(index = true, name = COLUMN_ID)
     private Integer id;
 
-    @ForeignKey(entity = Pedido.class, parentColumns = "id", childColumns = "id")
-    //@ColumnInfo(name = "pedido")
-    private Pedido pedido;
+    @ForeignKey(entity = Pedido.class, parentColumns = "id", childColumns = "id_pedido", onDelete = ForeignKey.CASCADE)
+    @ColumnInfo(name = "id_pedido")
+    private Integer id_pedido;
 
-   // @ColumnInfo(name = "plato")//aca plato no es una entidad en la BD, entonces me parece que hay que poner un int id que es el del plato
     private Plato plato;
-
-    //@ColumnInfo(name = "cantidad")
     private Integer cantidad;
-
-    //@ColumnInfo(name = "precio")
     private Double precio;
 
+    //METODOS
     public ItemsPedido(){}
 
     public Integer getId() {
@@ -39,12 +35,12 @@ public class ItemsPedido {
         this.id = id;
     }
 
-    public Pedido getPedido() {
-        return pedido;
+    public Integer getId_pedido() {
+        return id_pedido;
     }
 
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
+    public void setId_pedido(Integer id_pedido) {
+        this.id_pedido = id_pedido;
     }
 
     public Plato getPlato() {

@@ -74,16 +74,4 @@ public class Converters {
     }
 //******************************************************************************************************************
 
-
-    //De pedido a integer, tomo el id de pedido para almacenarlo
-    @TypeConverter
-    public static Integer dePedidoAInteger(Pedido pedido) {
-        if (pedido == null) {
-            return null;
-        } else {
-            return pedido.getId();
-        }
-    }
-
-
 }

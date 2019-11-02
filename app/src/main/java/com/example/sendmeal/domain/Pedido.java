@@ -4,10 +4,11 @@ package com.example.sendmeal.domain;
 
 import android.provider.BaseColumns;
 
-import androidx.room.ColumnInfo;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.Relation;
+
+
 
 import java.util.Date;
 import java.util.List;
@@ -15,27 +16,18 @@ import java.util.List;
 @Entity (tableName = "pedido")
 public class Pedido {
 
-    //public static final String COLUMN_ID = BaseColumns._ID;
-
+    //ATRIBUTOS
         @PrimaryKey(autoGenerate = true)
-      //  @ColumnInfo(index = true, name = COLUMN_ID)
         private Integer id;
 
-      //  @ColumnInfo(name = "fecha")
         private Date fecha;
-
-        //@ColumnInfo(name = "estado")
         private EstadoPedido estado;
-
-       // @ColumnInfo(name = "latitud")
         private Double latitud;
-
-        //@ColumnInfo(name = "longitud")
         private Double longitud;
 
 
-        private List<ItemsPedido> items;
 
+    //METODOS
     public Pedido() {}
 
     public Integer getId() {
@@ -78,11 +70,4 @@ public class Pedido {
         this.longitud = longitud;
     }
 
-    public List<ItemsPedido> getItems() {
-        return items;
-    }
-
-    public void setItems(List<ItemsPedido> items) {
-        this.items = items;
-    }
 }

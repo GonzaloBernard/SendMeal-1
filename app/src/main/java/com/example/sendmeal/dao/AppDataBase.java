@@ -14,4 +14,5 @@ public abstract class AppDataBase extends RoomDatabase {
 
     public abstract PedidoDao pedidoDao(); //que permisos va a tener
     public abstract ItemsPedidoDao itemsPedidoDao();
+    public abstract PedidosEItemsPedidosDao pedidosEItemsPedidosDao();
 }
