@@ -1,7 +1,6 @@
-package com.example.sendmeal.dao;
+package com.example.sendmeal.dao.database;
 
 import com.example.sendmeal.domain.Pedido;
-
 import java.util.List;
 import androidx.room.Dao;
 import androidx.room.Delete;

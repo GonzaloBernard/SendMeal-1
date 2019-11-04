@@ -1,15 +1,10 @@
 package com.example.sendmeal.dao.database;
 
 import android.os.Handler;
-
 import androidx.room.TypeConverter;
-import androidx.room.TypeConverters;
-
 import com.example.sendmeal.dao.PlatoRepository;
 import com.example.sendmeal.domain.EstadoPedido;
-import com.example.sendmeal.domain.Pedido;
 import com.example.sendmeal.domain.Plato;
-
 import java.util.Date;
 import java.util.List;
 

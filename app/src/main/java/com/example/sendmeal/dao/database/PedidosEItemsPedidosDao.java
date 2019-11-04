@@ -1,8 +1,7 @@
-package com.example.sendmeal.dao;
+package com.example.sendmeal.dao.database;
 
 import androidx.room.Dao;
 import androidx.room.Query;
-
 import com.example.sendmeal.domain.PedidoYTodosSusItems;
 
 @Dao

@@ -1,10 +1,9 @@
-package com.example.sendmeal.dao;
+package com.example.sendmeal.dao.database;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.example.sendmeal.dao.database.Converters;
 import com.example.sendmeal.domain.Pedido;
 import com.example.sendmeal.domain.ItemsPedido;
 

@@ -1,7 +1,6 @@
 package com.example.sendmeal.dao;
 import android.os.Message;
 import android.util.Log;
-
 import com.example.sendmeal.HomeActivity;
 import com.example.sendmeal.dao.rest.PlatoRest;
 import com.example.sendmeal.domain.Plato;
@@ -16,14 +15,12 @@ import android.os.Handler;
 
 public class PlatoRepository {
 
-
     public static final int _ALTA_PLATO = 1;
     public static final int _UPDATE_PLATO = 2;
     public static final int _BORRADO_PLATO = 3;
     public static final int _CONSULTA_PLATO = 4;
     public static final int _ERROR_PLATO = 9;
     private List<Plato> listaPlatos;
-
     private static PlatoRepository _INSTANCE;
     private PlatoRepository(){}
     public static PlatoRepository getInstance(){
