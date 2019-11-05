@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class HomeActivity extends AppCompatActivity {
 
     //  SE ESTABLECE POR DEFAULT LA IP/DIRECCION del servidor JSON
-    public static String _SERVER = "10.15.158.66:3000/";
+    public static String _SERVER = "10.0.2.2:3000/";
     private static Integer NUEVO_PLATO_REQUEST = 1;
     private static ArrayList<Plato> _PLATOS = new ArrayList<>();
 

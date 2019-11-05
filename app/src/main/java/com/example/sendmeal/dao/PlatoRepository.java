@@ -144,4 +144,12 @@ public class PlatoRepository {
     }
 
     public List<Plato> getListaPlatos(){return this.listaPlatos; }
+    public Plato getPlatoById(Integer id) {
+        //BUSCAR PLATO
+        for (Plato plato : this.listaPlatos) {
+            if(plato.getId()==id)
+                return plato;
+        }
+        return null;
+    }
 }

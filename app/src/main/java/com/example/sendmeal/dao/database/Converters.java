@@ -1,12 +1,9 @@
 package com.example.sendmeal.dao.database;
-
-import android.os.Handler;
 import androidx.room.TypeConverter;
 import com.example.sendmeal.dao.PlatoRepository;
 import com.example.sendmeal.domain.EstadoPedido;
 import com.example.sendmeal.domain.Plato;
 import java.util.Date;
-import java.util.List;
 
 public class Converters {
     //convierte el tipo date a tipo long y viceversa,para la BD
@@ -44,29 +41,13 @@ public class Converters {
             return plato.getId();
         }
     }
-//******************************************************************************************************************
-//De Integer a plato, tomo el id de plato para recuperar el plato
-//nose si anda o si esta bien pensado, yo tengo que recuperar un plato a partir de un id
-//los platos se almacenan en json, entonces utilizo los metos de PlatoRepository, mi unica duda aca es si el handler esta bien asi
+    
+    // De Integer a plato, tomo el id de plato para recuperar el plato
     @TypeConverter
     public static Plato deIntegerAPlato (Integer id){
-        if(id==null){
+        if(id==null)
             return null;
-        }else{
-            PlatoRepository.getInstance().listarPlatos(new Handler());
-            List<Plato> platos = PlatoRepository.getInstance().getListaPlatos();
-            int i=0;
-            Plato resultado= null;
-
-            while(i<platos.size() && resultado == null){
-                if(platos.get(i).getId() == id){
-                    resultado=platos.get(i);
-                }
-                i++;
-            }
-            return resultado;
-        }
+        else
+            return PlatoRepository.getInstance().getPlatoById(id);
     }
-//******************************************************************************************************************
-
 }
