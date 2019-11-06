@@ -41,7 +41,7 @@ public class Converters {
             return plato.getId();
         }
     }
-    
+
     // De Integer a plato, tomo el id de plato para recuperar el plato
     @TypeConverter
     public static Plato deIntegerAPlato (Integer id){
