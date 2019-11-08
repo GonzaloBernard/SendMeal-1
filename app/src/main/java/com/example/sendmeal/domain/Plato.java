@@ -3,6 +3,8 @@ package com.example.sendmeal.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Objects;
+
 public class Plato implements Parcelable {
     private Integer id;
     private String titulo;
@@ -11,6 +13,18 @@ public class Plato implements Parcelable {
     private Integer calorias;
     private Integer imagen;
     private Boolean enOferta;
+
+    @Override
+    public boolean equals(Object o) {
+        Plato plato = (Plato) o;
+        if (this.getId() == plato.getId() ) return true;
+        else return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
     public Plato() {
     }

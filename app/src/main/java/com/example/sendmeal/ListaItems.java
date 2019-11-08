@@ -64,19 +64,29 @@ public class ListaItems extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_volver, menu);
+        getMenuInflater().inflate(R.menu.menu_carrito, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.toolbarCarrito:
+                System.out.println("llamada");
+                Intent i1 = new Intent(ListaItems.this, AltaPedido.class);
+                startActivity(i1);
+
+                return true;
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            default:
+                Toast.makeText(this,". . . . ",Toast.LENGTH_LONG).show();
+                return super.onOptionsItemSelected(item);
+
         }
-        return super.onOptionsItemSelected(item);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {

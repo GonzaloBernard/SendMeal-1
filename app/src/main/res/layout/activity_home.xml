@@ -20,13 +20,30 @@
     <TextView
         android:id="@+id/textViewBienvenido"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="10"
-        android:layout_margin="@dimen/margin"
+        android:layout_height="562dp"
         android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/margin"
+        android:layout_weight="10"
         android:text="@string/bienvenido"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/titulo" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Switch
+        android:id="@+id/switchEsVendedorHome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:text="@string/switchEsVendedor"
+        android:textColor="@color/colorEtiquetas"
+        android:textSize="@dimen/etiquetas" />
+
+    </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

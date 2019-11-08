@@ -29,6 +29,9 @@
         <activity
             android:name=".ListaItems"
             android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".AltaPedido"
+            android:parentActivityName=".ListaItems" />
 
         <receiver
             android:name=".MyReceiver"

@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.sendmeal.domain.Plato;
@@ -18,6 +20,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
 
     private Context context;
     private List<Plato> mDataset;
+    public List<Plato> platosPedido;
     public PlatoAdapter(List<Plato> myDataset) {
         mDataset = myDataset;
     }
@@ -41,6 +44,36 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
         holder.imagen.setImageResource(R.drawable.hamburguesa);
         holder.titulo.setText(plato.getTitulo());
         holder.precio.setText(plato.getPrecio().toString());
+        String condition = HomeActivity._USUARIO;
+        switch (HomeActivity._USUARIO)
+        {
+            case HomeActivity.KEY_VENDEDOR:
+            holder.llVendedor.setVisibility(View.VISIBLE);
+            holder.llComprador.setVisibility(View.GONE);
+            break;
+            case HomeActivity.KEY_COMPRADOR:
+            holder.llVendedor.setVisibility(View.GONE);
+            holder.llComprador.setVisibility(View.VISIBLE);
+            break;
+            default:
+                break;
+        }
+
+
+        ///////////////////////////////
+        //CLICK EN BOTON AGREGAR///////
+        ///////////////////////////////
+        holder.buttonAgregarCarrito.setOnClickListener(new Button.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+
+                platosPedido.add(plato);
+
+            }
+        });
+
+
         ///////////////////////////////
         //CLICK EN BOTON EDITAR////////
         ///////////////////////////////
@@ -121,6 +154,10 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
         Button buttonEditar;
         Button buttonEliminar;
         Button buttonOferta;
+        LinearLayout llVendedor;
+        LinearLayout llComprador;
+        Spinner spinnerCantidad;
+        Button buttonAgregarCarrito;
 
         public PlatoHolder(View base){
             super(base);
@@ -130,6 +167,10 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
             this.buttonEditar = (Button) base.findViewById(R.id.buttonEditar);
             this.buttonEliminar = (Button) base.findViewById(R.id.buttonEliminar);
             this.buttonOferta = (Button) base.findViewById(R.id.buttonOferta);
+            this.llComprador = (LinearLayout) base.findViewById(R.id.layoutComprador);
+            this.llVendedor = (LinearLayout) base.findViewById(R.id.layoutVendedor);
+            this.spinnerCantidad = (Spinner) base.findViewById(R.id.spinnerCantidad);
+            this.buttonAgregarCarrito = (Button) base.findViewById(R.id.buttonAgregarACarrito);
         }
 
     }

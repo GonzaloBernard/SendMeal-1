@@ -14,8 +14,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,8 +28,12 @@ import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
 
+    // Tipo de login
+    public static String _USUARIO = "comprador";
+    public static final String KEY_VENDEDOR = "vendedor";
+    public static final String KEY_COMPRADOR = "comprador";
     //  SE ESTABLECE POR DEFAULT LA IP/DIRECCION del servidor JSON
-    public static String _SERVER = "10.0.2.2:3000/";
+    public static String _SERVER = "10.15.158.202:3000/";
     private static Integer NUEVO_PLATO_REQUEST = 1;
     private static ArrayList<Plato> _PLATOS = new ArrayList<>();
 
@@ -44,6 +50,26 @@ public class HomeActivity extends AppCompatActivity {
         final EditText etServer = (EditText) findViewById(R.id.editTextServerIP);
         final Button buttonCambiarIP = (Button) findViewById(R.id.buttonServerIP);
         final LinearLayout layoutCambiarIP = (LinearLayout) findViewById(R.id.layoutServerIP);
+        final Switch esVendedor = (Switch) findViewById(R.id.switchEsVendedorHome);
+
+        ///////////////////////
+        // LOGICA DEL SWITCH //
+        ///////////////////////
+        esVendedor.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(isChecked){
+                    _USUARIO = KEY_VENDEDOR;
+                }
+                else
+
+                    _USUARIO = KEY_COMPRADOR;;
+            }
+
+        });
+
         toolbar.setVisibility(View.INVISIBLE);
         etServer.setText(_SERVER);
 
@@ -92,9 +118,10 @@ public class HomeActivity extends AppCompatActivity {
                 //SE LIMPIA LA LISTA PARA EVITAR ERRORES
                 _PLATOS.clear();
                 return true;
-            case R.id.toolBuscarPlatos:
+            case R.id.toolBarBuscarPlatos:
                 Intent i4 = new Intent(HomeActivity.this, BuscarPlatos.class);
                 startActivity(i4);
+                return true;
             default:
                 Toast.makeText(this,". . . . ",Toast.LENGTH_LONG).show();
                 return super.onOptionsItemSelected(item);

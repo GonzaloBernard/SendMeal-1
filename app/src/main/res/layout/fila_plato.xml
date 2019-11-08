@@ -50,6 +50,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layoutVendedor"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal"
@@ -81,6 +82,40 @@
 
         </LinearLayout>
 
-    </LinearLayout>
 
+
+
+
+        <LinearLayout
+            android:id="@+id/layoutComprador"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonAgregarACarrito"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/margin"
+                android:text="@string/buttonAgregarACarrito" />
+
+            <TextView
+                android:id="@+id/textViewCantidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin"
+                android:text="@string/textViewCantidad"
+                android:textColor="@color/colorEtiquetas"
+                android:textSize="@dimen/etiquetas" />
+
+            <Spinner
+                android:id="@+id/spinnerCantidad"
+                android:layout_width="73dp"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/margin" />
+
+
+        </LinearLayout>
+    </LinearLayout>
 </androidx.cardview.widget.CardView>
