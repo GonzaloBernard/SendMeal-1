@@ -31,8 +31,13 @@ public class ListaItems extends AppCompatActivity {
     public static final String CHANNEL_ID="10001";
     private RecyclerView.Adapter mAdapter;
     private RecyclerView mRecyclerView;
-    private static List<Plato> _PLATOS = new ArrayList<>();
+    public static List<Plato> _PLATOS = new ArrayList<>();
     private List<Plato>  listaDataSet;
+
+    public static final String _LISTA_MODO_KEY = "modo";
+
+    public static final Integer _KEY_CALL_HOME_AC = 1;
+    public static final Integer _KEY_CALL_BUSCAR_PLATO_AC = 2;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -90,6 +95,8 @@ public class ListaItems extends AppCompatActivity {
 
         }
     }
+//    Bundle extras = getIntent().getExtras();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,7 +132,16 @@ public class ListaItems extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             //Lista de platos traidos del json server
-            listaDataSet = PlatoRepository.getInstance().getListaPlatos();
+            //Segun si es llamado de home lista una cosa, y si es llamado de buscar platos lista otra
+            //No es la mas util pero no se como hacer una query con retrofi entonces traigo todoo y filtro en un for
+            Bundle extras = getIntent().getExtras();
+
+            if(extras.getInt(_LISTA_MODO_KEY)==_KEY_CALL_HOME_AC){
+                listaDataSet = PlatoRepository.getInstance().getListaPlatos();
+
+            }else {
+               listaDataSet = PlatoRepository.getInstance().getListaPlatos(extras.getString("nombrePlato"), extras.getDouble("precioMax"), extras.getDouble("precioMin"));
+            }
             switch (msg.arg1 ) {
                 case PlatoRepository._CONSULTA_PLATO:
                 case PlatoRepository._UPDATE_PLATO:

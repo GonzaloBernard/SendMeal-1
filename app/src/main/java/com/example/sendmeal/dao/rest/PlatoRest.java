@@ -21,4 +21,6 @@ public interface PlatoRest {
 
     @DELETE("platos/{id}")
     Call<Void> borrar(@Path("id") Integer id);
+
+    
 }
