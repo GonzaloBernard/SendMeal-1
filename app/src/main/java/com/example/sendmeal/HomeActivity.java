@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class HomeActivity extends AppCompatActivity {
 
     // Tipo de login
-    public static String _USUARIO = "comprador";
+    public static String _USUARIO = "usuario";
     public static final String KEY_VENDEDOR = "vendedor";
     public static final String KEY_COMPRADOR = "comprador";
     //  SE ESTABLECE POR DEFAULT LA IP/DIRECCION del servidor JSON
@@ -46,25 +46,6 @@ public class HomeActivity extends AppCompatActivity {
         final EditText etServer = (EditText) findViewById(R.id.editTextServerIP);
         final Button buttonCambiarIP = (Button) findViewById(R.id.buttonServerIP);
         final LinearLayout layoutCambiarIP = (LinearLayout) findViewById(R.id.layoutServerIP);
-        final Switch esVendedor = (Switch) findViewById(R.id.switchEsVendedorHome);
-
-        ///////////////////////
-        // LOGICA DEL SWITCH //
-        ///////////////////////
-        esVendedor.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                if(isChecked){
-                    _USUARIO = KEY_VENDEDOR;
-                }
-                else
-
-                    _USUARIO = KEY_COMPRADOR;;
-            }
-
-        });
 
         toolbar.setVisibility(View.INVISIBLE);
         etServer.setText(_SERVER);
@@ -110,13 +91,23 @@ public class HomeActivity extends AppCompatActivity {
                 Intent i3 = new Intent(HomeActivity.this,ListaItems.class);
                 //SE LE PASAN LOS PLATOS CREADOS
                 i3.putExtra(AbmPlato._PLATOS_LISTA_KEY  ,  _PLATOS);
+                i3.putExtra(_USUARIO , KEY_COMPRADOR);
                 startActivity(i3);
                 //SE LIMPIA LA LISTA PARA EVITAR ERRORES
                 _PLATOS.clear();
                 return true;
-            case R.id.toolBarBuscarPlatos:
-                Intent i4 = new Intent(HomeActivity.this, BuscarPlatos.class);
+            case R.id.toolBarListaVendedor:
+                Intent i4 = new Intent(HomeActivity.this,ListaItems.class);
+                //SE LE PASAN LOS PLATOS CREADOS
+                i4.putExtra(AbmPlato._PLATOS_LISTA_KEY  ,  _PLATOS);
+                i4.putExtra(_USUARIO , KEY_VENDEDOR);
                 startActivity(i4);
+                //SE LIMPIA LA LISTA PARA EVITAR ERRORES
+                _PLATOS.clear();
+                return true;
+            case R.id.toolBarBuscarPlatos:
+                Intent i5 = new Intent(HomeActivity.this, BuscarPlatos.class);
+                startActivity(i5);
                 return true;
             default:
                 Toast.makeText(this,". . . . ",Toast.LENGTH_LONG).show();

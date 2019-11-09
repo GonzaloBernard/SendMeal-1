@@ -14,5 +14,8 @@
     <item android:id="@+id/toolBarBuscarPlatos"
         android:title="Buscar platos"
         android:orderInCategory="4" app:showAsAction="never"></item>
+    <item android:id="@+id/toolBarListaVendedor"
+        android:title="Editar lista de platos"
+        android:orderInCategory="5" app:showAsAction="never"></item>
 
 </menu>

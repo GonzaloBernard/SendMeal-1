@@ -20,9 +20,11 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
 
     private Context context;
     private List<Plato> mDataset;
+    private String key_usuario;
     public List<Plato> platosPedido;
-    public PlatoAdapter(List<Plato> myDataset) {
-        mDataset = myDataset;
+    public PlatoAdapter(List<Plato> myDataset, String key_usuario) {
+        this.key_usuario = key_usuario;
+        this.mDataset = myDataset;
     }
 
     @Override
@@ -44,7 +46,8 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
         holder.imagen.setImageResource(R.drawable.hamburguesa);
         holder.titulo.setText(plato.getTitulo());
         holder.precio.setText(plato.getPrecio().toString());
-        switch (HomeActivity._USUARIO)
+
+        switch (key_usuario)
         {
             case HomeActivity.KEY_VENDEDOR:
             holder.llVendedor.setVisibility(View.VISIBLE);

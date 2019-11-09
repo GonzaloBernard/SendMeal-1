@@ -65,7 +65,8 @@ public class ListaItems extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_carrito, menu);
-        if(HomeActivity._USUARIO==HomeActivity.KEY_VENDEDOR){
+        // SI ES EL MENU DEL VENDEDOR NO SE MUESTRA EL CARRITO DE COMPRA
+        if( getIntent().getStringExtra(HomeActivity._USUARIO).equals(HomeActivity.KEY_VENDEDOR )){
             menu.findItem(R.id.toolbarCarrito).setVisible(false);
         }
         return super.onCreateOptionsMenu(menu);
@@ -130,7 +131,7 @@ public class ListaItems extends AppCompatActivity {
                 case PlatoRepository._UPDATE_PLATO:
                 case PlatoRepository._BORRADO_PLATO:
                     // ACTUALIZAR RECYCLER VIEW
-                    mAdapter = new PlatoAdapter( listaDataSet );
+                    mAdapter = new PlatoAdapter( listaDataSet , getIntent().getStringExtra(HomeActivity._USUARIO));
                     mRecyclerView.setAdapter(mAdapter);
                 default:break;
             }
