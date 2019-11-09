@@ -69,9 +69,6 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
 
             @Override
             public void onClick(View view) {
-
-                platosPedido.add(plato);
-
             }
         });
 

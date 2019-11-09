@@ -14,8 +14,6 @@ import androidx.appcompat.widget.Toolbar;
 
 public class AltaPedido extends AppCompatActivity {
 
-    private Context context = getApplicationContext();
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_volver, menu);
@@ -34,7 +32,6 @@ public class AltaPedido extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("create");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alta_pedido);
         try {
