@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,13 +17,10 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.sendmeal.dao.PlatoRepository;
 import com.example.sendmeal.domain.Plato;
 import java.util.ArrayList;
-
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -33,7 +29,7 @@ public class HomeActivity extends AppCompatActivity {
     public static final String KEY_VENDEDOR = "vendedor";
     public static final String KEY_COMPRADOR = "comprador";
     //  SE ESTABLECE POR DEFAULT LA IP/DIRECCION del servidor JSON
-    public static String _SERVER = "10.15.158.202:3000/";
+    public static String _SERVER = "10.0.2.2:3000/";
     private static Integer NUEVO_PLATO_REQUEST = 1;
     private static ArrayList<Plato> _PLATOS = new ArrayList<>();
 

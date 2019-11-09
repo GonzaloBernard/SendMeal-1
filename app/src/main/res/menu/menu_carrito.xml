@@ -6,5 +6,6 @@
         android:title="hola"
         android:icon="@drawable/ic_carrito"
         android:orderInCategory="100"
-        app:showAsAction="ifRoom|withText"/>
+        app:showAsAction="ifRoom|withText"
+        android:visible="true"/>
 </menu>

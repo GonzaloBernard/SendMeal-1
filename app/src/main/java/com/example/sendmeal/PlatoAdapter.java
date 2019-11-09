@@ -44,7 +44,6 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
         holder.imagen.setImageResource(R.drawable.hamburguesa);
         holder.titulo.setText(plato.getTitulo());
         holder.precio.setText(plato.getPrecio().toString());
-        String condition = HomeActivity._USUARIO;
         switch (HomeActivity._USUARIO)
         {
             case HomeActivity.KEY_VENDEDOR:
