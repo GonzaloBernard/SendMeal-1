@@ -153,7 +153,6 @@ public class PlatoRepository {
             }
             if(max >0 && listaPlatos.get(i).getPrecio()>max){
                 listaPlatos.remove(i);
-                System.out.println("por acaaaaaaaaaaaaaaa " + max);
             }
             if(min>0 && listaPlatos.get(i).getPrecio()<min){
                 listaPlatos.remove(i);
