@@ -21,7 +21,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
     private Context context;
     private List<Plato> mDataset;
     private String key_usuario;
-    public List<Plato> platosPedido;
+    //public List<Plato> platosPedido;
     public PlatoAdapter(List<Plato> myDataset, String key_usuario) {
         this.key_usuario = key_usuario;
         this.mDataset = myDataset;
