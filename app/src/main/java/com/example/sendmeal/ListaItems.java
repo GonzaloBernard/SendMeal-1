@@ -31,7 +31,6 @@ public class ListaItems extends AppCompatActivity {
     public static final String CHANNEL_ID="10001";
     private RecyclerView.Adapter mAdapter;
     private RecyclerView mRecyclerView;
-    public static List<Plato> _PLATOS = new ArrayList<>();
     private List<Plato>  listaDataSet;
 
     public static final Integer _KEY_CALL_BUSCAR_PLATO_AC = 6;
@@ -120,8 +119,18 @@ public class ListaItems extends AppCompatActivity {
         filtro.addAction(MyReceiver.EVENTO_EN_OFERTA);
         registerReceiver(br, filtro);
 
-        // SE PIDEN LOS PLATOS A PlatoRepository
-        PlatoRepository.getInstance().listarPlatos(miHandler);
+
+        // Se determina si la lista debe estar filtrada o completa
+        if (getIntent().getStringExtra("FILTRO") != null) {
+            String titulo = getIntent().getStringExtra("titulo");
+            String precioMin = getIntent().getStringExtra("precioMin");
+            String precioMax = getIntent().getStringExtra("precioMax");
+
+            //PlatoRepository.getInstance().listarPlatosFiltro(miHandler, titulo, precioMin, precioMax);
+        } else {
+            // SE PIDEN LOS PLATOS A PlatoRepository
+            PlatoRepository.getInstance().listarPlatos(miHandler);
+        }
     }
 
     Handler miHandler = new Handler(Looper.myLooper()){
@@ -142,35 +151,6 @@ public class ListaItems extends AppCompatActivity {
         }
     };
 
-      /*
-            //Lista de platos traidos del json server
-            //Segun si es llamado de home lista una cosa, y si es llamado de buscar platos lista otra
-            //No es la mas util pero no se como hacer una query con retrofi entonces traigo todoo y filtro en un for
-            Bundle extras = getIntent().getExtras();
-            System.out.println("por acaaaaa " + _KEY_CALL_HOME_AC);
-            System.out.println("+"+extras.getInt(_LISTA_MODO_KEY));
-
-            if(extras.getInt(_LISTA_MODO_KEY)==_KEY_CALL_HOME_AC){
-                listaDataSet = PlatoRepository.getInstance().getListaPlatos();
-
-            }else {
-                Double maximo = (Double) extras.getDouble("precioMax");
-                System.out.println("ACA: "+maximo);
-               listaDataSet = PlatoRepository.getInstance().getListaPlatos(extras.getString("nombrePlato"), extras.getDouble("precioMax"), extras.getDouble("precioMin"));
-            }
-            switch (msg.arg1 ) {
-                case PlatoRepository._CONSULTA_PLATO:
-                case PlatoRepository._UPDATE_PLATO:
-                case PlatoRepository._BORRADO_PLATO:
-                    // ACTUALIZAR RECYCLER VIEW
-                    mAdapter = new PlatoAdapter( listaDataSet , getIntent().getStringExtra(HomeActivity._TIPO_USUARIO));
-                    mRecyclerView.setAdapter(mAdapter);
-                    break;
-
-                default:break;
-            }
-        }
-    };*/
 
     @Override
     public void onDestroy() {
@@ -189,15 +169,6 @@ public class ListaItems extends AppCompatActivity {
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
-    }
-
-    private Plato getPlatoById(Integer id){
-        for(Plato plato: _PLATOS){
-            if(plato.getId().equals(id)){
-                return plato;
-            }
-        }
-        return null;
     }
 
 }

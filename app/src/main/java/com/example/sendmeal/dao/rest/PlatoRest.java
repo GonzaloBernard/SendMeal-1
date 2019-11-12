@@ -22,5 +22,12 @@ public interface PlatoRest {
     @DELETE("platos/{id}")
     Call<Void> borrar(@Path("id") Integer id);
 
-    
+    // QUERY QUE FILTRE POR TITULO
+
+
+    // QUERY QUE FILTRE POR RANGO DE PRECIOS
+
+
+    // QUERY QUE FILTRE POR TITULO Y RANGO DE PRECIIOS
+
 }

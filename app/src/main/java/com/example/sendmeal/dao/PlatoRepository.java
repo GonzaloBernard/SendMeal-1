@@ -1,5 +1,4 @@
 package com.example.sendmeal.dao;
-import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
 import com.example.sendmeal.HomeActivity;
@@ -22,6 +21,7 @@ public class PlatoRepository {
     public static final int _CONSULTA_PLATO = 4;
     public static final int _ERROR_PLATO = 9;
     private List<Plato> listaPlatos;
+    //private List<Plato> listaPlatosFiltradaTitulo;
     private static PlatoRepository _INSTANCE;
     private PlatoRepository(){}
     public static PlatoRepository getInstance(){
@@ -70,7 +70,32 @@ public class PlatoRepository {
             }
         });
     }
+/*
+    public void listarPlatosFiltro(final Handler h, String titulo){
+        //SE GENERA UN HTTP REQUEST
+        Call<List<Plato>> call = this.platoRest.getPlatosFiltradoNombre(titulo);
+        call.enqueue(new Callback<List<Plato>>() {
+            @Override
+            public void onResponse(Call<List<Plato>> call, Response<List<Plato>> response) {
+                if(response.isSuccessful()) {
+                    //SE RECUPERAN LOS PLATOS DE LA API
+                    List<Plato> platos = response.body();
+                    listaPlatosFiltradaTitulo.clear();
+                    listaPlatosFiltradaTitulo.addAll(response.body());
+                    // UNA VEZ RECUPERADOS LOS PLATOS DE LA API SE CREA Y ENVIA UN MENSAJE PARA
+                    // QUE EL HANDLER DE ListaItems ACTUALICE SU LISTA DE PLATOS
+                    Message m = new Message();
+                    m.arg1 = _CONSULTA_PLATO;
+                    h.sendMessage(m);
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Plato>> call, Throwable t) {
 
+            }
+        });
+    }
+*/
     public void actualizarPlato(final Plato o, final Handler h){
         Call<Plato> llamada = this.platoRest.actualizar(o.getId(),o);
         llamada.enqueue(new Callback<Plato>() {
@@ -145,7 +170,9 @@ public class PlatoRepository {
     }
 
     public List<Plato> getListaPlatos(){return this.listaPlatos;}
+    //public List<Plato> getListaPlatosFiltradaTitulo(){return this.listaPlatosFiltradaTitulo;}
 
+    /*
     public List<Plato> getListaPlatos(String nombre, Double max, Double min) {
         for (int i = 0; i < listaPlatos.size(); i++) {
             if (!nombre.isEmpty() && !listaPlatos.get(i).getTitulo().equals(nombre)){
@@ -160,6 +187,7 @@ public class PlatoRepository {
         }
         return listaPlatos;
     }
+     */
     public Plato getPlatoById(Integer id) {
         //BUSCAR PLATO
         for (Plato plato : this.listaPlatos) {
