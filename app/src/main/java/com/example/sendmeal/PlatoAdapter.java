@@ -20,10 +20,9 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
 
     private Context context;
     private List<Plato> mDataset;
-    private String key_usuario;
-    //public List<Plato> platosPedido;
-    public PlatoAdapter(List<Plato> myDataset, String key_usuario) {
-        this.key_usuario = key_usuario;
+    private String KEY_TIPO_USUARIO;
+    public PlatoAdapter(List<Plato> myDataset, String KEY_TIPO_USUARIO) {
+        this.KEY_TIPO_USUARIO = KEY_TIPO_USUARIO;
         this.mDataset = myDataset;
     }
 
@@ -47,7 +46,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
         holder.titulo.setText(plato.getTitulo());
         holder.precio.setText(plato.getPrecio().toString());
 
-        switch (key_usuario)
+        switch (KEY_TIPO_USUARIO)
         {
             case HomeActivity.KEY_VENDEDOR:
             holder.llVendedor.setVisibility(View.VISIBLE);
@@ -81,7 +80,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
             public void onClick(View view) {
                 Intent i = new Intent(view.getContext(), AbmPlato.class);
                 //EL MODO DETERMINA LA ACCION A REALIZAR
-                i.putExtra(AbmPlato._PLATO_MODO_KEY, AbmPlato._KEY_EDITAR_PLATO);
+                i.putExtra(AbmPlato._ABMC_PLATO_MODO_KEY, AbmPlato._KEY_EDITAR_PLATO);
                 //SE AGREGA EL PLATO
                 i.putExtra(AbmPlato._PLATO_INDIVIDUAL_KEY, plato);
                 ((Activity) view.getContext()).startActivityForResult(i, ListaItems.REQUEST_CODE_EDITAR_PLATO);
@@ -130,7 +129,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
                                     public void onClick(DialogInterface dlgInt, int i) {
                                         Intent intent = new Intent(context, AbmPlato.class);
                                         //EL MODO DETERMINA LA ACCION A REALIZAR
-                                        intent.putExtra(AbmPlato._PLATO_MODO_KEY, AbmPlato._KEY_BORRAR_PLATO);
+                                        intent.putExtra(AbmPlato._ABMC_PLATO_MODO_KEY, AbmPlato._KEY_BORRAR_PLATO);
                                         //SE AGREGA EL PLATO
                                         intent.putExtra(AbmPlato._PLATO_INDIVIDUAL_KEY, plato);
                                         ((Activity) context).startActivityForResult(intent, ListaItems.REQUEST_CODE_BORRAR_PLATO);

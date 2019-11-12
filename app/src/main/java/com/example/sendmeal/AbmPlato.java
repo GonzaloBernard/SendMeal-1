@@ -13,18 +13,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.sendmeal.dao.PlatoRepository;
 import com.example.sendmeal.domain.Plato;
 
 public class AbmPlato extends AppCompatActivity {
     //KEY PARA EL MODO
-    public static final String _PLATO_MODO_KEY = "modo";
+    public static final String _ABMC_PLATO_MODO_KEY = "ABMC_MODO";
     //KEY's PARA LOS DISTINTOS MODOS (para el ABM)
     public static final Integer _KEY_CREAR_PLATO = 1;
     public static final Integer _KEY_EDITAR_PLATO = 2;
     public static final Integer _KEY_CONSULTAR_PLATO = 3;
     public static final Integer _KEY_BORRAR_PLATO = 4;
-    //KEY PARA UN ArrayList<PLATOS>
+    //KEY PARA ENVIAR UN ArrayList<PLATOS>
     public static final String _PLATOS_LISTA_KEY = "_PLATOS";
     //KEY PARA ENVIAR UN PLATO
     public static final String _PLATO_INDIVIDUAL_KEY = "plato";
@@ -65,7 +64,7 @@ public class AbmPlato extends AppCompatActivity {
 
         final Resources resources = getResources();
         Bundle extras = getIntent().getExtras();
-        switch( extras.getInt(_PLATO_MODO_KEY) ) {
+        switch( extras.getInt(_ABMC_PLATO_MODO_KEY) ) {
             case 1:
                 actionBar.setTitle(R.string.tituloToolbarCrearItem);
                 buttonGuardar.setOnClickListener(new Button.OnClickListener() {

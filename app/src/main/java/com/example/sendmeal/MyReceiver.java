@@ -20,7 +20,7 @@ public class MyReceiver extends BroadcastReceiver {
         // LOGICA DEL INTENT PARA CONSULTAR EL PLATO
         Intent intent = new Intent(context.getApplicationContext(), AbmPlato.class);
         intent.putExtra(AbmPlato._PLATO_INDIVIDUAL_KEY ,plato);
-        intent.putExtra(AbmPlato._PLATO_MODO_KEY , AbmPlato._KEY_CONSULTAR_PLATO);
+        intent.putExtra(AbmPlato._ABMC_PLATO_MODO_KEY, AbmPlato._KEY_CONSULTAR_PLATO);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         //SE CREA EL PendingIntent
         PendingIntent pendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, intent, 0);

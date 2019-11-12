@@ -38,7 +38,7 @@ public class PlatoRepository {
     private PlatoRest platoRest;
     private void configurarRetrofit(){
         this.rf = new Retrofit.Builder()
-                .baseUrl(HomeActivity._SERVER)
+                .baseUrl(HomeActivity.getServer())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Log.d("APP_2","INSTANCIA CREADA");

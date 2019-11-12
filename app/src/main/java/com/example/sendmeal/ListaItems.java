@@ -34,10 +34,7 @@ public class ListaItems extends AppCompatActivity {
     public static List<Plato> _PLATOS = new ArrayList<>();
     private List<Plato>  listaDataSet;
 
-    public static final String _LISTA_MODO_KEY = "modo";
-
-    public static final Integer _KEY_CALL_HOME_AC = 0;
-    public static final Integer _KEY_CALL_BUSCAR_PLATO_AC = 1;
+    public static final Integer _KEY_CALL_BUSCAR_PLATO_AC = 6;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -71,7 +68,7 @@ public class ListaItems extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_carrito, menu);
         // SI ES EL MENU DEL VENDEDOR NO SE MUESTRA EL CARRITO DE COMPRA
-        if( getIntent().getStringExtra(HomeActivity._USUARIO).equals(HomeActivity.KEY_VENDEDOR )){
+        if( getIntent().getStringExtra(HomeActivity._TIPO_USUARIO).equals(HomeActivity.KEY_VENDEDOR )){
             menu.findItem(R.id.toolbarCarrito).setVisible(false);
         }
         return super.onCreateOptionsMenu(menu);
@@ -95,7 +92,6 @@ public class ListaItems extends AppCompatActivity {
 
         }
     }
-//    Bundle extras = getIntent().getExtras();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +127,22 @@ public class ListaItems extends AppCompatActivity {
     Handler miHandler = new Handler(Looper.myLooper()){
         @Override
         public void handleMessage(Message msg) {
+
+            //Lista de platos traidos del json server
+            listaDataSet = PlatoRepository.getInstance().getListaPlatos();
+            switch (msg.arg1 ) {
+                case PlatoRepository._CONSULTA_PLATO:
+                case PlatoRepository._UPDATE_PLATO:
+                case PlatoRepository._BORRADO_PLATO:
+                    // ACTUALIZAR RECYCLER VIEW
+                    mAdapter = new PlatoAdapter( listaDataSet , getIntent().getStringExtra(HomeActivity._TIPO_USUARIO));
+                    mRecyclerView.setAdapter(mAdapter);
+                default:break;
+            }
+        }
+    };
+
+      /*
             //Lista de platos traidos del json server
             //Segun si es llamado de home lista una cosa, y si es llamado de buscar platos lista otra
             //No es la mas util pero no se como hacer una query con retrofi entonces traigo todoo y filtro en un for
@@ -151,12 +163,14 @@ public class ListaItems extends AppCompatActivity {
                 case PlatoRepository._UPDATE_PLATO:
                 case PlatoRepository._BORRADO_PLATO:
                     // ACTUALIZAR RECYCLER VIEW
-                    mAdapter = new PlatoAdapter( listaDataSet , getIntent().getStringExtra(HomeActivity._USUARIO));
+                    mAdapter = new PlatoAdapter( listaDataSet , getIntent().getStringExtra(HomeActivity._TIPO_USUARIO));
                     mRecyclerView.setAdapter(mAdapter);
+                    break;
+
                 default:break;
             }
         }
-    };
+    };*/
 
     @Override
     public void onDestroy() {

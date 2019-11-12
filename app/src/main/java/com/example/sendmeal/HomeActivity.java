@@ -13,25 +13,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.Toast;
 import com.example.sendmeal.dao.PlatoRepository;
 import com.example.sendmeal.domain.Plato;
-import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
 
     // Tipo de login
-    public static String _USUARIO = "usuario";
+    public static String _TIPO_USUARIO = "usuario";
     public static final String KEY_VENDEDOR = "vendedor";
     public static final String KEY_COMPRADOR = "comprador";
     //  SE ESTABLECE POR DEFAULT LA IP/DIRECCION del servidor JSON
-    public static String _SERVER = "10.0.2.2:3000/";
+    static String _SERVER = "10.0.2.2:3000/";
     private static Integer NUEVO_PLATO_REQUEST = 1;
-    private static ArrayList<Plato> _PLATOS = new ArrayList<>();
+
+    public static String getTipoUsuario() {
+        return _TIPO_USUARIO;
+    }
+
+    public static String getServer() {
+        return _SERVER;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +78,6 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-
-
         switch (item.getItemId()) {
             case R.id.toolBarRegistrar:
                 Intent i1 = new Intent(HomeActivity.this, AbmUsuario.class);
@@ -84,27 +86,19 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.toolBarNuevoPlato:
                 Intent i2 = new Intent(HomeActivity.this, AbmPlato.class);
                 //SE INDICA QUE EL MODO ES CREAR PLATO
-                i2.putExtra(AbmPlato._PLATO_MODO_KEY  ,  AbmPlato._KEY_CREAR_PLATO);
+                i2.putExtra(AbmPlato._ABMC_PLATO_MODO_KEY,  AbmPlato._KEY_CREAR_PLATO);
                 startActivityForResult(i2, NUEVO_PLATO_REQUEST);
                 return true;
             case R.id.toolBarListaPlatos:
                 Intent i3 = new Intent(HomeActivity.this,ListaItems.class);
-                //SE LE PASAN LOS PLATOS CREADOS
-                i3.putExtra(AbmPlato._PLATO_MODO_KEY, ListaItems._KEY_CALL_HOME_AC);
-                i3.putExtra(AbmPlato._PLATOS_LISTA_KEY  ,  _PLATOS);
-                i3.putExtra(_USUARIO , KEY_COMPRADOR);
+                //SE INDICA EL TIPO DE LISTA A MOSTRAR
+                i3.putExtra(_TIPO_USUARIO, KEY_COMPRADOR);
                 startActivity(i3);
-                //SE LIMPIA LA LISTA PARA EVITAR ERRORES
-                _PLATOS.clear();
                 return true;
             case R.id.toolBarListaVendedor:
                 Intent i4 = new Intent(HomeActivity.this,ListaItems.class);
-                //SE LE PASAN LOS PLATOS CREADOS
-                i4.putExtra(AbmPlato._PLATOS_LISTA_KEY  ,  _PLATOS);
-                i4.putExtra(_USUARIO , KEY_VENDEDOR);
+                i4.putExtra(_TIPO_USUARIO, KEY_VENDEDOR);
                 startActivity(i4);
-                //SE LIMPIA LA LISTA PARA EVITAR ERRORES
-                _PLATOS.clear();
                 return true;
             case R.id.toolBarBuscarPlatos:
                 Intent i5 = new Intent(HomeActivity.this, BuscarPlatos.class);
@@ -122,7 +116,6 @@ public class HomeActivity extends AppCompatActivity {
         if (requestCode == NUEVO_PLATO_REQUEST) {
             if (resultCode == RESULT_OK) {
                 try {
-                    Bundle extras = data.getExtras();
                     // SE OBTIENE EL NUEVO PLATO
                     Plato plato = (Plato) data.getParcelableExtra(AbmPlato._PLATO_INDIVIDUAL_KEY);
                     // SE GUARDA EL PLATO EN EL SERVIDOR
@@ -142,7 +135,6 @@ public class HomeActivity extends AppCompatActivity {
             switch (msg.arg1 ){
                 case PlatoRepository._ALTA_PLATO:
                     Toast.makeText(HomeActivity.this,R.string.homePlatoCreado,Toast.LENGTH_LONG).show();
-
                     break;
                 default:break;
             }

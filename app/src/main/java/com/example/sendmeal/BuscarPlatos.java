@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -72,9 +71,9 @@ public class BuscarPlatos extends AppCompatActivity {
         /////////////////////////////
 
         buttonBuscar = (Button) findViewById(R.id.buttonBuscar);
-        textViewNombrePlato = (TextView) findViewById(R.id.textViewNombrePlato);
-        textViewPrecioMax = (TextView) findViewById(R.id.textViewPrecioMax);
-        textViewPrecioMin = (TextView) findViewById(R.id.textViewPrecioMin);
+        //textViewNombrePlato = (TextView) findViewById(R.id.textViewNombrePlato);
+        //textViewPrecioMax = (TextView) findViewById(R.id.textViewPrecioMax);
+        //textViewPrecioMin = (TextView) findViewById(R.id.textViewPrecioMin);
         editTextNombrePlato = (EditText) findViewById(R.id.editTextEditarNombrePlato);
         editTextPrecioMax = (EditText) findViewById(R.id.editTextPrecioMax);
         editTextPrecioMin = (EditText) findViewById(R.id.editTextPrecioMin);
@@ -97,10 +96,7 @@ public class BuscarPlatos extends AppCompatActivity {
                     }
                 }else{
                     Intent i3 = new Intent(BuscarPlatos.this, ListaItems.class);
-                    //SE LE PASAN LOS PLATOS CREADOS
-                    i3.putExtra(AbmPlato._PLATO_MODO_KEY, ListaItems._KEY_CALL_BUSCAR_PLATO_AC);
-                    //i3.putExtra(AbmPlato._PLATOS_LISTA_KEY  , (Parcelable) ListaItems._PLATOS);
-                    i3.putExtra(HomeActivity._USUARIO , HomeActivity.KEY_COMPRADOR);
+                    i3.putExtra(HomeActivity._TIPO_USUARIO, HomeActivity.KEY_COMPRADOR);
                     i3.putExtra("nombrePlato", editTextNombrePlato.getText().toString());
                     i3.putExtra("precioMax", editTextPrecioMax.getText());
                     i3.putExtra("precioMin", editTextPrecioMin.getText());
