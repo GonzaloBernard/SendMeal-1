@@ -90,7 +90,7 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.toolBarListaPlatos:
                 Intent i3 = new Intent(HomeActivity.this,ListaItems.class);
                 //SE LE PASAN LOS PLATOS CREADOS
-                i3.putExtra(ListaItems._LISTA_MODO_KEY, ListaItems._KEY_CALL_HOME_AC);
+                i3.putExtra(AbmPlato._PLATO_MODO_KEY, ListaItems._KEY_CALL_HOME_AC);
                 i3.putExtra(AbmPlato._PLATOS_LISTA_KEY  ,  _PLATOS);
                 i3.putExtra(_USUARIO , KEY_COMPRADOR);
                 startActivity(i3);

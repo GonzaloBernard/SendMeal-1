@@ -98,7 +98,7 @@ public class BuscarPlatos extends AppCompatActivity {
                 }else{
                     Intent i3 = new Intent(BuscarPlatos.this, ListaItems.class);
                     //SE LE PASAN LOS PLATOS CREADOS
-                    i3.putExtra(ListaItems._LISTA_MODO_KEY, ListaItems._KEY_CALL_BUSCAR_PLATO_AC);
+                    i3.putExtra(AbmPlato._PLATO_MODO_KEY, ListaItems._KEY_CALL_BUSCAR_PLATO_AC);
                     //i3.putExtra(AbmPlato._PLATOS_LISTA_KEY  , (Parcelable) ListaItems._PLATOS);
                     i3.putExtra(HomeActivity._USUARIO , HomeActivity.KEY_COMPRADOR);
                     i3.putExtra("nombrePlato", editTextNombrePlato.getText().toString());

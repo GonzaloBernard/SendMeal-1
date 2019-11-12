@@ -34,8 +34,6 @@ public class ListaItems extends AppCompatActivity {
     public static List<Plato> _PLATOS = new ArrayList<>();
     private List<Plato>  listaDataSet;
 
-    public static final String _LISTA_MODO_KEY = "modo";
-
     public static final Integer _KEY_CALL_HOME_AC = 1;
     public static final Integer _KEY_CALL_BUSCAR_PLATO_AC = 2;
 
@@ -136,7 +134,7 @@ public class ListaItems extends AppCompatActivity {
             //No es la mas util pero no se como hacer una query con retrofi entonces traigo todoo y filtro en un for
             Bundle extras = getIntent().getExtras();
 
-            if(extras.getInt(_LISTA_MODO_KEY)==_KEY_CALL_HOME_AC){
+            if(extras.getInt(AbmPlato._PLATO_MODO_KEY)==_KEY_CALL_HOME_AC){
                 listaDataSet = PlatoRepository.getInstance().getListaPlatos();
 
             }else {
