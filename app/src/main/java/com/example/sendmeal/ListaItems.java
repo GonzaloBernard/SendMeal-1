@@ -36,8 +36,8 @@ public class ListaItems extends AppCompatActivity {
 
     public static final String _LISTA_MODO_KEY = "modo";
 
-    public static final Integer _KEY_CALL_HOME_AC = 1;
-    public static final Integer _KEY_CALL_BUSCAR_PLATO_AC = 2;
+    public static final Integer _KEY_CALL_HOME_AC = 0;
+    public static final Integer _KEY_CALL_BUSCAR_PLATO_AC = 1;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -135,11 +135,15 @@ public class ListaItems extends AppCompatActivity {
             //Segun si es llamado de home lista una cosa, y si es llamado de buscar platos lista otra
             //No es la mas util pero no se como hacer una query con retrofi entonces traigo todoo y filtro en un for
             Bundle extras = getIntent().getExtras();
+            System.out.println("por acaaaaa " + _KEY_CALL_HOME_AC);
+            System.out.println("+"+extras.getInt(_LISTA_MODO_KEY));
 
             if(extras.getInt(_LISTA_MODO_KEY)==_KEY_CALL_HOME_AC){
                 listaDataSet = PlatoRepository.getInstance().getListaPlatos();
 
             }else {
+                Double maximo = (Double) extras.getDouble("precioMax");
+                System.out.println("ACA: "+maximo);
                listaDataSet = PlatoRepository.getInstance().getListaPlatos(extras.getString("nombrePlato"), extras.getDouble("precioMax"), extras.getDouble("precioMin"));
             }
             switch (msg.arg1 ) {
