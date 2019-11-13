@@ -179,7 +179,6 @@ public class AbmUsuario extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
-
         ///////////////////////
         // LOGICA DEL SWITCH //
         ///////////////////////
@@ -193,9 +192,10 @@ public class AbmUsuario extends AppCompatActivity {
                 }
                 else
                     layoutEsVendendor.setVisibility(View.GONE);
-        }
+            }
 
         });
+
 
         //////////////////////////////////////////
         // LOGICA DEL NUMERO DE LA TARJETA //       Anda, lo saque de "la interné" ejmeplo 3 de ---> https://www.flipandroid.com/formato-de-tarjeta-de-crdito-en-editar-texto-en-android.html

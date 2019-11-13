@@ -83,25 +83,34 @@ public class BuscarPlatos extends AppCompatActivity {
 
             Double precioMax, precioMin;
 
-
             @Override
             public void onClick(View view) {
-                if(!editTextPrecioMax.getText().toString().isEmpty() && !editTextPrecioMin.getText().toString().isEmpty()){
 
-                    precioMax = Double.parseDouble(editTextPrecioMax.getText().toString());
-                    precioMin = Double.parseDouble(editTextPrecioMin.getText().toString());
-
-                    if(precioMin > precioMax){
-                        Toast.makeText(context, "Error, ingrese precios validos", Toast.LENGTH_SHORT).show();
-                    }
+                //Asignacion de precio max
+                if(editTextPrecioMax.getText().toString().isEmpty()){
+                    precioMax=100000000000000.0;
                 }else{
+                    precioMax = Double.parseDouble(editTextPrecioMax.getText().toString());
+                }
+
+                //Asignacion de precio min
+                if(editTextPrecioMin.getText().toString().isEmpty()){
+                    precioMin=0.0;
+                }else{
+                    precioMin = Double.parseDouble(editTextPrecioMin.getText().toString());
+                }
+
+                //CONTROL DE QUE PRECIO MIN < PRECIO MAX
+                if(precioMin > precioMax){
+                        Toast.makeText(context, "Error, ingrese precios validos", Toast.LENGTH_SHORT).show();
+                }else{
+
                     Intent i3 = new Intent(BuscarPlatos.this, ListaItems.class);
                     i3.putExtra(HomeActivity._TIPO_USUARIO, HomeActivity.KEY_COMPRADOR);
                     i3.putExtra("FILTRO", "");
                     i3.putExtra("titulo", editTextNombrePlato.getText().toString());
-                    System.out.println("POR ACA EN BP, MIN y MAX"+editTextPrecioMin.getText() + " " + editTextPrecioMax.getText());
-                    i3.putExtra("precioMax", editTextPrecioMax.getText());
-                    i3.putExtra("precioMin", editTextPrecioMin.getText());
+                    i3.putExtra("precioMax", precioMax);
+                    i3.putExtra("precioMin", precioMin);
                     startActivity(i3);
                 }
 

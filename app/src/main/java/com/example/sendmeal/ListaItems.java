@@ -125,16 +125,6 @@ public class ListaItems extends AppCompatActivity {
             String titulo = getIntent().getStringExtra("titulo");
             Double precioMin = getIntent().getDoubleExtra("precioMin", 0);
             Double precioMax = getIntent().getDoubleExtra("precioMax", 0);
-
-            System.out.println("titulo1: "+titulo);
-            System.out.println("MAX: "+precioMax);
-            System.out.println("MIN: "+precioMin );
-            if(titulo.isEmpty()){titulo="";}
-            if(precioMax==0){precioMax=1000000.0;}
-
-            System.out.println("titulo1: "+titulo);
-            System.out.println("MAX: "+precioMax);
-            System.out.println("MIN: "+precioMin );
             PlatoRepository.getInstance().listarPlatosFiltrados(miHandler, titulo, precioMin, precioMax);
         } else {
             // SE PIDEN LOS PLATOS A PlatoRepository

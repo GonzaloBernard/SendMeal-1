@@ -173,22 +173,6 @@ public class PlatoRepository {
     public List<Plato> getListaPlatos(){return this.listaPlatos;}
     public List<Plato> getListaPlatosFiltrados(){return this.listaPlatosFiltrados;}
 
-    /*
-    public List<Plato> getListaPlatos(String nombre, Double max, Double min) {
-        for (int i = 0; i < listaPlatos.size(); i++) {
-            if (!nombre.isEmpty() && !listaPlatos.get(i).getTitulo().equals(nombre)){
-                listaPlatos.remove(i);
-            }
-            if(max >0 && listaPlatos.get(i).getPrecio()>max){
-                listaPlatos.remove(i);
-            }
-            if(min>0 && listaPlatos.get(i).getPrecio()<min){
-                listaPlatos.remove(i);
-            }
-        }
-        return listaPlatos;
-    }
-     */
     public Plato getPlatoById(Integer id) {
         //BUSCAR PLATO
         for (Plato plato : this.listaPlatos) {
