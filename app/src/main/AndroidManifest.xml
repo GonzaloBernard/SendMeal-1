@@ -11,7 +11,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BuscarPlatos"></activity>
         <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,7 +31,9 @@
         <activity
             android:name=".AltaPedido"
             android:parentActivityName=".ListaItems" />
-
+        <activity
+            android:name=".BuscarPlatos"
+            android:parentActivityName=".ListaItems"/>
         <receiver
             android:name=".MyReceiver"
             android:exported="false" />

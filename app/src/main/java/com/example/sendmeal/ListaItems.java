@@ -81,6 +81,11 @@ public class ListaItems extends AppCompatActivity {
                 Intent i1 = new Intent(ListaItems.this, AltaPedido.class);
                 startActivity(i1);
                 return true;
+
+            case R.id.toolbarBuscarItems:
+                Intent i5 = new Intent(ListaItems.this, BuscarPlatos.class);
+                startActivity(i5);
+                return true;
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
                 onBackPressed();

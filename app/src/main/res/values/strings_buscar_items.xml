@@ -5,4 +5,5 @@
     <string name="PrecioMin">Precio mínimo</string>
     <string name="PrecioMax">Precio máximo</string>
     <string name="Buscar">Buscar</string>
+    <string name="Carrito">Carrito</string>
 </resources>
