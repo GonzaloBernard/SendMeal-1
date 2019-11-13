@@ -81,15 +81,15 @@ public class BuscarPlatos extends AppCompatActivity {
 
         buttonBuscar.setOnClickListener(new Button.OnClickListener() {
 
-            int precioMax, precioMin;
+            Double precioMax, precioMin;
 
 
             @Override
             public void onClick(View view) {
                 if(!editTextPrecioMax.getText().toString().isEmpty() && !editTextPrecioMin.getText().toString().isEmpty()){
 
-                    precioMax = Integer.parseInt(editTextPrecioMax.getText().toString());
-                    precioMin = Integer.parseInt(editTextPrecioMin.getText().toString());
+                    precioMax = Double.parseDouble(editTextPrecioMax.getText().toString());
+                    precioMin = Double.parseDouble(editTextPrecioMin.getText().toString());
 
                     if(precioMin > precioMax){
                         Toast.makeText(context, "Error, ingrese precios validos", Toast.LENGTH_SHORT).show();
@@ -98,7 +98,8 @@ public class BuscarPlatos extends AppCompatActivity {
                     Intent i3 = new Intent(BuscarPlatos.this, ListaItems.class);
                     i3.putExtra(HomeActivity._TIPO_USUARIO, HomeActivity.KEY_COMPRADOR);
                     i3.putExtra("FILTRO", "");
-                    i3.putExtra("nombrePlato", editTextNombrePlato.getText().toString());
+                    i3.putExtra("titulo", editTextNombrePlato.getText().toString());
+                    System.out.println("POR ACA EN BP, MIN y MAX"+editTextPrecioMin.getText() + " " + editTextPrecioMax.getText());
                     i3.putExtra("precioMax", editTextPrecioMax.getText());
                     i3.putExtra("precioMin", editTextPrecioMin.getText());
                     startActivity(i3);

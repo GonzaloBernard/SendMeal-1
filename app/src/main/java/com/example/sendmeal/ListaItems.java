@@ -123,10 +123,19 @@ public class ListaItems extends AppCompatActivity {
         // Se determina si la lista debe estar filtrada o completa
         if (getIntent().getStringExtra("FILTRO") != null) {
             String titulo = getIntent().getStringExtra("titulo");
-            String precioMin = getIntent().getStringExtra("precioMin");
-            String precioMax = getIntent().getStringExtra("precioMax");
+            Double precioMin = getIntent().getDoubleExtra("precioMin", 0);
+            Double precioMax = getIntent().getDoubleExtra("precioMax", 0);
 
-            //PlatoRepository.getInstance().listarPlatosFiltro(miHandler, titulo, precioMin, precioMax);
+            System.out.println("titulo1: "+titulo);
+            System.out.println("MAX: "+precioMax);
+            System.out.println("MIN: "+precioMin );
+            if(titulo.isEmpty()){titulo="";}
+            if(precioMax==0){precioMax=1000000.0;}
+
+            System.out.println("titulo1: "+titulo);
+            System.out.println("MAX: "+precioMax);
+            System.out.println("MIN: "+precioMin );
+            PlatoRepository.getInstance().listarPlatosFiltrados(miHandler, titulo, precioMin, precioMax);
         } else {
             // SE PIDEN LOS PLATOS A PlatoRepository
             PlatoRepository.getInstance().listarPlatos(miHandler);
@@ -138,7 +147,12 @@ public class ListaItems extends AppCompatActivity {
         public void handleMessage(Message msg) {
 
             //Lista de platos traidos del json server
-            listaDataSet = PlatoRepository.getInstance().getListaPlatos();
+            if (getIntent().getStringExtra("FILTRO") != null) {
+                listaDataSet = PlatoRepository.getInstance().getListaPlatosFiltrados();
+            }else{
+                listaDataSet = PlatoRepository.getInstance().getListaPlatos();
+            }
+
             switch (msg.arg1 ) {
                 case PlatoRepository._CONSULTA_PLATO:
                 case PlatoRepository._UPDATE_PLATO:
