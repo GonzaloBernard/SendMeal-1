@@ -111,7 +111,9 @@ public class BuscarPlatos extends AppCompatActivity {
                     i3.putExtra("titulo", editTextNombrePlato.getText().toString());
                     i3.putExtra("precioMax", precioMax);
                     i3.putExtra("precioMin", precioMin);
+                    i3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i3);
+                    finish();
                 }
 
             }

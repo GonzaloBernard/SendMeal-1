@@ -1,8 +1,10 @@
-package com.example.sendmeal.dao.database;
+package com.example.sendmeal.dao;
 
 import android.content.Context;
 import androidx.room.Room;
 
+import com.example.sendmeal.dao.database.AppDataBase;
+import com.example.sendmeal.dao.database.PedidoDao;
 import com.example.sendmeal.domain.Pedido;
 
 import java.util.List;

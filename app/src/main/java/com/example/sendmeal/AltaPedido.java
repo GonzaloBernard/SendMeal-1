@@ -1,7 +1,6 @@
 package com.example.sendmeal;
 
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,13 +12,11 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.sendmeal.dao.database.PedidoRepository;
-import com.example.sendmeal.dao.database.PedidoDao;
+import com.example.sendmeal.dao.PedidoRepository;
 import com.example.sendmeal.domain.EstadoPedido;
 import com.example.sendmeal.domain.Pedido;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class AltaPedido extends AppCompatActivity {
