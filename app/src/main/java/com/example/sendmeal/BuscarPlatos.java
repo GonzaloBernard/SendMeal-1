@@ -106,7 +106,7 @@ public class BuscarPlatos extends AppCompatActivity {
                 }else{
 
                     Intent i3 = new Intent(BuscarPlatos.this, ListaItems.class);
-                    i3.putExtra(HomeActivity._TIPO_USUARIO, HomeActivity.KEY_COMPRADOR);
+                    i3.putExtra(HomeActivity._TIPO_USUARIO, getIntent().getStringExtra(HomeActivity._TIPO_USUARIO));
                     i3.putExtra("FILTRO", "");
                     i3.putExtra("titulo", editTextNombrePlato.getText().toString());
                     i3.putExtra("precioMax", precioMax);

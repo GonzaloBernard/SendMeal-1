@@ -84,6 +84,7 @@ public class ListaItems extends AppCompatActivity {
 
             case R.id.toolbarBuscarItems:
                 Intent i5 = new Intent(ListaItems.this, BuscarPlatos.class);
+                i5.putExtra(HomeActivity.getTipoUsuario(), getIntent().getStringExtra(HomeActivity.getTipoUsuario()));
                 startActivity(i5);
                 return true;
             // Respond to the action bar's Up/Home button
