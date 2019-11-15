@@ -7,6 +7,6 @@ import com.example.sendmeal.domain.PedidoYTodosSusItems;
 @Dao
 public interface PedidosEItemsPedidosDao {
 
-    @Query("SELECT * FROM pedido WHERE id LIKE :id_pedido")
+    @Query("SELECT * FROM pedido WHERE id = :id_pedido")
     PedidoYTodosSusItems getPedidoAndAllItems(Integer id_pedido);
 }

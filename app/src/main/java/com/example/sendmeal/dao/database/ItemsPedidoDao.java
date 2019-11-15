@@ -1,6 +1,7 @@
 package com.example.sendmeal.dao.database;
 
 import com.example.sendmeal.domain.ItemsPedido;
+
 import java.util.List;
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -12,18 +13,18 @@ import androidx.room.Update;
 @Dao
 public interface ItemsPedidoDao {
 
-    @Query("SELECT * FROM itemsPedido")
-    List<ItemsPedido> getAll();
-
     @Insert
-    void insert(ItemsPedido itemsPedido);
-
-    @Insert
-    void insertAll(ItemsPedido... itemsPedido);
+    void crearItemsPedido(ItemsPedido itemsPedido);
 
     @Delete
-    void delete(ItemsPedido itemsPedido);
+    void borrarItemsPedido(ItemsPedido itemsPedido);
 
     @Update
-    void actualizar(ItemsPedido itemsPedido);
+    void actualizarItemsPedido(ItemsPedido itemsPedido);
+
+    @Query("SELECT * FROM ItemsPedido")
+    List<ItemsPedido> buscarItemsPedido();
+
+    @Query("SELECT * FROM ItemsPedido WHERE id_pedido = :id_pedido")
+    List<ItemsPedido> buscarItemsDeUnPedido(Integer id_pedido);
 }
