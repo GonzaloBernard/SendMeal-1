@@ -61,4 +61,9 @@ public class ItemsPedido {
     public void setPrecio(Double precio) {
         this.precio = precio;
     }
+
+    @Override
+    public String toString() {
+        return cantidad + " x " + plato.getTitulo();
+    }
 }

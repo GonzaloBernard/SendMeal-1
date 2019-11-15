@@ -1,11 +1,16 @@
 package com.example.sendmeal;
 
 
+import android.content.ClipData;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -18,13 +23,17 @@ import com.example.sendmeal.dao.PlatoRepository;
 import com.example.sendmeal.domain.EstadoPedido;
 import com.example.sendmeal.domain.ItemsPedido;
 import com.example.sendmeal.domain.Pedido;
+import com.example.sendmeal.domain.PedidoYTodosSusItems;
 import com.example.sendmeal.domain.Plato;
 
 import java.util.Calendar;
 import java.util.List;
 
 public class AltaPedido extends AppCompatActivity {
-
+    ListView lvItemsPedido;
+    ArrayAdapter<ItemsPedido> adapter;
+    List<ItemsPedido> listaItemsPedidoDataset;
+    ItemsPedido itemsPedidoSeleccionado;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_volver, menu);
@@ -56,8 +65,19 @@ public class AltaPedido extends AppCompatActivity {
         }
 
         //DECLARACION DE VIEWS
+        lvItemsPedido =(ListView) findViewById(R.id.listViewItemsPedido);
         Button buttonCreaPedido = (Button) findViewById(R.id.buttonCrearPedido);
         Button buttonEnviarPedido = (Button) findViewById(R.id.buttonEnviarPedido);
+
+
+        lvItemsPedido.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+
+        // OBTENER ItemsPedido
+        ItemsPedidoRepository itemsPedidoRepository = ItemsPedidoRepository.getInstance(AltaPedido.this);
+        listaItemsPedidoDataset = itemsPedidoRepository.buscarItemsPedido();
+
+        adapter = new ArrayAdapter<>(AltaPedido.this,android.R.layout.simple_list_item_single_choice, listaItemsPedidoDataset);
+        lvItemsPedido.setAdapter(adapter);
 
         buttonCreaPedido.setOnClickListener(new Button.OnClickListener() {
             @Override
