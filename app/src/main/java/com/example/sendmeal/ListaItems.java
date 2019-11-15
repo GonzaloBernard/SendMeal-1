@@ -81,6 +81,11 @@ public class ListaItems extends AppCompatActivity {
                 Intent i1 = new Intent(ListaItems.this, AltaPedido.class);
                 startActivity(i1);
                 return true;
+
+            case R.id.toolbarBuscarItems:
+                Intent i5 = new Intent(ListaItems.this, BuscarPlatos.class);
+                startActivity(i5);
+                return true;
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
                 onBackPressed();
@@ -123,10 +128,9 @@ public class ListaItems extends AppCompatActivity {
         // Se determina si la lista debe estar filtrada o completa
         if (getIntent().getStringExtra("FILTRO") != null) {
             String titulo = getIntent().getStringExtra("titulo");
-            String precioMin = getIntent().getStringExtra("precioMin");
-            String precioMax = getIntent().getStringExtra("precioMax");
-
-            //PlatoRepository.getInstance().listarPlatosFiltro(miHandler, titulo, precioMin, precioMax);
+            Double precioMin = getIntent().getDoubleExtra("precioMin", 0);
+            Double precioMax = getIntent().getDoubleExtra("precioMax", 0);
+            PlatoRepository.getInstance().listarPlatosFiltrados(miHandler, titulo, precioMin, precioMax);
         } else {
             // SE PIDEN LOS PLATOS A PlatoRepository
             PlatoRepository.getInstance().listarPlatos(miHandler);
@@ -138,7 +142,12 @@ public class ListaItems extends AppCompatActivity {
         public void handleMessage(Message msg) {
 
             //Lista de platos traidos del json server
-            listaDataSet = PlatoRepository.getInstance().getListaPlatos();
+            if (getIntent().getStringExtra("FILTRO") != null) {
+                listaDataSet = PlatoRepository.getInstance().getListaPlatosFiltrados();
+            }else{
+                listaDataSet = PlatoRepository.getInstance().getListaPlatos();
+            }
+
             switch (msg.arg1 ) {
                 case PlatoRepository._CONSULTA_PLATO:
                 case PlatoRepository._UPDATE_PLATO:

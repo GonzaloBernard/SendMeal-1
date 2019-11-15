@@ -100,10 +100,6 @@ public class HomeActivity extends AppCompatActivity {
                 i4.putExtra(_TIPO_USUARIO, KEY_VENDEDOR);
                 startActivity(i4);
                 return true;
-            case R.id.toolBarBuscarPlatos:
-                Intent i5 = new Intent(HomeActivity.this, BuscarPlatos.class);
-                startActivity(i5);
-                return true;
             default:
                 Toast.makeText(this,". . . . ",Toast.LENGTH_LONG).show();
                 return super.onOptionsItemSelected(item);
