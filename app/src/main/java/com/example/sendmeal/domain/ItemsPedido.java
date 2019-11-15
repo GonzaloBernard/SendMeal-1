@@ -11,20 +11,15 @@ import androidx.room.Relation;
 @Entity (tableName = "itemsPedido")
 public class ItemsPedido {
 
-   // ATRIBUTOS
-
     @PrimaryKey(autoGenerate = true)
     private Integer id;
 
-    @ForeignKey(entity = Pedido.class, parentColumns = "id", childColumns = "id_pedido", onDelete = ForeignKey.CASCADE)
-    @ColumnInfo(name = "id_pedido")
+    @ForeignKey(entity = Pedido.class, parentColumns = "id", childColumns = "id_pedido", onUpdate = ForeignKey.CASCADE)
     private Integer id_pedido;
-
     private Plato plato;
     private Integer cantidad;
     private Double precio;
 
-    //METODOS
     public ItemsPedido(){}
 
     public Integer getId() {

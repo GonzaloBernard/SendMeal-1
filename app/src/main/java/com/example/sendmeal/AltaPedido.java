@@ -1,8 +1,6 @@
 package com.example.sendmeal;
 
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,13 +13,11 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.sendmeal.dao.database.DataBaseClient;
+import com.example.sendmeal.dao.database.PedidoRepository;
 import com.example.sendmeal.dao.database.PedidoDao;
 import com.example.sendmeal.domain.EstadoPedido;
 import com.example.sendmeal.domain.Pedido;
 
-import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -65,29 +61,35 @@ public class AltaPedido extends AppCompatActivity {
         buttonCreaPedido.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Date date = Calendar.getInstance().getTime();
-                Pedido pedido = new Pedido();
-                //pedido.setId(01);
-                pedido.setFecha(date);
-                pedido.setEstado(EstadoPedido.PENDIENTE);
-                pedido.setLatitud(null);
-                pedido.setLongitud(null);
+                try {
+                    // SE CREA EL PEDIDO (HARDCODEADO)
+                    Pedido pedido = new Pedido();
+                    pedido.setFecha(Calendar.getInstance().getTime());
+                    pedido.setEstado(EstadoPedido.PENDIENTE);
+                    pedido.setLatitud(null);
+                    pedido.setLongitud(null);
 
-                GuardarPedido tareaGuardarPedido = new GuardarPedido();
-                tareaGuardarPedido.execute(pedido);
-
-
-                //PedidoDao dao = DataBaseClient.getInstance(AltaPedido.this).getAppDataBase().pedidoDao();
-                //List<Pedido> listaObrasDataset =dao.getAll();
-                //Pedido p = listaObrasDataset.get(0);
+                    // SE PIDE UNA INSTANCIA DEL REPO
+                    PedidoRepository pedidoDAO = PedidoRepository.getInstance(AltaPedido.this);
+                    // SE GUARDA EL PEDIDO
+                    pedidoDAO.crearPedido(pedido);
+                    // SE BUSCAN TODOS LOS PEDIDO PARA VER SI SE GUARDO CORRECTAMENTE
+                    List<Pedido> lista = pedidoDAO.buscarPedidos();
+                    Pedido pedidoAux = lista.get(lista.size() - 1);
+                    Toast.makeText(AltaPedido.this,"Pedido "+ pedidoAux.getId() +" creado con éxito",Toast.LENGTH_LONG).show();
+                }
+                catch (Exception e){
+                    Toast.makeText(AltaPedido.this,e.getMessage(),Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
+    /*
     class GuardarPedido extends AsyncTask<Pedido, Void, Void> {
 
         @Override
         protected Void doInBackground(Pedido... pedidos) {
-            PedidoDao dao = DataBaseClient.getInstance(AltaPedido.this).getAppDataBase().pedidoDao();
+            PedidoDao dao = PedidoRepository.getInstance(AltaPedido.this).getAppDataBase().pedidoDao();
             if(pedidos[0].getId() != null && pedidos[0].getId() >0) {
                 dao.actualizar(pedidos[0]);
             }else {
@@ -100,6 +102,6 @@ public class AltaPedido extends AppCompatActivity {
             super.onPostExecute(aVoid);
         }
     }
-
+    */
 }
 

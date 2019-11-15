@@ -10,18 +10,18 @@ import androidx.room.Update;
 
 @Dao
 public interface PedidoDao {
-    @Query("SELECT * FROM pedido")
-    List<Pedido> getAll();
-
     @Insert
-    void insert(Pedido pedido);
-
-    @Insert
-    void insertAll(Pedido... pedidos);
+    void crearPedido(Pedido pedido);
 
     @Delete
-    void delete(Pedido pedido);
+    void borrarPedido(Pedido pedido);
 
     @Update
-    void actualizar(Pedido pedido);
+    void actualizarPedido(Pedido pedido);
+
+    @Query("SELECT * FROM pedido")
+    List<Pedido> buscarPedidos();
+
+    @Query("SELECT * FROM Pedido WHERE id = :id")
+    Pedido buscarPedidoPorID(Integer id);
 }

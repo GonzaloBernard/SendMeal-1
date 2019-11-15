@@ -1,33 +1,22 @@
 package com.example.sendmeal.domain;
-
-
-
-import android.provider.BaseColumns;
-
-
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-
-
-
 import java.util.Date;
 import java.util.List;
 
 @Entity (tableName = "pedido")
 public class Pedido {
 
-    //ATRIBUTOS
-        @PrimaryKey(autoGenerate = true)
-        private Integer id;
+    @PrimaryKey(autoGenerate = true)
+    private Integer id;
+    private Date fecha;
+    private EstadoPedido estado;
+    private Double latitud;
+    private Double longitud;
+    @Ignore
+    private List<ItemsPedido> itemsPedido;
 
-        private Date fecha;
-        private EstadoPedido estado;
-        private Double latitud;
-        private Double longitud;
-
-
-
-    //METODOS
     public Pedido() {}
 
     public Integer getId() {
@@ -69,5 +58,18 @@ public class Pedido {
     public void setLongitud(Double longitud) {
         this.longitud = longitud;
     }
+
+    public List<ItemsPedido> getItems() {
+        return itemsPedido;
+    }
+
+    public void setItems(List<ItemsPedido> items) {
+        this.itemsPedido = items;
+    }
+
+    public void addItem(ItemsPedido itemPedido){
+        this.itemsPedido.add(itemPedido);
+    }
+
 
 }

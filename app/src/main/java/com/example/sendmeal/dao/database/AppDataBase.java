@@ -7,11 +7,11 @@ import androidx.room.TypeConverters;
 import com.example.sendmeal.domain.Pedido;
 import com.example.sendmeal.domain.ItemsPedido;
 
-@Database(entities = {Pedido.class, ItemsPedido.class} , version = 1)
+@Database(entities = {Pedido.class, ItemsPedido.class} , version = 7)
 @TypeConverters({Converters.class})
 public abstract class AppDataBase extends RoomDatabase {
 
-    public abstract PedidoDao pedidoDao(); //que permisos va a tener
+    public abstract PedidoDao pedidoDao();
     public abstract ItemsPedidoDao itemsPedidoDao();
     public abstract PedidosEItemsPedidosDao pedidosEItemsPedidosDao();
 }

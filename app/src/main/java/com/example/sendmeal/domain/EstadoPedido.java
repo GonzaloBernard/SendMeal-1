@@ -1,9 +1,9 @@
 package com.example.sendmeal.domain;
 
 public enum EstadoPedido {
-    PENDIENTE ("pendiente"), ENVIADO ("enviado"), ACEPTADO ("aceptado"),
-    RECHAZADO ("rechazado"), EN_PREPARACION ("en_reparacion"), EN_ENVIO ("en_envio"),
-    ENTREGADO ("entregado"), CANCELADO ("cancelado");
+    PENDIENTE ("PENDIENTE"), ENVIADO ("ENVIADO"), ACEPTADO ("ACEPTADO"),
+    RECHAZADO ("RECHAZADO"), EN_PREPARACION ("EN_PREPARACION"), EN_ENVIO ("EN_ENVIO"),
+    ENTREGADO ("ENTREGADO"), CANCELADO ("CANCELADO");
 
 /*
     1. PENDIENTE: el pedido fue creado, pero no fue enviado al servidor por lo que aún está
