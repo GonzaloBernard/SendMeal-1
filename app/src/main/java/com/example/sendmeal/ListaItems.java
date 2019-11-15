@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 import com.example.sendmeal.dao.PlatoRepository;
+import com.example.sendmeal.domain.ItemsPedido;
 import com.example.sendmeal.domain.Plato;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,15 @@ public class ListaItems extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView mRecyclerView;
     private List<Plato>  listaDataSet;
+    static List<ItemsPedido> listaItemsPedido = new ArrayList<>();
+
+    public static List<ItemsPedido> getListaItemsPedido() {
+        return listaItemsPedido;
+    }
+
+    public void addListaItemsPedido(ItemsPedido itemsPedido) {
+        this.listaItemsPedido.add(itemsPedido);
+    }
 
     public static final Integer _KEY_CALL_BUSCAR_PLATO_AC = 6;
 

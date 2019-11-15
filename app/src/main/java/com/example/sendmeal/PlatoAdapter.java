@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.sendmeal.domain.ItemsPedido;
 import com.example.sendmeal.domain.Plato;
 import java.util.List;
 
@@ -68,6 +70,12 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
 
             @Override
             public void onClick(View view) {
+                ItemsPedido item = new ItemsPedido();
+                item.setPlato(plato);
+                item.setPrecio(plato.getPrecio());
+                item.setCantidad(1);
+                List<ItemsPedido> listaItems = ListaItems.getListaItemsPedido();
+                listaItems.add(item);
             }
         });
 

@@ -64,26 +64,24 @@ public class AltaPedido extends AppCompatActivity {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
-        //DECLARACION DE VIEWS
+        // LIST VIEW de ItemsPedido
         lvItemsPedido =(ListView) findViewById(R.id.listViewItemsPedido);
-        Button buttonCreaPedido = (Button) findViewById(R.id.buttonCrearPedido);
-        Button buttonEnviarPedido = (Button) findViewById(R.id.buttonEnviarPedido);
-
-
         lvItemsPedido.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
 
         // OBTENER ItemsPedido
-        ItemsPedidoRepository itemsPedidoRepository = ItemsPedidoRepository.getInstance(AltaPedido.this);
-        listaItemsPedidoDataset = itemsPedidoRepository.buscarItemsPedido();
+        listaItemsPedidoDataset = ListaItems.getListaItemsPedido();
 
         adapter = new ArrayAdapter<>(AltaPedido.this,android.R.layout.simple_list_item_single_choice, listaItemsPedidoDataset);
         lvItemsPedido.setAdapter(adapter);
 
+        //BOTONES CREAR Y ENVIAR PEDIDO
+        Button buttonCreaPedido = (Button) findViewById(R.id.buttonCrearPedido);
+        Button buttonEnviarPedido = (Button) findViewById(R.id.buttonEnviarPedido);
         buttonCreaPedido.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    // SE CREA EL PEDIDO (HARDCODEADO)
+                    // SE CREA EL PEDIDO
                     Pedido pedido = new Pedido();
                     pedido.setFecha(Calendar.getInstance().getTime());
                     pedido.setEstado(EstadoPedido.PENDIENTE);
@@ -94,34 +92,17 @@ public class AltaPedido extends AppCompatActivity {
                     PedidoRepository pedidoRepository = PedidoRepository.getInstance(AltaPedido.this);
                     // SE GUARDA EL PEDIDO
                     pedidoRepository.crearPedido(pedido);
-                    // SE BUSCAN TODOS LOS PEDIDO PARA VER SI SE GUARDO CORRECTAMENTE
-                    List<Pedido> lista = pedidoRepository.buscarPedidos();
-                    Pedido pedidoAux = lista.get(lista.size() - 1);
-                    Toast.makeText(AltaPedido.this,"Pedido "+ pedidoAux.getId() +" creado con éxito",Toast.LENGTH_LONG).show();
-
-                    // SE CREA UN PLATO
-
-                    List<Plato>listaPlatos = PlatoRepository.getInstance().getListaPlatos();
-
-
-                    // SE CREA UN ItemPedido
-                    ItemsPedido itemsPedido1 = new ItemsPedido();
-                    itemsPedido1.setCantidad(5);
-                    itemsPedido1.setId_pedido(pedidoAux.getId());
-                    itemsPedido1.setPlato(listaPlatos.get(0));
-                    itemsPedido1.setPrecio(listaPlatos.get(0).getPrecio());
-
-                    ItemsPedido itemsPedido2 = new ItemsPedido();
-                    itemsPedido2.setCantidad(1);
-                    itemsPedido2.setId_pedido(pedidoAux.getId());
-                    itemsPedido2.setPlato(listaPlatos.get(1));
-                    itemsPedido2.setPrecio(listaPlatos.get(1).getPrecio());
-
+                    // LO RECUPERO PARA OBTENER EL id ???????????? BUSCAR UNA MEJOR FORMA
+                    Pedido pedidoRecuperado = pedidoRepository.buscarPedidoPorID(
+                            pedidoRepository.buscarPedidos().get(pedidoRepository.buscarPedidos().size()-1 ).getId());
                     ItemsPedidoRepository itemsPedidoRepository = ItemsPedidoRepository.getInstance(AltaPedido.this);
-                    itemsPedidoRepository.crearItemsPedido(itemsPedido1);
-                    itemsPedidoRepository.crearItemsPedido(itemsPedido2);
+                    for(ItemsPedido itemsPedido:listaItemsPedidoDataset){
+                        itemsPedido.setId_pedido(pedidoRecuperado.getId());
+                        itemsPedidoRepository.crearItemsPedido(itemsPedido);
+                    }
 
-                    List<ItemsPedido> list = itemsPedidoRepository.buscarItemsDeUnPedido(pedidoAux.getId());
+
+                    List<ItemsPedido> list = itemsPedidoRepository.buscarItemsDeUnPedido(pedidoRecuperado.getId());
                     List<ItemsPedido> listaompleta = itemsPedidoRepository.buscarItemsPedido();
                     Toast.makeText(AltaPedido.this," NADA ",Toast.LENGTH_LONG).show();
 
