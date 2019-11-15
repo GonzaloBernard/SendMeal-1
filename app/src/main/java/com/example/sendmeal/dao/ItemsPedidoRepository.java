@@ -40,6 +40,7 @@ public class ItemsPedidoRepository {
     public void actualizarItemsPedido(ItemsPedido p){
         itemsPedidoDao.actualizarItemsPedido(p);
     }
+    // ESTE METODO DEBERI ESTAR IMPLEMENTADO EN PedidoYTodosSusItems para alivianar la consulta a la db
     public List<ItemsPedido> buscarItemsDeUnPedido(Integer id){
         return itemsPedidoDao.buscarItemsDeUnPedido(id);
     }

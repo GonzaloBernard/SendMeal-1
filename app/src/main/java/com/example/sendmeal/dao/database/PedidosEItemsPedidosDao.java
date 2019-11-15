@@ -1,4 +1,6 @@
+/*
 package com.example.sendmeal.dao.database;
+
 
 import androidx.room.Dao;
 import androidx.room.Query;
@@ -10,3 +12,4 @@ public interface PedidosEItemsPedidosDao {
     @Query("SELECT * FROM pedido WHERE id = :id_pedido")
     PedidoYTodosSusItems getPedidoAndAllItems(Integer id_pedido);
 }
+*/

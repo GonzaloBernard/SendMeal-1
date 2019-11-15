@@ -25,6 +25,7 @@ public interface ItemsPedidoDao {
     @Query("SELECT * FROM ItemsPedido")
     List<ItemsPedido> buscarItemsPedido();
 
+    // ESTO DEBERIA ESTAR IMPLEMETADO EN PedidoEItemsPedidoDAO para alivianar la consulta a la db
     @Query("SELECT * FROM ItemsPedido WHERE id_pedido = :id_pedido")
     List<ItemsPedido> buscarItemsDeUnPedido(Integer id_pedido);
 }

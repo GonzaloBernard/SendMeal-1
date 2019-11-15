@@ -13,5 +13,5 @@ public abstract class AppDataBase extends RoomDatabase {
 
     public abstract PedidoDao pedidoDao();
     public abstract ItemsPedidoDao itemsPedidoDao();
-    public abstract PedidosEItemsPedidosDao pedidosEItemsPedidosDao();
+    /*public abstract PedidosEItemsPedidosDao pedidosEItemsPedidosDao();*/
 }
