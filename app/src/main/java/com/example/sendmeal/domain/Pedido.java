@@ -1,4 +1,7 @@
 package com.example.sendmeal.domain;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -6,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity (tableName = "pedido")
-public class Pedido {
+public class Pedido implements Parcelable{
 
     @PrimaryKey(autoGenerate = true)
     private Integer id;
@@ -14,11 +17,12 @@ public class Pedido {
     private EstadoPedido estado;
     private Double latitud;
     private Double longitud;
-    @Ignore
-    private List<ItemsPedido> itemsPedido;
 
     public Pedido() {}
 
+    public Pedido(Parcel in){
+        readFromParcel(in);
+    }
     public Integer getId() {
         return id;
     }
@@ -59,17 +63,35 @@ public class Pedido {
         this.longitud = longitud;
     }
 
-    public List<ItemsPedido> getItems() {
-        return itemsPedido;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public void setItems(List<ItemsPedido> items) {
-        this.itemsPedido = items;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeLong(fecha.getTime());
+        dest.writeString(estado.toString());
+        dest.writeDouble(latitud);
+        dest.writeDouble(longitud);
+        }
+
+    private void readFromParcel(Parcel in) {
+        this.id = in.readInt();
+        this.fecha = new Date(in.readLong());
+        this.estado = EstadoPedido.valueOf(in.readString());
+        this.latitud = in.readDouble();
+        this.longitud = in.readDouble();
     }
 
-    public void addItem(ItemsPedido itemPedido){
-        this.itemsPedido.add(itemPedido);
-    }
+    public static final Parcelable.Creator<Pedido> CREATOR = new Parcelable.Creator<Pedido>() {
+        public Pedido createFromParcel(Parcel in) {
+            return new Pedido(in);
+        }
 
-
+        public Pedido[] newArray(int size) {
+            return new Pedido[size];
+        }
+    };
 }

@@ -22,22 +22,24 @@ public class PlatoRepository {
     public static final int _ERROR_PLATO = 9;
     private List<Plato> listaPlatos;
     private List<Plato> listaPlatosFiltrados;
-    private static PlatoRepository _INSTANCE;
+    private static PlatoRepository _PLATO_REPOSITORY;
     private PlatoRepository(){}
+
     public static PlatoRepository getInstance(){
-        if(_INSTANCE==null){
-            _INSTANCE = new PlatoRepository();
-            _INSTANCE.configurarRetrofit();
-            _INSTANCE.listaPlatos = new ArrayList<>();
-            _INSTANCE.listaPlatosFiltrados = new ArrayList<>();
+        if(_PLATO_REPOSITORY ==null){
+            _PLATO_REPOSITORY = new PlatoRepository();
+            _PLATO_REPOSITORY.configurarRetrofit();
+            _PLATO_REPOSITORY.listaPlatos = new ArrayList<>();
+            _PLATO_REPOSITORY.listaPlatosFiltrados = new ArrayList<>();
         }
-        return _INSTANCE;
+        return _PLATO_REPOSITORY;
     }
 
     //CREACION Y CONFIGURACION DE RETROFIT
     private Retrofit rf;
     private PlatoRest platoRest;
-    private void configurarRetrofit(){
+
+    void configurarRetrofit(){
         this.rf = new Retrofit.Builder()
                 .baseUrl(HomeActivity.getServer())
                 .addConverterFactory(GsonConverterFactory.create())

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,9 +74,14 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
                 ItemsPedido item = new ItemsPedido();
                 item.setPlato(plato);
                 item.setPrecio(plato.getPrecio());
-                item.setCantidad(1);
-                List<ItemsPedido> listaItems = ListaItems.getListaItemsPedido();
-                listaItems.add(item);
+                item.setCantidad( Integer.parseInt( holder.spinnerCantidad.getSelectedItem().toString() ));
+                //List<ItemsPedido> listaItems = ListaItems.getListaItemsPedido();
+                //listaItems.add(item);
+                ListaItems.addListaItemsPedido(item);
+
+                holder.buttonAgregarCarrito.setBackgroundColor(Color.GREEN);
+                holder.buttonAgregarCarrito.setEnabled(false);
+                holder.spinnerCantidad.setEnabled(false);
             }
         });
 

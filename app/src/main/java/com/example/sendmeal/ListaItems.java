@@ -29,6 +29,7 @@ public class ListaItems extends AppCompatActivity {
     private final BroadcastReceiver br = new MyReceiver();
     public static final int REQUEST_CODE_EDITAR_PLATO = 2;
     public static final int REQUEST_CODE_BORRAR_PLATO = 3;
+    public static final int REQUEST_CODE_ALTA_PEDIDO = 15;
     public static final String CHANNEL_ID="10001";
     private RecyclerView.Adapter mAdapter;
     private RecyclerView mRecyclerView;
@@ -38,37 +39,49 @@ public class ListaItems extends AppCompatActivity {
     public static List<ItemsPedido> getListaItemsPedido() {
         return listaItemsPedido;
     }
-
-    public void addListaItemsPedido(ItemsPedido itemsPedido) {
-        this.listaItemsPedido.add(itemsPedido);
+    public static void addListaItemsPedido(ItemsPedido itemsPedido) {
+        listaItemsPedido.add(itemsPedido);
+    }
+    public static void clearListaItems() {
+        listaItemsPedido.clear();
     }
 
     public static final Integer _KEY_CALL_BUSCAR_PLATO_AC = 6;
 
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
+
         if( resultCode== Activity.RESULT_OK){
-            if(requestCode==REQUEST_CODE_EDITAR_PLATO){
-                try {
-                    Bundle extras = data.getExtras();
-                    // SE OBTIENE EL PLATO A MODIFICAR
-                    Plato plato = (Plato) data.getParcelableExtra(AbmPlato._PLATO_INDIVIDUAL_KEY);
-                    // SE ACTUALIZA EL PLATO EN EL SERVIDOR
-                    PlatoRepository.getInstance().actualizarPlato(plato, miHandler);
-                } catch (Exception e) {
-                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            } else if(requestCode==REQUEST_CODE_BORRAR_PLATO){
-                try {
-                    Bundle extras = data.getExtras();
-                    // SE OBTIENE EL PLATO A MODIFICAR
-                    Plato plato = (Plato) data.getParcelableExtra(AbmPlato._PLATO_INDIVIDUAL_KEY);
-                    // SE BORRA EL PLATO EN EL SERVIDOR
-                    PlatoRepository.getInstance().borrarPlato(plato, miHandler);
-                } catch (Exception e) {
-                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-                }
+            switch (requestCode){
+                case REQUEST_CODE_EDITAR_PLATO:
+                    try {
+                        Bundle extras = data.getExtras();
+                        // SE OBTIENE EL PLATO A MODIFICAR
+                        Plato plato = (Plato) data.getParcelableExtra(AbmPlato._PLATO_INDIVIDUAL_KEY);
+                        // SE ACTUALIZA EL PLATO EN EL SERVIDOR
+                        PlatoRepository.getInstance().actualizarPlato(plato, miHandler);
+                    } catch (Exception e) {
+                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                case REQUEST_CODE_BORRAR_PLATO:
+                    try {
+                        Bundle extras = data.getExtras();
+                        // SE OBTIENE EL PLATO A MODIFICAR
+                        Plato plato = (Plato) data.getParcelableExtra(AbmPlato._PLATO_INDIVIDUAL_KEY);
+                        // SE BORRA EL PLATO EN EL SERVIDOR
+                        PlatoRepository.getInstance().borrarPlato(plato, miHandler);
+                    } catch (Exception e) {
+                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                case REQUEST_CODE_ALTA_PEDIDO:
+                    finish();
+                    break;
+                default: break;
             }
         }
     }
@@ -89,7 +102,7 @@ public class ListaItems extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.toolbarCarrito:
                 Intent i1 = new Intent(ListaItems.this, AltaPedido.class);
-                startActivity(i1);
+                startActivityForResult(i1, REQUEST_CODE_ALTA_PEDIDO);
                 return true;
 
             case R.id.toolbarBuscarItems:
@@ -99,6 +112,7 @@ public class ListaItems extends AppCompatActivity {
                 return true;
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
+                clearListaItems();
                 onBackPressed();
                 return true;
             default:

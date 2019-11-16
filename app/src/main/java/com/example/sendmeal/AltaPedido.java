@@ -1,8 +1,13 @@
 package com.example.sendmeal;
 
 
+import android.app.Activity;
 import android.content.ClipData;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -74,9 +79,37 @@ public class AltaPedido extends AppCompatActivity {
         adapter = new ArrayAdapter<>(AltaPedido.this,android.R.layout.simple_list_item_single_choice, listaItemsPedidoDataset);
         lvItemsPedido.setAdapter(adapter);
 
-        //BOTONES CREAR Y ENVIAR PEDIDO
-        Button buttonCreaPedido = (Button) findViewById(R.id.buttonCrearPedido);
-        Button buttonEnviarPedido = (Button) findViewById(R.id.buttonEnviarPedido);
+        final Button buttonEnviarPedido = (Button) findViewById(R.id.buttonEnviarPedido);
+        final Button buttonCreaPedido = (Button) findViewById(R.id.buttonCrearPedido);
+
+        //BUTTON enviar pedido
+        buttonEnviarPedido.setEnabled(false);
+
+        buttonEnviarPedido.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                buttonEnviarPedido.setEnabled(false);
+
+                // SE PIDE UNA INSTANCIA DEL REPO
+                PedidoRepository pedidoRepository = PedidoRepository.getInstance(AltaPedido.this);
+                Pedido pedidoRecuperado = pedidoRepository.buscarPedidoPorID(
+                        pedidoRepository.buscarPedidos().get(pedidoRepository.buscarPedidos().size()-1 ).getId());
+                pedidoRecuperado.setEstado(EstadoPedido.ENVIADO);
+                // ENVIAR AL API REST
+                // SE PIDEN LOS PLATOS A PlatoRepository
+                pedidoRepository.crearPedido(pedidoRecuperado, miHandler);
+
+                //////////////////////////////////////////////////
+                listaItemsPedidoDataset.clear();
+                ListaItems.clearListaItems();
+                Intent intentResultado = new Intent();
+                setResult(Activity.RESULT_OK, intentResultado);
+                finish();
+                Toast.makeText(AltaPedido.this, "El pedido ha sido creado", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        //BOTONES CREAR PEDIDO
         buttonCreaPedido.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,10 +134,8 @@ public class AltaPedido extends AppCompatActivity {
                         itemsPedidoRepository.crearItemsPedido(itemsPedido);
                     }
 
-
-                    List<ItemsPedido> list = itemsPedidoRepository.buscarItemsDeUnPedido(pedidoRecuperado.getId());
-                    List<ItemsPedido> listaompleta = itemsPedidoRepository.buscarItemsPedido();
-                    Toast.makeText(AltaPedido.this," NADA ",Toast.LENGTH_LONG).show();
+                    buttonCreaPedido.setEnabled(false);
+                    buttonEnviarPedido.setEnabled(true);
 
                 }
                 catch (Exception e){
@@ -113,6 +144,22 @@ public class AltaPedido extends AppCompatActivity {
             }
         });
     }
+
+    Handler miHandler = new Handler(Looper.myLooper()){
+        @Override
+        public void handleMessage(Message msg) {
+
+            switch (msg.arg1 ) {
+                case PedidoRepository._ALTA_PEDIDO_REST:
+                    Toast.makeText(AltaPedido.this,"Pedido enviado al API REST",Toast.LENGTH_LONG).show();
+                    break;
+                case PedidoRepository._ERROR_PEDIDO_REST:
+                    Toast.makeText(AltaPedido.this,"Pedido no pudo procesarse",Toast.LENGTH_LONG).show();
+                    break;
+                default:break;
+            }
+        }
+    };
     /*
     class GuardarPedido extends AsyncTask<Pedido, Void, Void> {
 
