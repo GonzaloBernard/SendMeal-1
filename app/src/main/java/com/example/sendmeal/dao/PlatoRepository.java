@@ -127,8 +127,6 @@ public class PlatoRepository {
         llamada.enqueue(new Callback<Plato>() {
             @Override
             public void onResponse(Call<Plato> call, Response<Plato> response) {
-
-
                 if(response.isSuccessful()){
                     listaPlatos.add(response.body());
                     Message m = new Message();

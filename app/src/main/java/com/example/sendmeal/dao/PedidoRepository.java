@@ -45,6 +45,7 @@ public class PedidoRepository {
             _PEDIDO_REPOSITORY = new PedidoRepository(ctx);
             _PEDIDO_REPOSITORY.configurarRetrofit();
             _PEDIDO_REPOSITORY.listaPedidosSQLite = new ArrayList<>();
+            _PEDIDO_REPOSITORY.listaPedidosREST = new ArrayList<>();
         }
         return _PEDIDO_REPOSITORY;
     }

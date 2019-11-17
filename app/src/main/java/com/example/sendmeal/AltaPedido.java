@@ -97,6 +97,8 @@ public class AltaPedido extends AppCompatActivity {
                 pedidoRecuperado.setEstado(EstadoPedido.ENVIADO);
                 // ENVIAR AL API REST
                 // SE PIDEN LOS PLATOS A PlatoRepository
+
+                // SE ENVIA AL API REST
                 pedidoRepository.crearPedido(pedidoRecuperado, miHandler);
 
                 //////////////////////////////////////////////////
@@ -105,7 +107,6 @@ public class AltaPedido extends AppCompatActivity {
                 Intent intentResultado = new Intent();
                 setResult(Activity.RESULT_OK, intentResultado);
                 finish();
-                Toast.makeText(AltaPedido.this, "El pedido ha sido creado", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -118,8 +119,8 @@ public class AltaPedido extends AppCompatActivity {
                     Pedido pedido = new Pedido();
                     pedido.setFecha(Calendar.getInstance().getTime());
                     pedido.setEstado(EstadoPedido.PENDIENTE);
-                    pedido.setLatitud(null);
-                    pedido.setLongitud(null);
+                    pedido.setLatitud(50005462.456);
+                    pedido.setLongitud(85465.660);
 
                     // SE PIDE UNA INSTANCIA DEL REPO
                     PedidoRepository pedidoRepository = PedidoRepository.getInstance(AltaPedido.this);
@@ -136,7 +137,7 @@ public class AltaPedido extends AppCompatActivity {
 
                     buttonCreaPedido.setEnabled(false);
                     buttonEnviarPedido.setEnabled(true);
-
+                    Toast.makeText(AltaPedido.this, "El pedido ha sido creado", Toast.LENGTH_LONG).show();
                 }
                 catch (Exception e){
                     Toast.makeText(AltaPedido.this,e.getMessage(),Toast.LENGTH_LONG).show();
@@ -154,7 +155,7 @@ public class AltaPedido extends AppCompatActivity {
                     Toast.makeText(AltaPedido.this,"Pedido enviado al API REST",Toast.LENGTH_LONG).show();
                     break;
                 case PedidoRepository._ERROR_PEDIDO_REST:
-                    Toast.makeText(AltaPedido.this,"Pedido no pudo procesarse",Toast.LENGTH_LONG).show();
+                    Toast.makeText(AltaPedido.this,"El pedido no pudo procesarse",Toast.LENGTH_LONG).show();
                     break;
                 default:break;
             }
