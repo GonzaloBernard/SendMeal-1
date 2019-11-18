@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".MapaActivity"></activity>
         <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,10 +34,17 @@
             android:parentActivityName=".ListaItems" />
         <activity
             android:name=".BuscarPlatos"
-            android:parentActivityName=".ListaItems"/>
+            android:parentActivityName=".ListaItems" />
         <receiver
             android:name=".MyReceiver"
             android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCuYHwH_F4qzlVLJYDJWIR5FZWS_eN5loA" />
     </application>
 
 </manifest>
