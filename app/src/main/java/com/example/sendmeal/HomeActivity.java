@@ -22,7 +22,7 @@ import com.example.sendmeal.domain.Plato;
 public class HomeActivity extends AppCompatActivity {
 
     // Tipo de login
-    public static String _TIPO_USUARIO = "usuario";
+    public static final String _TIPO_USUARIO = "usuario";
     public static final String KEY_VENDEDOR = "vendedor";
     public static final String KEY_COMPRADOR = "comprador";
     //  SE ESTABLECE POR DEFAULT LA IP/DIRECCION del servidor JSON

@@ -8,7 +8,6 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-
 import java.util.List;
 
 public interface PlatoRest {
@@ -24,15 +23,10 @@ public interface PlatoRest {
     @DELETE("platos/{id}")
     Call<Void> borrar(@Path("id") Integer id);
 
-    // QUERY QUE FILTRE POR TITULO
+    // QUERY QUE FILTRE POR TITULO y rango de precios
     @GET("platos")
     Call<List<Plato>> getPlatosFiltrados(@Query("titulo_like") String titulo,
                                          @Query("precio_gte") Double precioMin,
                                          @Query("precio_lte") Double precioMax);
-
-    // QUERY QUE FILTRE POR RANGO DE PRECIOS
-
-
-    // QUERY QUE FILTRE POR TITULO Y RANGO DE PRECIIOS
 
 }
