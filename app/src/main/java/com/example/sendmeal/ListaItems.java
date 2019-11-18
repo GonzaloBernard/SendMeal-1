@@ -102,6 +102,7 @@ public class ListaItems extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.toolbarCarrito:
                 Intent i1 = new Intent(ListaItems.this, AltaPedido.class);
+                i1.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivityForResult(i1, REQUEST_CODE_ALTA_PEDIDO);
                 return true;
 

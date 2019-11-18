@@ -75,10 +75,17 @@ public class AltaPedido extends AppCompatActivity {
         lvItemsPedido.setAdapter(adapter);
 
         buttonEnviarPedido = (Button) findViewById(R.id.buttonEnviarPedido);
-        final Button buttonCreaPedido = (Button) findViewById(R.id.buttonCrearPedido);
+        final Button buttonCrearPedido = (Button) findViewById(R.id.buttonCrearPedido);
 
         //BUTTON enviar pedido
-        buttonEnviarPedido.setEnabled(false);
+        if(pedidoCreado!=null){
+            buttonEnviarPedido.setEnabled(true);
+            buttonCrearPedido.setEnabled(false);
+        }
+        else {
+            buttonEnviarPedido.setEnabled(false);
+            buttonCrearPedido.setEnabled(true);
+        }
         buttonEnviarPedido.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -99,11 +106,11 @@ public class AltaPedido extends AppCompatActivity {
         });
 
         //BOTONES CREAR PEDIDO
-        buttonCreaPedido.setOnClickListener(new Button.OnClickListener() {
+        buttonCrearPedido.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    buttonCreaPedido.setEnabled(false);
+                    buttonCrearPedido.setEnabled(false);
                     // SE CREA EL PEDIDO
                     Pedido pedido = new Pedido();
                     pedido.setFecha(Calendar.getInstance().getTime());
