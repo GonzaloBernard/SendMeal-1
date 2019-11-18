@@ -2,8 +2,8 @@ package com.example.sendmeal;
 
 
 import android.app.Activity;
-import android.content.ClipData;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -12,25 +12,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import com.example.sendmeal.dao.ItemsPedidoRepository;
 import com.example.sendmeal.dao.PedidoRepository;
-import com.example.sendmeal.dao.PlatoRepository;
 import com.example.sendmeal.domain.EstadoPedido;
 import com.example.sendmeal.domain.ItemsPedido;
 import com.example.sendmeal.domain.Pedido;
-import com.example.sendmeal.domain.PedidoYTodosSusItems;
-import com.example.sendmeal.domain.Plato;
-
 import java.util.Calendar;
 import java.util.List;
 
@@ -39,6 +32,8 @@ public class AltaPedido extends AppCompatActivity {
     ArrayAdapter<ItemsPedido> adapter;
     List<ItemsPedido> listaItemsPedidoDataset;
     ItemsPedido itemsPedidoSeleccionado;
+    Button buttonEnviarPedido;
+    Pedido pedidoCreado;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_volver, menu);
@@ -79,30 +74,22 @@ public class AltaPedido extends AppCompatActivity {
         adapter = new ArrayAdapter<>(AltaPedido.this,android.R.layout.simple_list_item_single_choice, listaItemsPedidoDataset);
         lvItemsPedido.setAdapter(adapter);
 
-        final Button buttonEnviarPedido = (Button) findViewById(R.id.buttonEnviarPedido);
+        buttonEnviarPedido = (Button) findViewById(R.id.buttonEnviarPedido);
         final Button buttonCreaPedido = (Button) findViewById(R.id.buttonCrearPedido);
 
         //BUTTON enviar pedido
         buttonEnviarPedido.setEnabled(false);
-
         buttonEnviarPedido.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
                 buttonEnviarPedido.setEnabled(false);
-
+                pedidoCreado.setEstado(EstadoPedido.ENVIADO);
+                pedidoCreado.setItemsPedido(listaItemsPedidoDataset);
                 // SE PIDE UNA INSTANCIA DEL REPO
                 PedidoRepository pedidoRepository = PedidoRepository.getInstance(AltaPedido.this);
-                Pedido pedidoRecuperado = pedidoRepository.buscarPedidoPorIDSQL(
-                        pedidoRepository.buscarPedidosSQL().get(pedidoRepository.buscarPedidosSQL().size()-1 ).getId());
-                pedidoRecuperado.setEstado(EstadoPedido.ENVIADO);
-                pedidoRecuperado.setItemsPedido(listaItemsPedidoDataset);
-                // ENVIAR AL API REST
-                // SE PIDEN LOS PLATOS A PlatoRepository
-
                 // SE ENVIA AL API REST
-                pedidoRepository.crearPedidoREST(pedidoRecuperado, miHandler);
-
-                //////////////////////////////////////////////////
+                pedidoRepository.crearPedidoREST(pedidoCreado, miHandler);
+                pedidoCreado=null;
                 listaItemsPedidoDataset.clear();
                 ListaItems.clearListaItems();
                 Intent intentResultado = new Intent();
@@ -116,29 +103,15 @@ public class AltaPedido extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
+                    buttonCreaPedido.setEnabled(false);
                     // SE CREA EL PEDIDO
                     Pedido pedido = new Pedido();
                     pedido.setFecha(Calendar.getInstance().getTime());
                     pedido.setEstado(EstadoPedido.PENDIENTE);
                     pedido.setLatitud(50005462.456);
                     pedido.setLongitud(85465.660);
-
-                    // SE PIDE UNA INSTANCIA DEL REPO
-                    PedidoRepository pedidoRepository = PedidoRepository.getInstance(AltaPedido.this);
-                    // SE GUARDA EL PEDIDO
-                    pedidoRepository.crearPedidoSQL(pedido);
-                    // LO RECUPERO PARA OBTENER EL id ???????????? BUSCAR UNA MEJOR FORMA
-                    Pedido pedidoRecuperado = pedidoRepository.buscarPedidoPorIDSQL(
-                            pedidoRepository.buscarPedidosSQL().get(pedidoRepository.buscarPedidosSQL().size()-1 ).getId());
-                    ItemsPedidoRepository itemsPedidoRepository = ItemsPedidoRepository.getInstance(AltaPedido.this);
-                    for(ItemsPedido itemsPedido:listaItemsPedidoDataset){
-                        itemsPedido.setId_pedido(pedidoRecuperado.getId());
-                        itemsPedidoRepository.crearItemsPedido(itemsPedido);
-                    }
-
-                    buttonCreaPedido.setEnabled(false);
-                    buttonEnviarPedido.setEnabled(true);
-                    Toast.makeText(AltaPedido.this, "El pedido ha sido creado", Toast.LENGTH_LONG).show();
+                    CrearPedidoSQL crearPedidoSQL = new CrearPedidoSQL();
+                    crearPedidoSQL.execute(pedido);
                 }
                 catch (Exception e){
                     Toast.makeText(AltaPedido.this,e.getMessage(),Toast.LENGTH_LONG).show();
@@ -162,24 +135,32 @@ public class AltaPedido extends AppCompatActivity {
             }
         }
     };
-    /*
-    class GuardarPedido extends AsyncTask<Pedido, Void, Void> {
+
+    class CrearPedidoSQL extends AsyncTask<Pedido, Void, Void> {
 
         @Override
-        protected Void doInBackground(Pedido... pedidos) {
-            PedidoDao dao = PedidoRepository.getInstance(AltaPedido.this).getAppDataBase().pedidoDao();
-            if(pedidos[0].getId() != null && pedidos[0].getId() >0) {
-                dao.actualizar(pedidos[0]);
-            }else {
-                dao.insert(pedidos[0]);
+        protected Void doInBackground(Pedido... pedido) {
+            // SE PIDE UNA INSTANCIA DEL REPO
+            PedidoRepository pedidoRepository = PedidoRepository.getInstance(AltaPedido.this);
+            // SE GUARDA EL PEDIDO
+            pedidoRepository.crearPedidoSQL(pedido[0]);
+            // LO RECUPERO PARA OBTENER EL id ???????????? BUSCAR UNA MEJOR FORMA
+            pedidoCreado = pedidoRepository.buscarPedidosSQL().get(pedidoRepository.buscarPedidosSQL().size()-1 );
+
+            // Se guardan todos los ItemsPedido
+            ItemsPedidoRepository itemsPedidoRepository = ItemsPedidoRepository.getInstance(AltaPedido.this);
+            for(ItemsPedido itemsPedido:listaItemsPedidoDataset){
+                itemsPedido.setId_pedido(pedidoCreado.getId());
+                itemsPedidoRepository.crearItemsPedido(itemsPedido);
             }
             return null;
         }
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            buttonEnviarPedido.setEnabled(true);
         }
     }
-    */
+
 }
 

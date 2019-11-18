@@ -33,7 +33,7 @@ public class PedidoRepository {
         AppDataBase db = Room.databaseBuilder(ctx,
                 AppDataBase.class, "sendmeal-db")
                 .fallbackToDestructiveMigration()
-                .allowMainThreadQueries()
+//                .allowMainThreadQueries()
                 .build();
         pedidoDao = db.pedidoDao();
     }
