@@ -143,14 +143,13 @@ public class AltaPedido extends AppCompatActivity {
             // SE PIDE UNA INSTANCIA DEL REPO
             PedidoRepository pedidoRepository = PedidoRepository.getInstance(AltaPedido.this);
             // SE GUARDA EL PEDIDO
-            pedidoRepository.crearPedidoSQL(pedido[0]);
-            // LO RECUPERO PARA OBTENER EL id ???????????? BUSCAR UNA MEJOR FORMA
-            pedidoCreado = pedidoRepository.buscarPedidosSQL().get(pedidoRepository.buscarPedidosSQL().size()-1 );
+            Integer pedidoCreadoID = (int) pedidoRepository.crearPedidoSQL(pedido[0]);
 
+            pedidoCreado = pedidoRepository.buscarPedidoPorIDSQL( pedidoCreadoID);
             // Se guardan todos los ItemsPedido
             ItemsPedidoRepository itemsPedidoRepository = ItemsPedidoRepository.getInstance(AltaPedido.this);
             for(ItemsPedido itemsPedido:listaItemsPedidoDataset){
-                itemsPedido.setId_pedido(pedidoCreado.getId());
+                itemsPedido.setId_pedido(pedidoCreadoID);
                 itemsPedidoRepository.crearItemsPedido(itemsPedido);
             }
             return null;

@@ -11,7 +11,7 @@ import androidx.room.Update;
 @Dao
 public interface PedidoDao {
     @Insert
-    void crearPedido(Pedido pedido);
+    long crearPedido(Pedido pedido);
 
     @Delete
     void borrarPedido(Pedido pedido);

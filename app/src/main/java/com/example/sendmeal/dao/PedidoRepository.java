@@ -48,8 +48,8 @@ public class PedidoRepository {
     }
 
     // ACCIONES SOBRE SQLite
-    public void crearPedidoSQL(Pedido p){
-        pedidoDao.crearPedido(p);
+    public long crearPedidoSQL(Pedido p){
+        return pedidoDao.crearPedido(p);
     }
     public void borrarPedidoSQL(Pedido p){
         pedidoDao.borrarPedido(p);
