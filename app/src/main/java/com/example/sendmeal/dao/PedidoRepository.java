@@ -12,11 +12,8 @@ import com.example.sendmeal.dao.database.AppDataBase;
 import com.example.sendmeal.dao.database.PedidoDao;
 import com.example.sendmeal.dao.rest.PedidoRest;
 import com.example.sendmeal.domain.Pedido;
-import com.example.sendmeal.domain.Plato;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,19 +48,19 @@ public class PedidoRepository {
     }
 
     // ACCIONES SOBRE SQLite
-    public void crearPedido(Pedido p){
+    public void crearPedidoSQL(Pedido p){
         pedidoDao.crearPedido(p);
     }
-    public void borrarPedido(Pedido p){
+    public void borrarPedidoSQL(Pedido p){
         pedidoDao.borrarPedido(p);
     }
-    public void actualizarPedido(Pedido p){
+    public void actualizarPedidoSQL(Pedido p){
         pedidoDao.actualizarPedido(p);
     }
-    public Pedido buscarPedidoPorID(Integer id){
+    public Pedido buscarPedidoPorIDSQL(Integer id){
         return pedidoDao.buscarPedidoPorID(id);
     }
-    public List<Pedido> buscarPedidos(){
+    public List<Pedido> buscarPedidosSQL(){
         return pedidoDao.buscarPedidos();
     }
 
@@ -81,13 +78,14 @@ public class PedidoRepository {
     }
     // ACCIONES SORE API REST
 
-    public void crearPedido(Pedido p, final Handler h){
+    public void crearPedidoREST(Pedido p, final Handler h){
         Call<Pedido> llamada = this.pedidoRest.crear(p);
         llamada.enqueue(new Callback<Pedido>() {
             @Override
             public void onResponse(Call<Pedido> call, Response<Pedido> response) {
                 if(response.isSuccessful()){
-                    listaPedidosREST.add(response.body());
+                    Pedido pedidoGuardado =response.body();
+                    listaPedidosREST.add(pedidoGuardado);
                     Message m = new Message();
                     m.arg1 = _ALTA_PEDIDO_REST;
                     h.sendMessage(m);

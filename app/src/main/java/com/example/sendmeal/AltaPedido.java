@@ -92,14 +92,15 @@ public class AltaPedido extends AppCompatActivity {
 
                 // SE PIDE UNA INSTANCIA DEL REPO
                 PedidoRepository pedidoRepository = PedidoRepository.getInstance(AltaPedido.this);
-                Pedido pedidoRecuperado = pedidoRepository.buscarPedidoPorID(
-                        pedidoRepository.buscarPedidos().get(pedidoRepository.buscarPedidos().size()-1 ).getId());
+                Pedido pedidoRecuperado = pedidoRepository.buscarPedidoPorIDSQL(
+                        pedidoRepository.buscarPedidosSQL().get(pedidoRepository.buscarPedidosSQL().size()-1 ).getId());
                 pedidoRecuperado.setEstado(EstadoPedido.ENVIADO);
+                pedidoRecuperado.setItemsPedido(listaItemsPedidoDataset);
                 // ENVIAR AL API REST
                 // SE PIDEN LOS PLATOS A PlatoRepository
 
                 // SE ENVIA AL API REST
-                pedidoRepository.crearPedido(pedidoRecuperado, miHandler);
+                pedidoRepository.crearPedidoREST(pedidoRecuperado, miHandler);
 
                 //////////////////////////////////////////////////
                 listaItemsPedidoDataset.clear();
@@ -125,10 +126,10 @@ public class AltaPedido extends AppCompatActivity {
                     // SE PIDE UNA INSTANCIA DEL REPO
                     PedidoRepository pedidoRepository = PedidoRepository.getInstance(AltaPedido.this);
                     // SE GUARDA EL PEDIDO
-                    pedidoRepository.crearPedido(pedido);
+                    pedidoRepository.crearPedidoSQL(pedido);
                     // LO RECUPERO PARA OBTENER EL id ???????????? BUSCAR UNA MEJOR FORMA
-                    Pedido pedidoRecuperado = pedidoRepository.buscarPedidoPorID(
-                            pedidoRepository.buscarPedidos().get(pedidoRepository.buscarPedidos().size()-1 ).getId());
+                    Pedido pedidoRecuperado = pedidoRepository.buscarPedidoPorIDSQL(
+                            pedidoRepository.buscarPedidosSQL().get(pedidoRepository.buscarPedidosSQL().size()-1 ).getId());
                     ItemsPedidoRepository itemsPedidoRepository = ItemsPedidoRepository.getInstance(AltaPedido.this);
                     for(ItemsPedido itemsPedido:listaItemsPedidoDataset){
                         itemsPedido.setId_pedido(pedidoRecuperado.getId());

@@ -17,6 +17,8 @@ public class Pedido implements Parcelable{
     private EstadoPedido estado;
     private Double latitud;
     private Double longitud;
+    @Ignore
+    private List<ItemsPedido> itemsPedido;
 
     public Pedido() {}
 
@@ -63,6 +65,14 @@ public class Pedido implements Parcelable{
         this.longitud = longitud;
     }
 
+    public List<ItemsPedido> getItemsPedido() {
+        return itemsPedido;
+    }
+
+    public void setItemsPedido(List<ItemsPedido> itemsPedido) {
+        this.itemsPedido = itemsPedido;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -75,6 +85,7 @@ public class Pedido implements Parcelable{
         dest.writeString(estado.toString());
         dest.writeDouble(latitud);
         dest.writeDouble(longitud);
+        dest.writeList(itemsPedido);
         }
 
     private void readFromParcel(Parcel in) {
@@ -83,6 +94,7 @@ public class Pedido implements Parcelable{
         this.estado = EstadoPedido.valueOf(in.readString());
         this.latitud = in.readDouble();
         this.longitud = in.readDouble();
+        in.readList(this.itemsPedido, this.getClass().getClassLoader());
     }
 
     public static final Parcelable.Creator<Pedido> CREATOR = new Parcelable.Creator<Pedido>() {
