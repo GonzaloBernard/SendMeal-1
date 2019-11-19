@@ -3,6 +3,8 @@
     package="com.example.sendmeal">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -38,6 +40,14 @@
         <receiver
             android:name=".MyReceiver"
             android:exported="false" />
+        <service
+            android:name=".FirebaseMessagingService"
+            android:exported="false"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
         <meta-data
             android:name="com.google.android.gms.version"

@@ -34,6 +34,7 @@ public class AltaPedido extends AppCompatActivity {
     ItemsPedido itemsPedidoSeleccionado;
     Button buttonEnviarPedido;
     Pedido pedidoCreado;
+    Button ubicacion;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_volver, menu);
@@ -76,6 +77,7 @@ public class AltaPedido extends AppCompatActivity {
 
         buttonEnviarPedido = (Button) findViewById(R.id.buttonEnviarPedido);
         final Button buttonCrearPedido = (Button) findViewById(R.id.buttonCrearPedido);
+        ubicacion = (Button) findViewById(R.id.buttonUbicacion);
 
         //BUTTON enviar pedido
         if(pedidoCreado!=null){
@@ -105,7 +107,7 @@ public class AltaPedido extends AppCompatActivity {
             }
         });
 
-        //BOTONES CREAR PEDIDO
+        //BUTTON CREAR PEDIDO
         buttonCrearPedido.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,6 +127,19 @@ public class AltaPedido extends AppCompatActivity {
                 }
             }
         });
+
+        //BUTTON MI UBICACION
+        ubicacion.setOnClickListener(new Button.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(AltaPedido.this, MapaActivity.class);
+                startActivity(i);
+
+
+            }
+        });
+
     }
 
     Handler miHandler = new Handler(Looper.myLooper()){

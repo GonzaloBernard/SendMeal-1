@@ -1,12 +1,9 @@
 package com.example.sendmeal.dao;
-
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-
 import androidx.room.Room;
-
 import com.example.sendmeal.HomeActivity;
 import com.example.sendmeal.dao.database.AppDataBase;
 import com.example.sendmeal.dao.database.PedidoDao;

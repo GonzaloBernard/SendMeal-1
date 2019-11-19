@@ -3,4 +3,5 @@
     <string name="tituloToolbarPedido">PEDIDO</string>
     <string name="crearPedido">Crear pedido</string>
     <string name="enviarPedido">Enviar pedido</string>
+    <string name="Ubicacion">Mi ubicación</string>
 </resources>
