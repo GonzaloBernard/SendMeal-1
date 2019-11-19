@@ -4,4 +4,20 @@
     <string name="crearPedido">Crear pedido</string>
     <string name="enviarPedido">Enviar pedido</string>
     <string name="Ubicacion">Mi ubicación</string>
+    <string name="tituloToolbarUbicacion">UBICACIÓN</string>
+    <string name="textViewEstadoPedidoMap">Estado del pedido</string>
+    <string name="buttonEnviarUbicacion">Enviar ubicacion</string>
+
+    <string-array name="spinnerEstadosPedidos">
+        <item>Seleccionar...</item>
+        <item>Pendiente</item>
+        <item>Enviado</item>
+        <item>Aceptado</item>
+        <item>Rechado</item>
+        <item>En preparacion</item>
+        <item>En envio</item>
+        <item>Entregado</item>
+        <item>Cancelado</item>
+
+    </string-array>
 </resources>
