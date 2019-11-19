@@ -3,11 +3,13 @@ package com.example.sendmeal;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -117,6 +119,7 @@ public class AltaPedido extends AppCompatActivity {
                     pedido.setEstado(EstadoPedido.PENDIENTE);
                     pedido.setLatitud(50005462.456);
                     pedido.setLongitud(85465.660);
+                    pedido.setFcmToken(getTokenFromPrefs());
                     CrearPedidoSQL crearPedidoSQL = new CrearPedidoSQL();
                     crearPedidoSQL.execute(pedido);
                 }
@@ -166,6 +169,11 @@ public class AltaPedido extends AppCompatActivity {
             super.onPostExecute(aVoid);
             buttonEnviarPedido.setEnabled(true);
         }
+    }
+    private String getTokenFromPrefs(){
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        return preferences.getString("registration_id", null);
     }
 
 }
