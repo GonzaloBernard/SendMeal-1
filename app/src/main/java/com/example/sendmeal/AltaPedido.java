@@ -30,6 +30,10 @@ import java.util.Calendar;
 import java.util.List;
 
 public class AltaPedido extends AppCompatActivity {
+
+    public static Double latitud = 0.0;
+    public static Double longitud = 0.0;
+
     ListView lvItemsPedido;
     ArrayAdapter<ItemsPedido> adapter;
     List<ItemsPedido> listaItemsPedidoDataset;
@@ -113,20 +117,24 @@ public class AltaPedido extends AppCompatActivity {
         buttonCrearPedido.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    buttonCrearPedido.setEnabled(false);
-                    // SE CREA EL PEDIDO
-                    Pedido pedido = new Pedido();
-                    pedido.setFecha(Calendar.getInstance().getTime());
-                    pedido.setEstado(EstadoPedido.PENDIENTE);
-                    pedido.setLatitud(50005462.456);
-                    pedido.setLongitud(85465.660);
-                    pedido.setFcmToken(getTokenFromPrefs());
-                    CrearPedidoSQL crearPedidoSQL = new CrearPedidoSQL();
-                    crearPedidoSQL.execute(pedido);
-                }
-                catch (Exception e){
-                    Toast.makeText(AltaPedido.this,e.getMessage(),Toast.LENGTH_LONG).show();
+                if (latitud == 0.0 && longitud == 0.0) {
+                    Toast.makeText(AltaPedido.this, "Ingrese su ubicación", Toast.LENGTH_LONG).show();
+                } else {
+
+                    try {
+                        buttonCrearPedido.setEnabled(false);
+                        // SE CREA EL PEDIDO
+                        Pedido pedido = new Pedido();
+                        pedido.setFecha(Calendar.getInstance().getTime());
+                        pedido.setEstado(EstadoPedido.PENDIENTE);
+                        pedido.setLatitud(latitud);
+                        pedido.setLongitud(longitud);
+                        pedido.setFcmToken(getTokenFromPrefs());
+                        CrearPedidoSQL crearPedidoSQL = new CrearPedidoSQL();
+                        crearPedidoSQL.execute(pedido);
+                    } catch (Exception e) {
+                        Toast.makeText(AltaPedido.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });

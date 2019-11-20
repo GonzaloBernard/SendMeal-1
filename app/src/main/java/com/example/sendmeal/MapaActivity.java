@@ -41,7 +41,7 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
             setSupportActionBar(toolbar);
             ActionBar actionBar = getSupportActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(R.string.tituloToolbarListarItems);
+            actionBar.setTitle(R.string.tituloToolbarUbicacion);
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
@@ -100,7 +100,8 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
                         .position(latLng)
                         .alpha(0.7f)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-                System.out.println("ACA: " + latLng);
+                AltaPedido.latitud = latLng.latitude;
+                AltaPedido.longitud = latLng.longitude;
             }
         });
     }
