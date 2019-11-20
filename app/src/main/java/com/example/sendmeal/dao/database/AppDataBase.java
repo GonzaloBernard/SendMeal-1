@@ -7,7 +7,7 @@ import androidx.room.TypeConverters;
 import com.example.sendmeal.domain.Pedido;
 import com.example.sendmeal.domain.ItemsPedido;
 
-@Database(entities = {Pedido.class, ItemsPedido.class} , version = 9)
+@Database(entities = {Pedido.class, ItemsPedido.class} , version = 10)
 @TypeConverters({Converters.class})
 public abstract class AppDataBase extends RoomDatabase {
 

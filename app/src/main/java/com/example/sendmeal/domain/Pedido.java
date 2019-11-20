@@ -19,6 +19,7 @@ public class Pedido implements Parcelable{
     private Double longitud;
     @Ignore
     private List<ItemsPedido> itemsPedido;
+    private String FcmToken;
 
     public Pedido() {}
 
@@ -73,6 +74,14 @@ public class Pedido implements Parcelable{
         this.itemsPedido = itemsPedido;
     }
 
+    public String getFcmToken() {
+        return FcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        FcmToken = fcmToken;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -86,6 +95,7 @@ public class Pedido implements Parcelable{
         dest.writeDouble(latitud);
         dest.writeDouble(longitud);
         dest.writeList(itemsPedido);
+        dest.writeString(FcmToken);
         }
 
     private void readFromParcel(Parcel in) {
@@ -95,6 +105,7 @@ public class Pedido implements Parcelable{
         this.latitud = in.readDouble();
         this.longitud = in.readDouble();
         in.readList(this.itemsPedido, this.getClass().getClassLoader());
+        this.FcmToken = in.readString();
     }
 
     public static final Parcelable.Creator<Pedido> CREATOR = new Parcelable.Creator<Pedido>() {

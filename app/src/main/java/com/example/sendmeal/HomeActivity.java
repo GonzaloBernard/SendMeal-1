@@ -3,12 +3,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +21,9 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.example.sendmeal.dao.PlatoRepository;
 import com.example.sendmeal.domain.Plato;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -44,6 +50,9 @@ public class HomeActivity extends AppCompatActivity {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarHome);
         setSupportActionBar(toolbar);
 
+        // Se guarda el token en las preferencias en caso de que sea un  nuevo usuario
+        getUserToken();
+
         //SONIDO DE INICIO
         MediaPlayer mp = MediaPlayer.create(this, R.raw.misc222);
         mp.start();
@@ -67,9 +76,8 @@ public class HomeActivity extends AppCompatActivity {
                 toolbar.setVisibility(View.VISIBLE);
             }
         });
-
-
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_principal, menu);
@@ -136,4 +144,34 @@ public class HomeActivity extends AppCompatActivity {
             }
         }
     };
+
+    private String getUserToken() {
+        // RECUPERAR TOKEN O CREARLO
+        String TOKEN = getTokenFromPrefs();
+        if (TOKEN == null) {
+            FirebaseInstanceId.getInstance().getInstanceId()
+                    .addOnSuccessListener(this, new OnSuccessListener<InstanceIdResult>() {
+                        @Override
+                        public void onSuccess(InstanceIdResult instanceIdResult) {
+                            String newToken = instanceIdResult.getToken();
+                            saveTokenToPrefs(newToken);
+                            Log.e("newToken", newToken);
+                        }
+                    });
+        }
+        return TOKEN;
+    }
+
+    private void saveTokenToPrefs(String _token){
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("registration_id", _token);
+        editor.apply();
+    }
+    private String getTokenFromPrefs(){
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        return preferences.getString("registration_id", null);
+    }
 }
