@@ -54,7 +54,7 @@ public class HomeActivity extends AppCompatActivity {
         getUserToken();
 
         //SONIDO DE INICIO
-        MediaPlayer mp = MediaPlayer.create(this, R.raw.misc222);
+        MediaPlayer mp = MediaPlayer.create(this, R.raw.miscloltrl);
         mp.start();
         final EditText etServer = (EditText) findViewById(R.id.editTextServerIP);
         final Button buttonCambiarIP = (Button) findViewById(R.id.buttonServerIP);
