@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tituloToolbarCrearItem">CREAR PLATO</string>
+    <string name="tituloToolbarModificarPlato">MODIFICAR PLATO</string>
+    <string name="crearItemID">ID del plato</string>
+    <string name="crearItemTitulo">Titulo del plato</string>
+    <string name="crearItemDescripcion">Descripcion del plato</string>
+    <string name="crearItemPrecio">Precio del plato</string>
+    <string name="crearItemCalorias">Calorias</string>
+    <string name="crearItemGuardar">GUARDAR</string>
+    <string name="crearItemErrorID">Error en el titulo</string>
+    <string name="crearItemErrorPrecio">Error en el precio</string>
+    <string name="crearItemErrorCalorias">Error en las calorías</string>
+    <string name="crearItemErrorCamposNumericos">Error en los campos numéricos</string>
+    <string name="tituloToolbarConsultarPlato">CONSULTAR PLATO</string>
+</resources>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MapaActivity"
+    android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarMapaActivity"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <Spinner
+                    android:id="@+id/spinnerEstadoPedido"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/spinnerEstadosPedidos"
+                    android:layout_margin="@dimen/margin" />
+
+                <Button
+                    android:id="@+id/buttonOkUbicacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin"
+                    android:text="@string/buttonEnviarUbicacion"/>
+        </LinearLayout>
+
+                <fragment
+                    android:id="@+id/mapa"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    map:cameraBearing="0"
+                    map:cameraTargetLat="-31.6165504"
+                    map:cameraTargetLng="-60.67549"
+                    map:cameraTilt="10"
+                    map:cameraZoom="18"
+                    map:mapType="normal"
+                    map:uiCompass="false"
+                    map:uiRotateGestures="true"
+                    map:uiScrollGestures="true"
+                    map:uiTiltGestures="true"
+                    map:uiZoomControls="false"
+                    map:uiZoomGestures="true"/>
+
+
+
+</LinearLayout>

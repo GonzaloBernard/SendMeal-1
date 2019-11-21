@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tituloToolbarBuscarItems">BUSCAR PLATO</string>
+    <string name="NombrePlato">Nombre del plato</string>
+    <string name="PrecioMin">Precio mínimo</string>
+    <string name="PrecioMax">Precio máximo</string>
+    <string name="Buscar">Buscar</string>
+    <string name="Carrito">Carrito</string>
+</resources>

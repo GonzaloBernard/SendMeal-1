@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="homePlatoCreado">El plato se creó con éxito</string>
+    <string name="homePlatoError">Ha ocurrido un error</string>
+    <string name="homeIngreseIpServidor">Direccion del servidor </string>
+    <string name="homeHttp">http://</string>
+</resources>

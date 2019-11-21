@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/toolbarCarrito"
+        android:title="@string/Carrito"
+        android:icon="@drawable/ic_carrito"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom|withText"
+        android:visible="true"/>
+
+    <item android:id="@+id/toolbarBuscarItems"
+        android:title="@string/Buscar"
+        android:icon="@drawable/ic_lupa"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom|withText"
+        android:visible="true"/>
+</menu>

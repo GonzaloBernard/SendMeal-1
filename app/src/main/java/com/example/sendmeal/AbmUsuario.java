@@ -1,16 +1,18 @@
 package com.example.sendmeal;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.format.Time;
-import android.text.method.KeyListener;
 import android.util.Patterns;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -23,30 +25,41 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
 
-public class MainActivity extends AppCompatActivity {
+public class AbmUsuario extends AppCompatActivity {
 
     private Context context;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_volver, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Respond to the action bar's Up/Home button
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        //Icono en la action bar
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
-
+        setContentView(R.layout.activity_abm_usuario);
+        try {
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarAbmUsuario);
+            setSupportActionBar(toolbar);
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(R.string.tituloToolbarMainActivity);
+        } catch (Exception e){
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
 
         /////////////////////
         // Obtener context //
@@ -166,7 +179,6 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
-
         ///////////////////////
         // LOGICA DEL SWITCH //
         ///////////////////////
@@ -180,9 +192,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                     layoutEsVendendor.setVisibility(View.GONE);
-        }
+            }
 
         });
+
 
         //////////////////////////////////////////
         // LOGICA DEL NUMERO DE LA TARJETA //       Anda, lo saque de "la interné" ejmeplo 3 de ---> https://www.flipandroid.com/formato-de-tarjeta-de-crdito-en-editar-texto-en-android.html
@@ -232,14 +245,16 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-
                 String str = tarjetaVencimiento.getText().toString();
                 len = str.length();
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                String str = tarjetaVencimiento.getText().toString();
+                if (str.length()==2 && before==1){
+                    tarjetaVencimiento.dispatchKeyEvent(new KeyEvent(0,0, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL,0));
+                }
             }
 
         });
