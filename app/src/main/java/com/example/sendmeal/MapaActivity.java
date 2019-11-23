@@ -26,6 +26,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapaActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private Marker marker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,10 +97,15 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng latLng) {
-                Marker marker = mMap.addMarker(new MarkerOptions()
-                        .position(latLng)
-                        .alpha(0.7f)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                if(marker == null ) {
+                    marker = mMap.addMarker(new MarkerOptions()
+                            .position(latLng)
+                            .draggable(true)
+                            .alpha(0.7f)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                }else{
+                    marker.setPosition(latLng);
+                }
                 AltaPedido.latitud = latLng.latitude;
                 AltaPedido.longitud = latLng.longitude;
             }

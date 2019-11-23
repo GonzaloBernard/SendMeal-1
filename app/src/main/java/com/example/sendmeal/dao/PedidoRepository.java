@@ -99,4 +99,28 @@ public class PedidoRepository {
         });
     }
 
+    public void listarPedidos(final Handler h){
+        //SE GENERA UN HTTP REQUEST
+        Call<List<Pedido>> call = this.pedidoRest.getPedidos();
+        call.enqueue(new Callback<List<Pedido>>() {
+            @Override
+            public void onResponse(Call<List<Pedido>> call, Response<List<Pedido>> response) {
+                if(response.isSuccessful()) {
+                    //SE RECUPERAN LOS PEDIDOS DE LA API
+                    List<Pedido> platos = response.body();
+                    listaPedidosREST.clear();
+                    listaPedidosREST.addAll(response.body());
+                    // UNA VEZ RECUPERADOS LOS PEDIDOS DE LA API SE CREA Y ENVIA UN MENSAJE PARA
+                    // QUE EL HANDLER DE ListaItems ACTUALICE SU LISTA DE PEDIDOS
+                    Message m = new Message();
+                    //m.arg1 = _CONSULTA_PEDIDO;
+                    h.sendMessage(m);
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Pedido>> call, Throwable t) {
+
+            }
+        });
+    }
 }

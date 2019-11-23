@@ -10,6 +10,7 @@
 
     <string-array name="spinnerEstadosPedidos">
         <item>Seleccionar...</item>
+        <item>Todos</item>
         <item>Pendiente</item>
         <item>Enviado</item>
         <item>Aceptado</item>

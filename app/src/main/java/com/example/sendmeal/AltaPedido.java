@@ -17,6 +17,7 @@ import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -82,6 +83,7 @@ public class AltaPedido extends AppCompatActivity {
         lvItemsPedido.setAdapter(adapter);
 
         buttonEnviarPedido = (Button) findViewById(R.id.buttonEnviarPedido);
+        final Spinner spinnerEstadosPedido = (Spinner) findViewById(R.id.spinnerEstadoPedido);
         final Button buttonCrearPedido = (Button) findViewById(R.id.buttonCrearPedido);
         ubicacion = (Button) findViewById(R.id.buttonUbicacion);
 

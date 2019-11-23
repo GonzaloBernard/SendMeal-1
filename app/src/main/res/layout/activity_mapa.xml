@@ -52,7 +52,7 @@
                     map:uiRotateGestures="true"
                     map:uiScrollGestures="true"
                     map:uiTiltGestures="true"
-                    map:uiZoomControls="false"
+                    map:uiZoomControls="true"
                     map:uiZoomGestures="true"/>
 
 
