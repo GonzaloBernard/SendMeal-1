@@ -147,6 +147,7 @@ public class AltaPedido extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(AltaPedido.this, MapaActivity.class);
+
                 startActivity(i);
 
 

@@ -26,7 +26,6 @@
                     android:id="@+id/spinnerEstadoPedido"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:entries="@array/spinnerEstadosPedidos"
                     android:layout_margin="@dimen/margin" />
 
                 <Button

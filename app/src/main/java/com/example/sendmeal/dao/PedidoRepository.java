@@ -20,6 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class PedidoRepository {
 
     private static PedidoRepository _PEDIDO_REPOSITORY = null;
+    public static final int _CONSULTA_PEDIDO=4;
     public static final int _ALTA_PEDIDO_REST = 20;
     public static final int _ERROR_PEDIDO_REST = 29;
     private PedidoDao pedidoDao;
@@ -107,13 +108,14 @@ public class PedidoRepository {
             public void onResponse(Call<List<Pedido>> call, Response<List<Pedido>> response) {
                 if(response.isSuccessful()) {
                     //SE RECUPERAN LOS PEDIDOS DE LA API
-                    List<Pedido> platos = response.body();
+                    List<Pedido> pedidos = response.body();
                     listaPedidosREST.clear();
                     listaPedidosREST.addAll(response.body());
                     // UNA VEZ RECUPERADOS LOS PEDIDOS DE LA API SE CREA Y ENVIA UN MENSAJE PARA
                     // QUE EL HANDLER DE ListaItems ACTUALICE SU LISTA DE PEDIDOS
                     Message m = new Message();
-                    //m.arg1 = _CONSULTA_PEDIDO;
+                    m.arg1 = _CONSULTA_PEDIDO;
+                    m.obj = pedidos;
                     h.sendMessage(m);
                 }
             }
@@ -123,4 +125,7 @@ public class PedidoRepository {
             }
         });
     }
+
+    public List<Pedido> getListaPedidos(){
+        return listaPedidosREST;}
 }
