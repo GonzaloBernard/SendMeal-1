@@ -25,6 +25,7 @@ import com.example.sendmeal.domain.Pedido;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -173,12 +174,12 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         switch (estado){
             case "Todos":
-             //   for (Pedido p: listaDataSet) {
+                for (Pedido p: listaDataSet) {
                     mMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(-31.6165504,-60.67549)) //PARA PROBAR NOMAS
+                            .position(new LatLng(p.getLatitud(),p.getLongitud())) //PARA PROBAR NOMAS
                             .alpha(0.7f)
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-               // }
+                            .icon(BitmapDescriptorFactory.defaultMarker(getMarkerColorFByEstado(p.getEstado()))));
+                }
                 break;
             case "Pendiente":
                 for (Pedido p: listaDataSet) {
@@ -279,5 +280,34 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
             map.addPolyline(lineaPedidoEnEnvioOpt);
 
         }*/
+
+    private float getMarkerColorFByEstado(EstadoPedido estado){
+        float color = 0;
+        switch (estado){
+            case PENDIENTE:
+                color = BitmapDescriptorFactory.HUE_CYAN;
+                break;
+            case ENVIADO:
+                color = BitmapDescriptorFactory.HUE_GREEN;
+                break;
+            case ENTREGADO:
+                color = BitmapDescriptorFactory.HUE_MAGENTA;
+                break;
+            case EN_PREPARACION:
+                color = BitmapDescriptorFactory.HUE_ORANGE;
+                break;
+            case EN_ENVIO:
+                color = BitmapDescriptorFactory.HUE_YELLOW;
+                break;
+            case RECHAZADO:
+                color = BitmapDescriptorFactory.HUE_RED;
+                break;
+            case CANCELADO:
+                color = BitmapDescriptorFactory.HUE_VIOLET;
+                break;
+        }
+
+        return color;
+    }
 
 }
