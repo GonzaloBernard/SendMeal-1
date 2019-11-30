@@ -178,6 +178,7 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
                     mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(p.getLatitud(),p.getLongitud())) //PARA PROBAR NOMAS
                             .alpha(0.7f)
+                            .title("id: "+p.getId()+ " - estado: "+p.getEstado()+ " - precio: 500")
                             .icon(BitmapDescriptorFactory.defaultMarker(getMarkerColorFByEstado(p.getEstado()))));
                 }
                 break;
@@ -187,6 +188,7 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
                         mMap.addMarker(new MarkerOptions()
                                 .position(new LatLng(p.getLatitud(), p.getLongitud()))
                                 .alpha(0.7f)
+                                .title("id: "+p.getId()+ " - estado: "+p.getEstado()+ " - precio: 500")
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                     }
                 }
@@ -197,6 +199,7 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
                         mMap.addMarker(new MarkerOptions()
                                 .position(new LatLng(p.getLatitud(), p.getLongitud()))
                                 .alpha(0.7f)
+                                .title("id: "+p.getId()+ " - estado: "+p.getEstado()+ " - precio: 500")
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                     }
                 }
@@ -207,16 +210,18 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
                         mMap.addMarker(new MarkerOptions()
                                 .position(new LatLng(p.getLatitud(), p.getLongitud()))
                                 .alpha(0.7f)
+                                .title("id: "+p.getId()+ " - estado: "+p.getEstado()+ " - precio: 500")
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                     }
                 }
                 break;
-            case "Rechado":
+            case "Rechazado":
                 for (Pedido p: listaDataSet) {
                     if (p.getEstado().equals(EstadoPedido.RECHAZADO)) {
                         mMap.addMarker(new MarkerOptions()
                                 .position(new LatLng(p.getLatitud(), p.getLongitud()))
                                 .alpha(0.7f)
+                                .title("id: "+p.getId()+ " - estado: "+p.getEstado()+ " - precio: 500")
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                     }
                 }
@@ -227,6 +232,7 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
                         mMap.addMarker(new MarkerOptions()
                                 .position(new LatLng(p.getLatitud(), p.getLongitud()))
                                 .alpha(0.7f)
+                                .title("id: "+p.getId()+ " - estado: "+p.getEstado()+ " - precio: 500")
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                     }
                 }
@@ -237,6 +243,7 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
                         mMap.addMarker(new MarkerOptions()
                                 .position(new LatLng(p.getLatitud(), p.getLongitud()))
                                 .alpha(0.7f)
+                                .title("id: "+p.getId()+ " - estado: "+p.getEstado()+ " - precio: 500")
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                     }
                 }
@@ -247,6 +254,7 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
                         mMap.addMarker(new MarkerOptions()
                                 .position(new LatLng(p.getLatitud(), p.getLongitud()))
                                 .alpha(0.7f)
+                                .title("id: "+p.getId()+ " - estado: "+p.getEstado()+ " - precio: 500")
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                     }
                 }
@@ -257,6 +265,7 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
                         mMap.addMarker(new MarkerOptions()
                                 .position(new LatLng(p.getLatitud(), p.getLongitud()))
                                 .alpha(0.7f)
+                                .title("id: "+p.getId()+ " - estado: "+p.getEstado()+ " - precio: 500")
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                     }
                 }
