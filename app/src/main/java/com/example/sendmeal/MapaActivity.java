@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import com.example.sendmeal.dao.PedidoRepository;
 import com.example.sendmeal.domain.EstadoPedido;
 import com.example.sendmeal.domain.Pedido;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -30,7 +32,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 
 import java.util.List;
@@ -176,7 +179,7 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
             case "Todos":
                 for (Pedido p: listaDataSet) {
                     mMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(p.getLatitud(),p.getLongitud())) //PARA PROBAR NOMAS
+                            .position(new LatLng(p.getLatitud(),p.getLongitud()))
                             .alpha(0.7f)
                             .title("id: "+p.getId()+ " - estado: "+p.getEstado()+ " - precio: 500")
                             .icon(BitmapDescriptorFactory.defaultMarker(getMarkerColorFByEstado(p.getEstado()))));
@@ -238,8 +241,11 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
                 break;
             case "En envio":
+                PolylineOptions rectOptions = new PolylineOptions(); //CREO EL OBJETO POLYLANEOPTIONS
                 for (Pedido p: listaDataSet) {
                     if (p.getEstado().equals(EstadoPedido.EN_ENVIO)) {
+
+                        rectOptions.add(new LatLng(p.getLatitud(),p.getLongitud())).color(Color.RED);//SI ES EN_ENVIO LO AGREGO AL POLIGONO
                         mMap.addMarker(new MarkerOptions()
                                 .position(new LatLng(p.getLatitud(), p.getLongitud()))
                                 .alpha(0.7f)
@@ -247,6 +253,8 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                     }
                 }
+                Polyline polyline = mMap.addPolyline(rectOptions);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(rectOptions.getPoints().get(0), 9));
                 break;
             case "Entregado":
                 for (Pedido p: listaDataSet) {
