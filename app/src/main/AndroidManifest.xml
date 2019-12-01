@@ -3,12 +3,12 @@
     package="com.example.sendmeal">
 
     <uses-permission android:name="android.permission.INTERNET" />
-                     android:name="android.permission.ACCESS_FINE_LOCATION"/>
-                     android:name="android.permission.ACCESS_COARSE_LOCATION"
-                     android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <uses-feature android:name="android.hardware.camera"
-                android:required="true" />
+                  android:required="true" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -25,6 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".AbmPlato"
             android:parentActivityName=".HomeActivity"
@@ -71,6 +72,7 @@
 
             </meta-data>
         </provider>
+
     </application>
 
 </manifest>

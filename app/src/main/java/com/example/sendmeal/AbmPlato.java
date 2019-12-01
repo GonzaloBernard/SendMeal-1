@@ -57,12 +57,11 @@ public class AbmPlato extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    static final int REQUEST_IMAGE_CAPTURE = 1;
+    //static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_TAKE_PHOTO = 1;
-    ImageButton tomarfotoBt = (ImageButton) findViewById(R.id.tkImageBt);
-    //METODO QUE OBTIENE LA IMAGEN
     String pathFoto;
     //private ImageView img;
+    //Metodo que crea el archivo de la imagen
     private File createImageFile() throws IOException{
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
@@ -204,8 +203,6 @@ public class AbmPlato extends AppCompatActivity {
                         }
                     }
                 });
-
-
                 break;
             ///////////////////
             //  CONSULTAR PLATO //
@@ -239,13 +236,12 @@ public class AbmPlato extends AppCompatActivity {
                 break;
             default:;
         }
+        ImageButton tomarfotoBt = (ImageButton) findViewById(R.id.tkImageBt);
 
         //PERMISOS PARA ACCEDER A LA CAMARA
         if (ContextCompat.checkSelfPermission( AbmPlato.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(AbmPlato.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(AbmPlato.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 1000);
         }
-
-
 
         tomarfotoBt.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
