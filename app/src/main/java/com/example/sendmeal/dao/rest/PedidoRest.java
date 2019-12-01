@@ -9,6 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface PedidoRest {
     @GET("pedidos")
@@ -22,4 +23,7 @@ public interface PedidoRest {
 
     @DELETE("pedidos/{id}")
     Call<Void> borrar(@Path("id") Integer id);
+
+    @GET("pedidos")
+    Call<List<Pedido>> getPedidoPorEstado(@Query("estado_like") String estado);
 }

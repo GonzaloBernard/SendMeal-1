@@ -4,28 +4,45 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.sendmeal.dao.PedidoRepository;
+import com.example.sendmeal.domain.EstadoPedido;
+import com.example.sendmeal.domain.Pedido;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+
+import java.util.List;
 
 public class MapaActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private Marker marker;
+    private List<Pedido> listaDataSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +64,11 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         final Button buttonUbicacion;
-
+        final Spinner spinnerEstadosPedido;
         buttonUbicacion = (Button) findViewById(R.id.buttonOkUbicacion);
+        spinnerEstadosPedido = (Spinner) findViewById(R.id.spinnerEstadoPedido);
+
+        PedidoRepository.getInstance(MapaActivity.this).listarPedidos(miHandler);
 
         buttonUbicacion.setOnClickListener(new Button.OnClickListener(){
 
@@ -58,6 +78,21 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+        ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource(this, R.array.spinnerEstadosPedidos,
+                android.R.layout.simple_spinner_item);
+
+        spinnerEstadosPedido.setAdapter(adapterSpinner);
+        spinnerEstadosPedido.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+                    mostrarPedidosEnMapa(parent.getItemAtPosition(i).toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     @Override
@@ -96,10 +131,15 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng latLng) {
-                Marker marker = mMap.addMarker(new MarkerOptions()
-                        .position(latLng)
-                        .alpha(0.7f)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                if(marker == null ) {
+                    marker = mMap.addMarker(new MarkerOptions()
+                            .position(latLng)
+                            .draggable(true)
+                            .alpha(0.7f)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                }else{
+                    marker.setPosition(latLng);
+                }
                 AltaPedido.latitud = latLng.latitude;
                 AltaPedido.longitud = latLng.longitude;
             }
@@ -121,4 +161,170 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
     }
+
+    Handler miHandler = new Handler(Looper.myLooper()){
+        @Override
+        public void handleMessage(Message msg) {
+
+             listaDataSet = PedidoRepository.getInstance(MapaActivity.this).getListaPedidos();
+        }
+    };
+
+
+    private void mostrarPedidosEnMapa(String estado) {
+
+        mMap.clear();
+
+        switch (estado){
+            case "Todos":
+                for (Pedido p: listaDataSet) {
+                    mMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(p.getLatitud(),p.getLongitud()))
+                            .alpha(0.7f)
+                            .title("id: "+p.getId()+ " - estado: "+p.getEstado()+ " - precio: 500")
+                            .icon(BitmapDescriptorFactory.defaultMarker(getMarkerColorFByEstado(p.getEstado()))));
+                }
+                break;
+            case "Pendiente":
+                for (Pedido p: listaDataSet) {
+                    if (p.getEstado().equals(EstadoPedido.PENDIENTE)) {
+                        mMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(p.getLatitud(), p.getLongitud()))
+                                .alpha(0.7f)
+                                .title("id: "+p.getId()+ " - estado: "+p.getEstado()+ " - precio: 500")
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                    }
+                }
+                break;
+            case "Enviado":
+                for (Pedido p: listaDataSet) {
+                    if (p.getEstado().equals(EstadoPedido.ENVIADO)) {
+                        mMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(p.getLatitud(), p.getLongitud()))
+                                .alpha(0.7f)
+                                .title("id: "+p.getId()+ " - estado: "+p.getEstado()+ " - precio: 500")
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                    }
+                }
+                break;
+            case "Aceptado":
+                for (Pedido p: listaDataSet) {
+                    if (p.getEstado().equals(EstadoPedido.ACEPTADO)) {
+                        mMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(p.getLatitud(), p.getLongitud()))
+                                .alpha(0.7f)
+                                .title("id: "+p.getId()+ " - estado: "+p.getEstado()+ " - precio: 500")
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                    }
+                }
+                break;
+            case "Rechazado":
+                for (Pedido p: listaDataSet) {
+                    if (p.getEstado().equals(EstadoPedido.RECHAZADO)) {
+                        mMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(p.getLatitud(), p.getLongitud()))
+                                .alpha(0.7f)
+                                .title("id: "+p.getId()+ " - estado: "+p.getEstado()+ " - precio: 500")
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                    }
+                }
+                break;
+            case "En preparacion":
+                for (Pedido p: listaDataSet) {
+                    if (p.getEstado().equals(EstadoPedido.EN_PREPARACION)) {
+                        mMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(p.getLatitud(), p.getLongitud()))
+                                .alpha(0.7f)
+                                .title("id: "+p.getId()+ " - estado: "+p.getEstado()+ " - precio: 500")
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                    }
+                }
+                break;
+            case "En envio":
+                PolylineOptions rectOptions = new PolylineOptions(); //CREO EL OBJETO POLYLANEOPTIONS
+                for (Pedido p: listaDataSet) {
+                    if (p.getEstado().equals(EstadoPedido.EN_ENVIO)) {
+
+                        rectOptions.add(new LatLng(p.getLatitud(),p.getLongitud())).color(Color.RED);//SI ES EN_ENVIO LO AGREGO AL POLIGONO
+                        mMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(p.getLatitud(), p.getLongitud()))
+                                .alpha(0.7f)
+                                .title("id: "+p.getId()+ " - estado: "+p.getEstado()+ " - precio: 500")
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                    }
+                }
+                Polyline polyline = mMap.addPolyline(rectOptions);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(rectOptions.getPoints().get(0), 9));
+                break;
+            case "Entregado":
+                for (Pedido p: listaDataSet) {
+                    if (p.getEstado().equals(EstadoPedido.ENTREGADO)) {
+                        mMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(p.getLatitud(), p.getLongitud()))
+                                .alpha(0.7f)
+                                .title("id: "+p.getId()+ " - estado: "+p.getEstado()+ " - precio: 500")
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                    }
+                }
+                break;
+            case "Cancelado":
+                for (Pedido p: listaDataSet) {
+                    if (p.getEstado().equals(EstadoPedido.CANCELADO)) {
+                        mMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(p.getLatitud(), p.getLongitud()))
+                                .alpha(0.7f)
+                                .title("id: "+p.getId()+ " - estado: "+p.getEstado()+ " - precio: 500")
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                    }
+                }
+                break;
+                default:
+                    Toast.makeText(this,estado,Toast.LENGTH_LONG).show();
+
+        }
+
+    }/*else {
+            estadoSeleccionado = EstadoPedido.valueOf(listaEstados[posicionSeleccionada]);
+            for (Pedido p: pedidos) {
+                if (p.getEstado().equals(estadoSeleccionado)) {
+                    addMarker(p);
+                    if(estadoSeleccionado.equals(EstadoPedido.EN_ENVIO)){
+                        lineaPedidoEnEnvioOpt.add(new LatLng(p.getLatitud(), p.getLongitud()));
+                    }
+                }
+            }
+
+            map.addPolyline(lineaPedidoEnEnvioOpt);
+
+        }*/
+
+    private float getMarkerColorFByEstado(EstadoPedido estado){
+        float color = 0;
+        switch (estado){
+            case PENDIENTE:
+                color = BitmapDescriptorFactory.HUE_CYAN;
+                break;
+            case ENVIADO:
+                color = BitmapDescriptorFactory.HUE_GREEN;
+                break;
+            case ENTREGADO:
+                color = BitmapDescriptorFactory.HUE_MAGENTA;
+                break;
+            case EN_PREPARACION:
+                color = BitmapDescriptorFactory.HUE_ORANGE;
+                break;
+            case EN_ENVIO:
+                color = BitmapDescriptorFactory.HUE_YELLOW;
+                break;
+            case RECHAZADO:
+                color = BitmapDescriptorFactory.HUE_RED;
+                break;
+            case CANCELADO:
+                color = BitmapDescriptorFactory.HUE_VIOLET;
+                break;
+        }
+
+        return color;
+    }
+
 }

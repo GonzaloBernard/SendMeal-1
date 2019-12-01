@@ -4,6 +4,7 @@ package com.example.sendmeal;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +18,7 @@ import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -82,6 +84,7 @@ public class AltaPedido extends AppCompatActivity {
         lvItemsPedido.setAdapter(adapter);
 
         buttonEnviarPedido = (Button) findViewById(R.id.buttonEnviarPedido);
+        final Spinner spinnerEstadosPedido = (Spinner) findViewById(R.id.spinnerEstadoPedido);
         final Button buttonCrearPedido = (Button) findViewById(R.id.buttonCrearPedido);
         ubicacion = (Button) findViewById(R.id.buttonUbicacion);
 
@@ -145,6 +148,7 @@ public class AltaPedido extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(AltaPedido.this, MapaActivity.class);
+
                 startActivity(i);
 
 

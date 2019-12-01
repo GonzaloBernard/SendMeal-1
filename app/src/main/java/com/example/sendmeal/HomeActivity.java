@@ -32,7 +32,8 @@ public class HomeActivity extends AppCompatActivity {
     public static final String KEY_VENDEDOR = "vendedor";
     public static final String KEY_COMPRADOR = "comprador";
     //  SE ESTABLECE POR DEFAULT LA IP/DIRECCION del servidor JSON
-    static String _SERVER = "10.0.2.2:3000/";
+    static String _SERVER = "192.168.0.12:3000/";
+    //static String _SERVER = "10.0.2.2:3000/";
     private static Integer NUEVO_PLATO_REQUEST = 1;
 
     public static String getTipoUsuario() {
