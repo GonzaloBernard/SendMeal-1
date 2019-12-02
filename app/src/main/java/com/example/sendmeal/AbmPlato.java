@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.sendmeal.domain.Plato;
@@ -57,14 +59,16 @@ public class AbmPlato extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_TAKE_PHOTO = 1;
     String pathFoto;
-    //private ImageView img;
+    String nameFotoPlato = "";
+    private ImageView img;
     //Metodo que crea el archivo de la imagen
+
     private File createImageFile() throws IOException{
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
+        String imageFileName = nameFotoPlato + "_"+ timeStamp + "_";
         File dir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = null;
         image = File.createTempFile(imageFileName, /* prefix */".jpg", /* suffix */dir /* directory */);
@@ -91,17 +95,24 @@ public class AbmPlato extends AppCompatActivity {
         final EditText editTextDescripcion = (EditText) findViewById(R.id.editTextEditarPlatoDescripcion);
         final EditText editTextPrecio = (EditText) findViewById(R.id.editTextEditarPlatoPrecio);
         final EditText editTextCalorias = (EditText) findViewById(R.id.editTextEditarPlatoCalorias);
+        ImageButton tomarfotoBt = (ImageButton) findViewById(R.id.tkImageBt);
+        img = (ImageView) findViewById(R.id.imgView);
         Button buttonGuardar = (Button) findViewById(R.id.buttonEditarPlatoGuardar);
 
         final Resources resources = getResources();
         Bundle extras = getIntent().getExtras();
-        switch( extras.getInt(_ABMC_PLATO_MODO_KEY) ) {
+
+        //PERMISOS PARA ACCEDER A LA CAMARA
+        if (ContextCompat.checkSelfPermission(AbmPlato.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(AbmPlato.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(AbmPlato.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 1000);
+        }
+
+        switch (extras.getInt(_ABMC_PLATO_MODO_KEY)) {
             case 1:
                 actionBar.setTitle(R.string.tituloToolbarCrearItem);
                 buttonGuardar.setOnClickListener(new Button.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
                         try {
                             //OBTENER DATOS DE ENTRADA
                             Integer id = Integer.parseInt(editTextID.getText().toString());
@@ -123,25 +134,25 @@ public class AbmPlato extends AppCompatActivity {
                             Plato platoAlta = new Plato();
                             platoAlta.setId(id);
                             platoAlta.setTitulo(titulo);
+                            nameFotoPlato = titulo;
                             platoAlta.setDescripcion(descripcion);
                             platoAlta.setPrecio(precio);
                             platoAlta.setCalorias(calorias);
+                            //platoAlta.setImagen(img); //agrego la imagen que se saca del plato
                             platoAlta.setImagen(R.drawable.hamburguesa);
                             platoAlta.setEnOferta(false);
                             ///////////////////////////////
                             //DEVOLVER DATOS A HOME ACTIVITY //
                             ///////////////////////////////
-
                             Intent intentResultado = new Intent();
-                            intentResultado.putExtra(_PLATO_INDIVIDUAL_KEY,platoAlta);
+                            intentResultado.putExtra(_PLATO_INDIVIDUAL_KEY, platoAlta);
                             setResult(Activity.RESULT_OK, intentResultado);
                             finish();
-                        }
-                        catch (NumberFormatException e) {
-                            Toast.makeText(AbmPlato.this,resources.getString(R.string.crearItemErrorCamposNumericos),Toast.LENGTH_LONG).show();
-                        }
-                        catch (Exception e) {
-                            Toast.makeText(AbmPlato.this,e.getMessage(),Toast.LENGTH_LONG).show();
+
+                        } catch (NumberFormatException e) {
+                            Toast.makeText(AbmPlato.this, resources.getString(R.string.crearItemErrorCamposNumericos), Toast.LENGTH_LONG).show();
+                        } catch (Exception e) {
+                            Toast.makeText(AbmPlato.this, e.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -171,6 +182,7 @@ public class AbmPlato extends AppCompatActivity {
                         try {
                             //OBTENER DATOS DE ENTRADA
                             titulo = editTextTitulo.getText().toString();
+                            nameFotoPlato = titulo;
                             descripcion = editTextDescripcion.getText().toString();
                             precio = Double.parseDouble(editTextPrecio.getText().toString());
                             calorias = Integer.parseInt(editTextCalorias.getText().toString());
@@ -194,12 +206,10 @@ public class AbmPlato extends AppCompatActivity {
                             setResult(Activity.RESULT_OK, intentResultado);
                             //FIN DE LA ACTIVITY FOR RESULT
                             finish();
-                        }
-                        catch (NumberFormatException e) {
-                            Toast.makeText(AbmPlato.this,resources.getString(R.string.crearItemErrorCamposNumericos),Toast.LENGTH_LONG).show();
-                        }
-                        catch (Exception e) {
-                            Toast.makeText(AbmPlato.this,e.getMessage(),Toast.LENGTH_LONG).show();
+                        } catch (NumberFormatException e) {
+                            Toast.makeText(AbmPlato.this, resources.getString(R.string.crearItemErrorCamposNumericos), Toast.LENGTH_LONG).show();
+                        } catch (Exception e) {
+                            Toast.makeText(AbmPlato.this, e.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -234,13 +244,8 @@ public class AbmPlato extends AppCompatActivity {
                 //FIN DE LA ACTIVITY FOR RESULT
                 finish();
                 break;
-            default:;
-        }
-        ImageButton tomarfotoBt = (ImageButton) findViewById(R.id.tkImageBt);
+            default:
 
-        //PERMISOS PARA ACCEDER A LA CAMARA
-        if (ContextCompat.checkSelfPermission( AbmPlato.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(AbmPlato.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(AbmPlato.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 1000);
         }
 
         tomarfotoBt.setOnClickListener(new View.OnClickListener(){
@@ -264,7 +269,24 @@ public class AbmPlato extends AppCompatActivity {
                 }
             }
         });
+
     }
 
-
+    //Método que me muestra la vista previa de la imagen
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            File file = new File(pathFoto);
+                    Bitmap imageBitmap = null;
+            try{
+            imageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),Uri.fromFile (file));
+            }catch (IOException e){
+                e.printStackTrace();
+            }if (imageBitmap != null){
+                img.setImageBitmap (imageBitmap);
+            }
+            //Bundle extras = data.getExtras();
+            //Bitmap imageBitmap = (Bitmap) extras.get("data");
+            //img.setImageBitmap(imageBitmap);
+        }
+    }
 }
