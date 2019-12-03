@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.sendmeal.domain.Plato;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -44,6 +46,7 @@ public class AbmPlato extends AppCompatActivity {
     public static final String _PLATOS_LISTA_KEY = "_PLATOS";
     //KEY PARA ENVIAR UN PLATO
     public static final String _PLATO_INDIVIDUAL_KEY = "plato";
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_volver, menu);
@@ -62,19 +65,9 @@ public class AbmPlato extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_TAKE_PHOTO = 1;
     String pathFoto;
-    String nameFotoPlato = "";
+    String nameFotoPlato;
+    String imagenPlato;
     private ImageView img;
-    //Metodo que crea el archivo de la imagen
-
-    private File createImageFile() throws IOException{
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = nameFotoPlato + "_"+ timeStamp + "_";
-        File dir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = null;
-        image = File.createTempFile(imageFileName, /* prefix */".jpg", /* suffix */dir /* directory */);
-        pathFoto = image.getAbsolutePath();
-        return image;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,8 +131,8 @@ public class AbmPlato extends AppCompatActivity {
                             platoAlta.setDescripcion(descripcion);
                             platoAlta.setPrecio(precio);
                             platoAlta.setCalorias(calorias);
-                            //platoAlta.setImagen(img); //agrego la imagen que se saca del plato
-                            platoAlta.setImagen(R.drawable.hamburguesa);
+                            //platoAlta.setImagen(R.drawable.hamburguesa);
+                            platoAlta.setImagen(imagenPlato);//agrego la imagen que se saca del plato
                             platoAlta.setEnOferta(false);
                             ///////////////////////////////
                             //DEVOLVER DATOS A HOME ACTIVITY //
@@ -248,45 +241,58 @@ public class AbmPlato extends AppCompatActivity {
 
         }
 
+        //onclick del boton para sacar la foto
         tomarfotoBt.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                // Ensure that there's a camera activity to handle the intent
-                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                    // Create the File where the photo should go
-                    File photoFile = null;
-                    try {
-                        photoFile = createImageFile();
-                    } catch (IOException ex) {
-                        // Error occurred while creating the File
-                    }
-                    // Continue only if the File was successfully created
-                    if (photoFile != null) {
-                        Uri photoURI = FileProvider.getUriForFile(AbmPlato.this, "com.example.android.fileprovider", photoFile);
-                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                        startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-                    }
-                }
+                tomarFoto();
             }
         });
 
+    }
+
+    //Método que me permite accder a la cámara, tomar la foto y guarda el path donde esta el file
+    private void tomarFoto(){
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                //String imageFileName = nameFotoPlato + "_"+ timeStamp + "_";
+                String imageFileName = "Image"+ "_"+ timeStamp +"_";
+                File dir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                photoFile = File.createTempFile(imageFileName,".jpg",dir);
+                pathFoto = photoFile.getAbsolutePath();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(AbmPlato.this, "com.example.android.fileprovider", photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);//aca manda para que se inicie la actividad
+            }
+        }
     }
 
     //Método que me muestra la vista previa de la imagen
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             File file = new File(pathFoto);
-                    Bitmap imageBitmap = null;
+            Bitmap imageBitmap = null;
             try{
-            imageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),Uri.fromFile (file));
+            imageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile (file));
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+            imagenPlato = Base64.encodeToString(byteArray, Base64.DEFAULT);
             }catch (IOException e){
                 e.printStackTrace();
             }if (imageBitmap != null){
                 img.setImageBitmap (imageBitmap);
             }
-            //Bundle extras = data.getExtras();
-            //Bitmap imageBitmap = (Bitmap) extras.get("data");
-            //img.setImageBitmap(imageBitmap);
         }
     }
+
 }

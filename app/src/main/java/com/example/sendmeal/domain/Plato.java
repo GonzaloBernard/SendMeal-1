@@ -11,7 +11,7 @@ public class Plato implements Parcelable {
     private String descripcion;
     private Double precio;
     private Integer calorias;
-    private Integer imagen;
+    private String imagen;
     private Boolean enOferta;
 
     @Override
@@ -53,7 +53,7 @@ public class Plato implements Parcelable {
         return calorias;
     }
 
-    public Integer getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
@@ -81,7 +81,7 @@ public class Plato implements Parcelable {
         this.calorias = calorias;
     }
 
-    public void setImagen(Integer imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 
@@ -101,7 +101,7 @@ public class Plato implements Parcelable {
         dest.writeString(descripcion);
         dest.writeDouble(precio);
         dest.writeInt(calorias);
-        dest.writeInt(imagen);
+        dest.writeString(imagen);
         dest.writeInt(enOferta ? 1 : 0);
         }
 
@@ -111,7 +111,7 @@ public class Plato implements Parcelable {
         this.descripcion = in.readString();
         this.precio = in.readDouble();
         this.calorias = in.readInt();
-        this.imagen = in.readInt();
+        this.imagen = in.readString();
         this.enOferta = in.readInt() == 1;
 
     }
