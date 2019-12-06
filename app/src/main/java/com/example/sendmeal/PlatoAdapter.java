@@ -1,28 +1,32 @@
 package com.example.sendmeal;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.sendmeal.domain.ItemsPedido;
 import com.example.sendmeal.domain.Plato;
 import java.util.List;
 
 public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder> {
 
     private Context context;
-
-    private static final int REQUEST_CODE_EDITAR_PLATO = 2;
     private List<Plato> mDataset;
-    public PlatoAdapter(List<Plato> myDataset) {
-        mDataset = myDataset;
+    private String KEY_TIPO_USUARIO;
+    public PlatoAdapter(List<Plato> myDataset, String KEY_TIPO_USUARIO) {
+        this.KEY_TIPO_USUARIO = KEY_TIPO_USUARIO;
+        this.mDataset = myDataset;
     }
 
     @Override
@@ -41,20 +45,59 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
     @Override
     public void onBindViewHolder(final PlatoHolder holder, final int position) {
         final Plato plato = mDataset.get(position);
-        holder.imagen.setImageResource(plato.getImagen());
+        holder.imagen.setImageResource(R.drawable.hamburguesa);
         holder.titulo.setText(plato.getTitulo());
         holder.precio.setText(plato.getPrecio().toString());
+
+        switch (KEY_TIPO_USUARIO)
+        {
+            case HomeActivity.KEY_VENDEDOR:
+            holder.llVendedor.setVisibility(View.VISIBLE);
+            holder.llComprador.setVisibility(View.GONE);
+            break;
+            case HomeActivity.KEY_COMPRADOR:
+            holder.llVendedor.setVisibility(View.GONE);
+            holder.llComprador.setVisibility(View.VISIBLE);
+            break;
+            default:
+                break;
+        }
+
+
+        ///////////////////////////////
+        //CLICK EN BOTON AGREGAR///////
+        ///////////////////////////////
+        holder.buttonAgregarCarrito.setOnClickListener(new Button.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                ItemsPedido item = new ItemsPedido();
+                item.setPlato(plato);
+                item.setPrecio(plato.getPrecio());
+                item.setCantidad( Integer.parseInt( holder.spinnerCantidad.getSelectedItem().toString() ));
+                //List<ItemsPedido> listaItems = ListaItems.getListaItemsPedido();
+                //listaItems.add(item);
+                ListaItems.addListaItemsPedido(item);
+
+                holder.buttonAgregarCarrito.setBackgroundColor(Color.GREEN);
+                holder.buttonAgregarCarrito.setEnabled(false);
+                holder.spinnerCantidad.setEnabled(false);
+            }
+        });
+
+
         ///////////////////////////////
         //CLICK EN BOTON EDITAR////////
         ///////////////////////////////
         holder.buttonEditar.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(), ABMPlato.class);
-                i.putExtra("plato", plato);
-                //EL MODO DETERMINA LA ACCION A REALIZAR( CREAR=0 EDITAR=1 CONSULTAR=2 )
-                i.putExtra("modo", 1);
-                ((Activity) view.getContext()).startActivityForResult(i, REQUEST_CODE_EDITAR_PLATO);
+                Intent i = new Intent(view.getContext(), AbmPlato.class);
+                //EL MODO DETERMINA LA ACCION A REALIZAR
+                i.putExtra(AbmPlato._ABMC_PLATO_MODO_KEY, AbmPlato._KEY_EDITAR_PLATO);
+                //SE AGREGA EL PLATO
+                i.putExtra(AbmPlato._PLATO_INDIVIDUAL_KEY, plato);
+                ((Activity) view.getContext()).startActivityForResult(i, ListaItems.REQUEST_CODE_EDITAR_PLATO);
             }
         });
         ///////////////////////////////
@@ -69,16 +112,13 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
                     public void run() {
                         try {
                             Thread.currentThread().sleep(5000);
-
                         }catch (InterruptedException e) {
                             e.printStackTrace();
                          }
                         Intent intent = new Intent();
-                        intent.putExtra("plato",plato);
-                        intent.putExtra("posicion", position);
-                        //intent.putExtra("idPlato", plato.getId());
-                        intent.putExtra("Titulo", "Nuevo mensaje recibido");
-                        intent.putExtra("Descripcion", "Esta es la descripcion de la notificacion");
+                        intent.putExtra(AbmPlato._PLATO_INDIVIDUAL_KEY, plato);
+                        intent.putExtra("titulo",plato.getTitulo());
+                        intent.putExtra("descripcion",plato.getDescripcion());
                         intent.setAction(MyReceiver.EVENTO_EN_OFERTA);
                         context.sendBroadcast(intent);
                     }
@@ -101,8 +141,12 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dlgInt, int i) {
-                                        mDataset.remove(plato);
-                                        notifyDataSetChanged();
+                                        Intent intent = new Intent(context, AbmPlato.class);
+                                        //EL MODO DETERMINA LA ACCION A REALIZAR
+                                        intent.putExtra(AbmPlato._ABMC_PLATO_MODO_KEY, AbmPlato._KEY_BORRAR_PLATO);
+                                        //SE AGREGA EL PLATO
+                                        intent.putExtra(AbmPlato._PLATO_INDIVIDUAL_KEY, plato);
+                                        ((Activity) context).startActivityForResult(intent, ListaItems.REQUEST_CODE_BORRAR_PLATO);
                                     }
                                 }).setNegativeButton("CONSERVAR",
                         new DialogInterface.OnClickListener() {
@@ -122,6 +166,10 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
         Button buttonEditar;
         Button buttonEliminar;
         Button buttonOferta;
+        LinearLayout llVendedor;
+        LinearLayout llComprador;
+        Spinner spinnerCantidad;
+        Button buttonAgregarCarrito;
 
         public PlatoHolder(View base){
             super(base);
@@ -131,6 +179,10 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
             this.buttonEditar = (Button) base.findViewById(R.id.buttonEditar);
             this.buttonEliminar = (Button) base.findViewById(R.id.buttonEliminar);
             this.buttonOferta = (Button) base.findViewById(R.id.buttonOferta);
+            this.llComprador = (LinearLayout) base.findViewById(R.id.layoutComprador);
+            this.llVendedor = (LinearLayout) base.findViewById(R.id.layoutVendedor);
+            this.spinnerCantidad = (Spinner) base.findViewById(R.id.spinnerCantidad);
+            this.buttonAgregarCarrito = (Button) base.findViewById(R.id.buttonAgregarACarrito);
         }
 
     }

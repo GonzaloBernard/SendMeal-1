@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- "Mark Favorite", should appear as action button if possible -->
+    <item
+        android:id="@+id/toolbar_registrar"
+        android:title="opcion1"
+        />
+
+    <!-- Settings, should always be in the overflow -->
+    <item android:id="@+id/toolbar_crearitem"
+        android:title="Opcion2" />
+    <item android:id="@+id/toolbar_listaitems"
+        android:title="Opcion3" />
+
+</menu>

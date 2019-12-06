@@ -27,7 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.time.LocalDate;
 
-public class MainActivity extends AppCompatActivity {
+public class AbmUsuario extends AppCompatActivity {
 
     private Context context;
 
@@ -50,9 +50,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_abm_usuario);
         try {
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarMainActivity);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarAbmUsuario);
             setSupportActionBar(toolbar);
             ActionBar actionBar = getSupportActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -179,7 +179,6 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
-
         ///////////////////////
         // LOGICA DEL SWITCH //
         ///////////////////////
@@ -193,9 +192,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                     layoutEsVendendor.setVisibility(View.GONE);
-        }
+            }
 
         });
+
 
         //////////////////////////////////////////
         // LOGICA DEL NUMERO DE LA TARJETA //       Anda, lo saque de "la interné" ejmeplo 3 de ---> https://www.flipandroid.com/formato-de-tarjeta-de-crdito-en-editar-texto-en-android.html

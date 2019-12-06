@@ -13,77 +13,120 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import com.example.sendmeal.dao.PlatoRepository;
+import com.example.sendmeal.domain.ItemsPedido;
 import com.example.sendmeal.domain.Plato;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListaItems extends AppCompatActivity {
-
-    private static final int REQUEST_CODE_EDITAR_PLATO = 2;
+    private final BroadcastReceiver br = new MyReceiver();
+    public static final int REQUEST_CODE_EDITAR_PLATO = 2;
+    public static final int REQUEST_CODE_BORRAR_PLATO = 3;
+    public static final int REQUEST_CODE_ALTA_PEDIDO = 15;
     public static final String CHANNEL_ID="10001";
-
     private RecyclerView.Adapter mAdapter;
-    private static List<Plato> _PLATOS = new ArrayList<>();
-    private Plato getPlatoById(Integer id){
+    private RecyclerView mRecyclerView;
+    private List<Plato>  listaDataSet;
+    static List<ItemsPedido> listaItemsPedido = new ArrayList<>();
 
-        for(Plato plato: _PLATOS){
-            if(plato.getId().equals(id)){
-                return plato;
-            }
-        }
-
-        return null;
+    public static List<ItemsPedido> getListaItemsPedido() {
+        return listaItemsPedido;
     }
+    public static void addListaItemsPedido(ItemsPedido itemsPedido) {
+        listaItemsPedido.add(itemsPedido);
+    }
+    public static void clearListaItems() {
+        listaItemsPedido.clear();
+    }
+
+    public static final Integer _KEY_CALL_BUSCAR_PLATO_AC = 6;
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
-        if( resultCode== Activity.RESULT_OK){
-            if(requestCode==REQUEST_CODE_EDITAR_PLATO){
-                // OBTENIENDO LOS DATOS DEL PLATO MODIFICADO
-                try {
-                    Bundle extras = data.getExtras();
-                    Plato plato = (Plato) data.getSerializableExtra("plato");
 
-                    // RECUPERANDO EL PLATO VIEJO POR SU ID
-                    Plato platoViejo = getPlatoById(plato.getId());
-                    //SE SACA DE LA LISTA PARA ACTUALIZARLO
-                    _PLATOS.remove(platoViejo);
-                    //SE VUELVE A CARGAR EL LA LISTA
-                    _PLATOS.add(plato);
-                    Toast.makeText(this, R.string.listaItemsPlatoEditado, Toast.LENGTH_LONG).show();
-                    //SE LE DICE AL ADAPTER QUE ACTUALICE LA DATA
-                    mAdapter.notifyDataSetChanged();
-                } catch (Exception e) {
-                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-                }
+        if( resultCode== Activity.RESULT_OK){
+            switch (requestCode){
+                case REQUEST_CODE_EDITAR_PLATO:
+                    try {
+                        Bundle extras = data.getExtras();
+                        // SE OBTIENE EL PLATO A MODIFICAR
+                        Plato plato = (Plato) data.getParcelableExtra(AbmPlato._PLATO_INDIVIDUAL_KEY);
+                        // SE ACTUALIZA EL PLATO EN EL SERVIDOR
+                        PlatoRepository.getInstance().actualizarPlato(plato, miHandler);
+                    } catch (Exception e) {
+                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                case REQUEST_CODE_BORRAR_PLATO:
+                    try {
+                        Bundle extras = data.getExtras();
+                        // SE OBTIENE EL PLATO A MODIFICAR
+                        Plato plato = (Plato) data.getParcelableExtra(AbmPlato._PLATO_INDIVIDUAL_KEY);
+                        // SE BORRA EL PLATO EN EL SERVIDOR
+                        PlatoRepository.getInstance().borrarPlato(plato, miHandler);
+                    } catch (Exception e) {
+                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                case REQUEST_CODE_ALTA_PEDIDO:
+                    finish();
+                    break;
+                default: break;
             }
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_volver, menu);
+        getMenuInflater().inflate(R.menu.menu_carrito, menu);
+        // SI ES EL MENU DEL VENDEDOR NO SE MUESTRA EL CARRITO DE COMPRA
+        if( getIntent().getStringExtra(HomeActivity._TIPO_USUARIO).equals(HomeActivity.KEY_VENDEDOR )){
+            menu.findItem(R.id.toolbarCarrito).setVisible(false);
+        }
         return super.onCreateOptionsMenu(menu);
     }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.toolbarCarrito:
+                Intent i1 = new Intent(ListaItems.this, AltaPedido.class);
+                i1.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivityForResult(i1, REQUEST_CODE_ALTA_PEDIDO);
+                return true;
+
+            case R.id.toolbarBuscarItems:
+                Intent i5 = new Intent(ListaItems.this, BuscarPlatos.class);
+                i5.putExtra(HomeActivity.getTipoUsuario(), getIntent().getStringExtra(HomeActivity.getTipoUsuario()));
+                startActivity(i5);
+                return true;
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
+                clearListaItems();
                 onBackPressed();
                 return true;
+            default:
+                Toast.makeText(this,". . . . ",Toast.LENGTH_LONG).show();
+                return super.onOptionsItemSelected(item);
+
         }
-        return super.onOptionsItemSelected(item);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_items);
-
         //TOOLBAR
         try {
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarListaItems);
@@ -95,83 +138,65 @@ public class ListaItems extends AppCompatActivity {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
-        try {
-            ArrayList<Plato> platosNuevos = (ArrayList<Plato>) getIntent().getSerializableExtra("_PLATOS");
-            _PLATOS.addAll(platosNuevos);
-        } catch (Exception e){
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-
-
-        // PLATOS HARDCODEADOS EN CASO DE NO CREAR NINGUN PLATO MANUEALMENTE
-        if(_PLATOS.isEmpty()) {
-            Plato plato1 = new Plato();
-            Plato plato2 = new Plato();
-            Plato plato3 = new Plato();
-            Plato plato4 = new Plato();
-
-            plato1.setId(56);
-            plato1.setTitulo("Hamburguesa completa");
-            plato1.setDescripcion("Hamburguesa con queso, lechuga, huevo y tomate");
-            plato1.setPrecio(150d);
-            plato1.setCalorias(1500);
-            plato1.setImagen(R.drawable.hamburguesa);
-            plato1.setEnOferta(false);
-
-            plato2.setId(2);
-            plato2.setTitulo("Pizza napolitana");
-            plato2.setDescripcion("Muzzarela, tomate y oregano");
-            plato2.setPrecio(150d);
-            plato2.setCalorias(1200);
-            plato2.setImagen(R.drawable.pizza);
-            plato2.setEnOferta(false);
-
-            plato3.setId(3);
-            plato3.setTitulo("Triples de miga");
-            plato3.setDescripcion("Sandwich de miga con jamos queso lechuga y tomate");
-            plato3.setPrecio(100d);
-            plato3.setCalorias(600);
-            plato3.setImagen(R.drawable.sandwich);
-            plato3.setEnOferta(false);
-
-            plato4.setId(4);
-            plato4.setTitulo("Lomo gratinado");
-            plato4.setDescripcion("Sandwich de lomo con queso derretido");
-            plato4.setPrecio(200d);
-            plato4.setCalorias(1300);
-            plato4.setImagen(R.drawable.lomito);
-            plato4.setEnOferta(false);
-
-            //LISTA DE PLATOS
-
-            _PLATOS.add(plato1);
-            _PLATOS.add(plato2);
-            _PLATOS.add(plato3);
-            _PLATOS.add(plato4);
-        }
-        ////////////////////////////////////////////////////////////////////////
-        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.listaItemsRecyclerView);
+        // RECYCLER VIEW
+        mRecyclerView = (RecyclerView) findViewById(R.id.listaItemsRecyclerView);
         mRecyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ListaItems.this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new PlatoAdapter( _PLATOS );
-        mRecyclerView.setAdapter(mAdapter);
 
-        createNotificationChannel();
-        BroadcastReceiver br = new MyReceiver();
+        //CREACION DEL CANAL DE NOTIFICACIONES
+        this.createNotificationChannel();
         IntentFilter filtro = new IntentFilter();
         filtro.addAction(MyReceiver.EVENTO_EN_OFERTA);
-        getApplication().getApplicationContext().registerReceiver(br, filtro);
+        registerReceiver(br, filtro);
 
 
+        // Se determina si la lista debe estar filtrada o completa
+        if (getIntent().getStringExtra("FILTRO") != null) {
+            String titulo = getIntent().getStringExtra("titulo");
+            Double precioMin = getIntent().getDoubleExtra("precioMin", 0);
+            Double precioMax = getIntent().getDoubleExtra("precioMax", 0);
+            PlatoRepository.getInstance().listarPlatosFiltrados(miHandler, titulo, precioMin, precioMax);
+        } else {
+            // SE PIDEN LOS PLATOS A PlatoRepository
+            PlatoRepository.getInstance().listarPlatos(miHandler);
+        }
+    }
+
+    Handler miHandler = new Handler(Looper.myLooper()){
+        @Override
+        public void handleMessage(Message msg) {
+
+            //Lista de platos traidos del json server
+            if (getIntent().getStringExtra("FILTRO") != null) {
+                listaDataSet = PlatoRepository.getInstance().getListaPlatosFiltrados();
+            }else{
+                listaDataSet = PlatoRepository.getInstance().getListaPlatos();
+            }
+
+            switch (msg.arg1 ) {
+                case PlatoRepository._CONSULTA_PLATO:
+                case PlatoRepository._UPDATE_PLATO:
+                case PlatoRepository._BORRADO_PLATO:
+                    // ACTUALIZAR RECYCLER VIEW
+                    mAdapter = new PlatoAdapter( listaDataSet , getIntent().getStringExtra(HomeActivity._TIPO_USUARIO));
+                    mRecyclerView.setAdapter(mAdapter);
+                default:break;
+            }
+        }
+    };
+
+
+    @Override
+    public void onDestroy() {
+        unregisterReceiver(br);
+        super.onDestroy();
     }
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            //CharSequence name = getString(R.string.channel_name);
-            //String description = getString(R.string.channel_description);
-            CharSequence name = "nombre del canal";
-            String description = "descripcion del canal";
+            CharSequence name = "CANAL SEND MEAL";
+            String description = "Este canal esta creado para configurar las notificaciones de Send Meal";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel =
                     new NotificationChannel(CHANNEL_ID, name, importance);
@@ -180,4 +205,5 @@ public class ListaItems extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
+
 }

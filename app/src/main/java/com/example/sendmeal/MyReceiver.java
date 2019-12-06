@@ -6,35 +6,33 @@ import android.content.Intent;
 import android.widget.Toast;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import com.example.sendmeal.domain.Plato;
 
 public class MyReceiver extends BroadcastReceiver {
-
-    public static final String EVENTO_EN_OFERTA = "android.intent.action.EVENTO";
-
+    public static final String EVENTO_EN_OFERTA = "android.intent.action.EVENTO_OFERTA";
+    private Integer i=0;
+    //ES UN ID AUTOINCREMENTAL PARA LAS NOTIFICACIONES
+    private Integer ID_NOTIFICACION =0;
     @Override
-    public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context, "mensaje recibido", Toast.LENGTH_LONG).show();
-        //Se crea el intent para mostrar el Plato
-        Intent destino = new Intent(context, ABMPlato.class);
-        //SE AGREGA EL PLATO A MODIFICAR
-        destino.putExtra("plato",intent.getSerializableExtra("plato"));
-        //SE AGREGA LA ACCION REQUERIDA EN ESTE CASO EL MODO CONSULTA
-        destino.putExtra("modo",2);
+    public void onReceive(Context context, Intent intentOrigen) {
+        Toast.makeText(context, "Mensaje recibido", Toast.LENGTH_LONG).show();
+        Plato plato = (Plato) intentOrigen.getParcelableExtra(AbmPlato._PLATO_INDIVIDUAL_KEY);
+        // LOGICA DEL INTENT PARA CONSULTAR EL PLATO
+        Intent intent = new Intent(context.getApplicationContext(), AbmPlato.class);
+        intent.putExtra(AbmPlato._PLATO_INDIVIDUAL_KEY ,plato);
+        intent.putExtra(AbmPlato._ABMC_PLATO_MODO_KEY, AbmPlato._KEY_CONSULTAR_PLATO);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        //SE LANZA EL INTENT
-        // EL requestCode FUNCIONA COMO FORMA DE DECIR QUE SE QUIERE CONSULTAR EL PLATO
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 2, destino, 0);
-        // LOGIA DE LA NOTIFICACION
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(context, ListaItems.CHANNEL_ID)
-                        .setSmallIcon(R.drawable.hamburguesa)
-                        .setContentTitle(intent.getExtras().getString("Titulo"))
-                        .setContentText(intent.getExtras().getString("Descripcion"))
+        //SE CREA EL PendingIntent
+        PendingIntent pendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, intent, 0);
+        // LOGICA DE LA NOTIFICACION
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, ListaItems.CHANNEL_ID)
+                .setSmallIcon(R.drawable.hamburguesa)
+                .setContentTitle(intentOrigen.getStringExtra("titulo"))
+                        .setContentText(intentOrigen.getStringExtra("descripcion"))
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setContentIntent(pendingIntent)
                         .setAutoCancel(true);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-        notificationManager.notify(99, mBuilder.build());
-
+        notificationManager.notify(ID_NOTIFICACION++, mBuilder.build());
     }
 }

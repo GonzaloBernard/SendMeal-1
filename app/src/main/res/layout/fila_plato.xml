@@ -15,50 +15,53 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="120dp"
-            android:orientation="horizontal"
-            android:layout_margin="@dimen/margin">
+            android:layout_height="128dp"
+            android:layout_margin="@dimen/margin"
+            android:orientation="horizontal">
 
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_margin="@dimen/margin">
+                android:layout_margin="@dimen/margin"
+                android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/filaPlatoTextViewTitulo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/etiquetas"
-                    android:layout_margin="@dimen/margin"/>
+                    android:layout_margin="@dimen/margin"
+                    android:textSize="@dimen/etiquetas" />
 
                 <TextView
                     android:id="@+id/filaPlatoTextViewPrecio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/titulo"
-                    android:layout_margin="@dimen/margin"/>
+                    android:layout_margin="@dimen/margin"
+                    android:textSize="@dimen/titulo" />
 
             </LinearLayout>
+
             <ImageView
                 android:id="@+id/filaPlatoImageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/padding"
-                android:layout_margin="@dimen/margin"/>
+                android:layout_margin="@dimen/margin"
+                android:padding="@dimen/padding" />
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layoutVendedor"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:layout_margin="@dimen/margin">
+            android:layout_gravity="center_horizontal">
 
             <Button
                 android:id="@+id/buttonOferta"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin"
                 android:text="@string/buttonOferta"
                 android:visibility="visible" />
@@ -66,7 +69,7 @@
             <Button
                 android:id="@+id/buttonEditar"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin"
                 android:text="@string/buttonEditar"
                 android:visibility="visible" />
@@ -74,13 +77,44 @@
             <Button
                 android:id="@+id/buttonEliminar"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin"
                 android:text="@string/buttonQuitar"
                 android:visibility="visible" />
 
         </LinearLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layoutComprador"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
 
+            <Button
+                android:id="@+id/buttonAgregarACarrito"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin"
+                android:text="@string/buttonAgregarACarrito" />
+
+            <TextView
+                android:id="@+id/textViewCantidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin"
+                android:text="@string/textViewCantidad"
+                android:textColor="@color/colorEtiquetas"
+                android:textSize="@dimen/etiquetas" />
+
+            <Spinner
+                android:id="@+id/spinnerCantidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/spinnerCantidad"
+                android:layout_margin="@dimen/margin" />
+
+
+        </LinearLayout>
+    </LinearLayout>
 </androidx.cardview.widget.CardView>
