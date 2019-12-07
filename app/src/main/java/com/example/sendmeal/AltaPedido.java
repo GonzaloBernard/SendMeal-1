@@ -147,7 +147,7 @@ public class AltaPedido extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(AltaPedido.this, MapaActivity.class);
-
+                i.putExtra(HomeActivity.MAPA_KEY, HomeActivity.KEY_MAPA_UBICACION);
                 startActivity(i);
 
 

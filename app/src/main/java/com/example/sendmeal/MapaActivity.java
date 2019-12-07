@@ -64,12 +64,7 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         final Button buttonUbicacion;
-        final Spinner spinnerEstadosPedido;
         buttonUbicacion = (Button) findViewById(R.id.buttonOkUbicacion);
-        spinnerEstadosPedido = (Spinner) findViewById(R.id.spinnerEstadoPedido);
-
-        PedidoRepository.getInstance(MapaActivity.this).listarPedidos(miHandler);
-
         buttonUbicacion.setOnClickListener(new Button.OnClickListener(){
 
             @Override
@@ -78,14 +73,16 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+        // SPINNER
+        final Spinner spinnerEstadosPedido;
+        spinnerEstadosPedido = (Spinner) findViewById(R.id.spinnerEstadoPedido);
         ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource(this, R.array.spinnerEstadosPedidos,
                 android.R.layout.simple_spinner_item);
-
         spinnerEstadosPedido.setAdapter(adapterSpinner);
         spinnerEstadosPedido.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
-                    mostrarPedidosEnMapa(parent.getItemAtPosition(i).toString());
+                mostrarPedidosEnMapa(parent.getItemAtPosition(i).toString());
             }
 
             @Override
@@ -93,6 +90,18 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             }
         });
+
+        // SI EL INTENT SE GENERO DESDE HOMEACTIVITY SE DESHABILITA EL BOTON ENVIAR UBICACION
+        // SI SE GENERA DESDE EL CARRITO DE COMPRA SE DESHABILITA EL SPINNER
+        switch(getIntent().getStringExtra(HomeActivity.MAPA_KEY)){
+            case HomeActivity.KEY_MAPA_ENVIOS:
+                buttonUbicacion.setVisibility(View.INVISIBLE);
+                break;
+            case HomeActivity.KEY_MAPA_UBICACION:
+                spinnerEstadosPedido.setVisibility(View.INVISIBLE);
+        }
+
+        PedidoRepository.getInstance(MapaActivity.this).listarPedidos(miHandler);
     }
 
     @Override
@@ -127,23 +136,27 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
                     9999);
             return;
         }
-        mMap.setMyLocationEnabled(true);
-        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-            @Override
-            public void onMapLongClick(LatLng latLng) {
-                if(marker == null ) {
-                    marker = mMap.addMarker(new MarkerOptions()
-                            .position(latLng)
-                            .draggable(true)
-                            .alpha(0.7f)
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-                }else{
-                    marker.setPosition(latLng);
+
+        // SI EL INTENT SE GENERO DESDE HOMEACTIVITY SE DESHABILITA LA OPCION DE OBTENER UBICACION
+        if(HomeActivity.KEY_MAPA_UBICACION.equals(getIntent().getStringExtra(HomeActivity.MAPA_KEY))) {
+            mMap.setMyLocationEnabled(true);
+            mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+                @Override
+                public void onMapLongClick(LatLng latLng) {
+                    if (marker == null) {
+                        marker = mMap.addMarker(new MarkerOptions()
+                                .position(latLng)
+                                .draggable(true)
+                                .alpha(0.7f)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                    } else {
+                        marker.setPosition(latLng);
+                    }
+                    AltaPedido.latitud = latLng.latitude;
+                    AltaPedido.longitud = latLng.longitude;
                 }
-                AltaPedido.latitud = latLng.latitude;
-                AltaPedido.longitud = latLng.longitude;
-            }
-        });
+            });
+        }
     }
 
     @Override

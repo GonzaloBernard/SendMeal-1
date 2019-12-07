@@ -31,6 +31,9 @@ public class HomeActivity extends AppCompatActivity {
     public static final String _TIPO_USUARIO = "usuario";
     public static final String KEY_VENDEDOR = "vendedor";
     public static final String KEY_COMPRADOR = "comprador";
+    static final String MAPA_KEY = "MAPA_KEY";
+    static final String KEY_MAPA_ENVIOS = "KEY_MAPA_ENVIOS";
+    static final String KEY_MAPA_UBICACION = "KEY_MAPA_UBICACION";
     //  SE ESTABLECE POR DEFAULT LA IP/DIRECCION del servidor JSON
     static String _SERVER = "192.168.0.22:3000/";
     //static String _SERVER = "10.0.2.2:3000/";
@@ -110,6 +113,12 @@ public class HomeActivity extends AppCompatActivity {
                 Intent i4 = new Intent(HomeActivity.this,ListaItems.class);
                 i4.putExtra(_TIPO_USUARIO, KEY_VENDEDOR);
                 startActivity(i4);
+                return true;
+            case R.id.toolBarMapaPedidos:
+                Intent i5 = new Intent(HomeActivity.this,MapaActivity.class);
+                //i5.putExtra(_TIPO_USUARIO, KEY_VENDEDOR);
+                i5.putExtra(MAPA_KEY,KEY_MAPA_ENVIOS);
+                startActivity(i5);
                 return true;
             default:
                 Toast.makeText(this,". . . . ",Toast.LENGTH_LONG).show();
