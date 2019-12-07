@@ -22,6 +22,7 @@ public class PedidoRepository {
     private static PedidoRepository _PEDIDO_REPOSITORY = null;
     public static final int _CONSULTA_PEDIDO=4;
     public static final int _ALTA_PEDIDO_REST = 20;
+    public static final int _MODIFICACION_PEDIDO_REST = 21;
     public static final int _ERROR_PEDIDO_REST = 29;
     private PedidoDao pedidoDao;
     private List<Pedido> listaPedidosSQLite;
@@ -86,6 +87,31 @@ public class PedidoRepository {
                     listaPedidosREST.add(pedidoGuardado);
                     Message m = new Message();
                     m.arg1 = _ALTA_PEDIDO_REST;
+                    h.sendMessage(m);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Pedido> call, Throwable t) {
+                Log.d("APP_2","ERROR "+t.getMessage());
+                Message m = new Message();
+                m.arg1 = _ERROR_PEDIDO_REST;
+                h.sendMessage(m);
+            }
+        });
+    }
+
+    public void actualizarPedidoREST(final Pedido p, final Handler h){
+        Call<Pedido> llamada = this.pedidoRest.actualizar(p.getId(),p);
+        llamada.enqueue(new Callback<Pedido>() {
+            @Override
+            public void onResponse(Call<Pedido> call, Response<Pedido> response) {
+                if(response.isSuccessful()){
+                    Pedido pedidoActualizado =response.body();
+                    listaPedidosREST.remove(pedidoActualizado);
+                    listaPedidosREST.add(pedidoActualizado);
+                    Message m = new Message();
+                    m.arg1 = _MODIFICACION_PEDIDO_REST;
                     h.sendMessage(m);
                 }
             }
