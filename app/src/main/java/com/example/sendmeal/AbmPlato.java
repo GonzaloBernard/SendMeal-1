@@ -284,7 +284,7 @@ public class AbmPlato extends AppCompatActivity {
             try{
             imageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile (file));
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 5, stream);
             byte[] byteArray = stream.toByteArray();
             imagenPlato = Base64.encodeToString(byteArray, Base64.DEFAULT);
             }catch (IOException e){

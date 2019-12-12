@@ -19,6 +19,7 @@ public class Pedido implements Parcelable{
     private Double longitud;
     @Ignore
     private List<ItemsPedido> itemsPedido;
+    //private Double precio;
     private String FcmToken;
 
     public Pedido() {}
@@ -95,6 +96,7 @@ public class Pedido implements Parcelable{
         dest.writeDouble(latitud);
         dest.writeDouble(longitud);
         dest.writeList(itemsPedido);
+        //dest.writeDouble(precio);
         dest.writeString(FcmToken);
         }
 
@@ -105,6 +107,7 @@ public class Pedido implements Parcelable{
         this.latitud = in.readDouble();
         this.longitud = in.readDouble();
         in.readList(this.itemsPedido, this.getClass().getClassLoader());
+        //this.precio = in.readDouble();
         this.FcmToken = in.readString();
     }
 

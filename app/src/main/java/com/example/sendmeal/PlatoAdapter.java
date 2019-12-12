@@ -4,7 +4,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +49,14 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoHolder>
     public void onBindViewHolder(final PlatoHolder holder, final int position) {
         final Plato plato = mDataset.get(position);
         holder.imagen.setImageResource(R.drawable.hamburguesa);
+        try {
+            byte[] decodedString = Base64.decode(plato.getImagen(), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            holder.imagen.setImageBitmap(decodedByte);
+            Integer size = plato.getImagen().length();
+            plato.getImagen().length();
+        }
+        catch (Exception e){}
         holder.titulo.setText(plato.getTitulo());
         holder.precio.setText(plato.getPrecio().toString());
 

@@ -35,7 +35,8 @@ public class HomeActivity extends AppCompatActivity {
     static final String KEY_MAPA_ENVIOS = "KEY_MAPA_ENVIOS";
     static final String KEY_MAPA_UBICACION = "KEY_MAPA_UBICACION";
     //  SE ESTABLECE POR DEFAULT LA IP/DIRECCION del servidor JSON
-    static String _SERVER = "192.168.0.22:3000/";
+    //static String _SERVER = "192.168.0.22:3000/";
+    static String _SERVER = "10.15.153.131:3000/";
     //static String _SERVER = "10.0.2.2:3000/";
     private static Integer NUEVO_PLATO_REQUEST = 1;
 
